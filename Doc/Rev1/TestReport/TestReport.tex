@@ -1,0 +1,773 @@
+\documentclass[12pt, titlepage]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+\usepackage[round]{natbib}
+\usepackage{titlesec}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{xkeyval}
+\usepackage[dvipsnames]{xcolor} % for different colour comments
+\usepackage{tabto}
+\usepackage{mdframed}
+\usepackage{lscape}
+\usepackage{multirow}
+
+
+\title{3XA3 Test Report\\ Rhythm Master} 
+\author{Team \#16, Rhythm Masters
+    \\ Almen Ng, nga18
+    \\ David Yao, yaod9
+    \\ Veerash Palanichamy, palanicv}
+
+\date{April 12, 2021}
+
+\makeatletter
+
+\define@cmdkey      [TP] {test}     {name}       {}
+\define@cmdkey      [TP] {test}     {desc}       {}
+\define@cmdkey      [TP] {test}     {type}       {}
+\define@cmdkey      [TP] {test}     {init}       {}
+\define@cmdkey      [TP] {test}     {input}      {}
+\define@cmdkey      [TP] {test}     {output}     {}
+\define@cmdkey      [TP] {test}     {pass}       {}
+\define@cmdkey      [TP] {test}     {user}       {}
+\define@cmdkey      [TP] {test}     {result}     {}
+
+
+\newcommand{\getCurrentSectionNumber}{%
+  \ifnum\c@section=0 %
+  \thechapter
+  \else
+  \ifnum\c@subsection=0 %
+  \thesection
+  \else
+  \ifnum\c@subsubsection=0 %
+  \thesubsection
+  \else
+  \thesubsubsection
+  \fi
+  \fi
+  \fi
+}
+\newcounter{TestNum}
+
+
+\newcommand{\testauto}[1]{
+\setkeys[TP]{test}{#1}
+\refstepcounter{TestNum}
+\begin{mdframed}[linewidth=1pt]
+\begin{tabularx}{\textwidth}{@{}p{3cm}X@{}}
+{\bf Test \#\theTestNum:} & {\bf \cmdTP@test@name}\\[\baselineskip]
+{\bf Description:} & \cmdTP@test@desc\\[0.5\baselineskip]
+{\bf Type:} & \cmdTP@test@type\\[0.5\baselineskip]
+{\bf Initial State:} & \cmdTP@test@init\\[0.5\baselineskip]
+{\bf Input:} & \cmdTP@test@input\\[0.5\baselineskip]
+{\bf Output:} & \cmdTP@test@output\\[0.5\baselineskip]
+{\bf Expected:} & \cmdTP@test@pass\\[\baselineskip]
+{\bf Result:} & \cmdTP@test@result
+\end{tabularx}
+\end{mdframed}
+}
+
+\newcommand{\testautob}[1]{
+\setkeys[TP]{test}{#1}
+\refstepcounter{TestNum}
+\begin{mdframed}[linewidth=1pt]
+\begin{tabularx}{\textwidth}{@{}p{3cm}X@{}}
+{\bf Test \#\theTestNum:} & {\bf \cmdTP@test@name}\\[\baselineskip]
+{\bf Description:} & \cmdTP@test@desc\\[0.5\baselineskip]
+{\bf Type:} & \cmdTP@test@type\\[0.5\baselineskip]
+{\bf Pass:} & \cmdTP@test@pass\\[\baselineskip]
+{\bf Result:} & \cmdTP@test@result
+\end{tabularx}
+\end{mdframed}
+}
+
+\newcommand{\testmanual}[1]{
+\setkeys[TP]{test}{#1}
+\refstepcounter{TestNum}
+\begin{mdframed}[linewidth=1pt]
+\begin{tabularx}{\textwidth}{@{}p{3cm}X@{}}
+{\bf Test \#\theTestNum:} & {\bf \cmdTP@test@name}\\[\baselineskip]
+{\bf Description:} & \cmdTP@test@desc\\[0.5\baselineskip]
+{\bf Type:} & \cmdTP@test@type\\[0.5\baselineskip]
+{\bf Tester(s):} & \cmdTP@test@user\\[0.5\baselineskip]
+{\bf Pass:} & \cmdTP@test@pass\\[\baselineskip]
+{\bf Result:} & \cmdTP@test@result
+\end{tabularx}
+\end{mdframed}
+}
+
+
+\begin{document}
+
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+\listoftables
+\listoffigures
+
+\newpage
+
+\begin{table}[bp]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+April 10, 2021 & 1.0 & Introduction and preliminary test cases\\
+April 12, 2021 & 1.1 & Complete test cases\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+\clearpage
+
+\pagenumbering{arabic}
+
+
+\begin{table}[H]
+\caption{\textbf{Table of Definitions}} \label{def}
+
+\begin{tabularx}{\textwidth}{p{3cm}X}
+\toprule
+\textbf{Term} & \textbf{Definition}\\
+\midrule
+    \newterm{C Sharp}[C\#] & The programming language used in this project.\\
+    \hline
+    \newterm{Fret Board} & A vertical musical staff upon which \term[Note]{notes} will be displayed.\\
+    \hline
+    \newterm{Frets on Fire} & An open source \term{Guitar Hero} clone.\\
+    \hline
+    \newterm{Game}/\newterm{Project}/\newterm{Rhythm Master} & The game that will be made by Group 16.\\
+    \hline
+    \newterm{Game track} & The game track is where the gameplay happens. It consists of  music track where the user interacts to score points.\\
+    \hline
+    \newterm{Graphical User Interface} & A visual representation of the program allowing user interaction\\
+    \hline
+    \newterm{Guitar Hero} & A rhythm game where users simulate playing a guitar to a music track of their choice.\\
+    \hline
+    \newterm{Note} & An indicator for a button for the \term[Player]{player} to press.\\
+    \hline
+    \newterm{Pause menu} & The menu the user can open during a \term[Game track]{game track}\\
+    \hline
+    \newterm{Player}/\newterm{User} & The individual playing the \term[Game]{game}.\\
+    \hline
+    \newterm{Python} & The programming language used in \term{Frets on Fire}.\\
+    \hline
+    \newterm{Score} & A numerical value quantifying the \term[Player]{player's} performance in their last game.\\
+    \hline
+    \newterm{Software Requirements Specification} & A document that describes what the \term[System]{system} will do and the expected performance\\
+    \hline
+    \newterm{System} & The software of the \term[Game]{game}\\
+    \hline
+    \newterm{Tester} & An individual testing the game either via playing the game or inspecting the code.\\
+    \hline
+    \newterm{Unity Test Framework} & Automated software testing provided by the Unity game engine\\
+    \hline
+    \newterm{Typeform} & Website that builds surveys online surveys\\
+\bottomrule
+\end{tabularx}
+
+\end{table}	
+
+\newpage
+\clearpage
+
+This document details the complete testing process for Rhythm Master, as laid out in the project test plan. It contains an evaluation of the project's functional and non-functional requirements that are defined in the \hyperlink{https://gitlab.cas.mcmaster.ca/palanicv/3xa3__l01_gr16_project/-/blob/master/Doc/Rev1/SRS/RequirementsDocument.pdf}{\textbf{Software Requirements Specification}}, the changes made due to testing, and an analysis of the traceability between requirements and modules.
+
+\section{Functional Requirements Evaluation}
+The following are the test cases that were evaluated to test the functional requirements of this system.
+
+\subsection{Gameplay}
+\testauto{
+    name = {FR-GP-1},
+    desc =  Intial game track is empty,
+    type = Manual,
+    init = Empty screen within the \term{Game track},
+    input = An event of starting a new \term{Game track},
+    output = A blank fret board,
+    pass = The fret board should be blank,
+    result = \textcolor{Green}{PASS}
+}
+\testauto{
+    name = {FR-GP-2},
+    desc =  Score should be set to 0 at the start of a game track,
+    type = Automated,
+    init = Initialization of the \term{Game track},
+    input = An event of starting a new \term{Game track},
+    output = \term{Score} should be set to 0,
+    pass = Score should be set to 0,
+    result = \textcolor{Green}{PASS}
+}
+\testauto{
+    name = {FR-GP-3},
+    desc =  Notes are spawning,
+    type = Manual,
+    init = \term{Game track} should have been initialized,
+    input = \term{Game track} has been initialized,
+    output = \term[Note]{Notes} should be displayed,
+    pass = Notes are displayed,
+    result = \textcolor{Green}{PASS}
+}
+\testauto{
+    name = {FR-GP-4},
+    desc =  Notes can be played using keyboard,
+    type = Manual,
+    init = \term{Game track} should have been initialized,
+    input = An event of starting a new \term{Game track},
+    output = \term[Note]{Notes} are played,
+    pass = The notes can be played using keyboard,
+    result = \textcolor{Green}{PASS}
+}
+\testauto{
+    name = {FR-GP-5},
+    desc =  Checking whether score goes up when a notes is played accurately,
+    type = Manual,
+    init = \term{Game track} should have been initialized,
+    input = \term[Note]{Notes} are played accurately,
+    output = \term{Tester} is awarded points,
+    pass = Score goes up when note is played accurately,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-GP-6},
+    desc =  Checking whether score is displayed on the screen,
+    type = Manual,
+    init = \term{Game track} should have been initialized,
+    input = Initialization and changes to \term[Score]{score},
+    output = \term[Score]{score} should be displayed,
+    pass = Score is displayed on screen,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-GP-7},
+    desc =  Checking whether \term[Tester]{Tester} can save their score for a track,
+    type = Manual,
+    init = \term{Game track} should have been completed,
+    input = \term[Tester]{Tester} chooses the option to save their score with a username,
+    output = \term[Score]{score} should be saved locally with the given username,
+    pass = Score is saved and can be viewed,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-GP-8},
+    desc =  Checking whether score does not change if invalid key is pressed,
+    type = Manual,
+    init = \term{Game track} should have been initialized,
+    input = \term{Tester} presses an invalid key,
+    output = \term{Tester} is not awarded points,
+    pass = Score does not change,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-GP-9},
+    desc =  User tries to save the score with empty username,
+    type = Manual,
+    init = \term{Game track} should have been initialized,
+    input = \term[Tester]{Tester} chooses the option to save their score with a username and enters empty username,
+    output = The \newterm{Game} should provide a warning, and prompt their username again,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\subsubsection{User Interface}
+
+\testauto{
+    name = {FR-UI-1},
+    desc =  \term[Tester]{Tester} should be able to redo the \term{Game track} from the end game screen,
+    type = Manual,
+    init = \term{Game track} should have been completed,
+    input = \term[Tester]{Tester} chooses the option to redo the \term{Game track},
+    output = \term{Game track} should be reinitialized,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-2},
+    desc =  \term[Tester]{Tester} should be able to go to the main menu screen from the end game screen,
+    type = Manual,
+    init = \term{Game track} should have been completed,
+    input = \term[Tester]{Tester} chooses the option to go back to the main menu,
+    output = The game should display the main menu,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-3},
+    desc =  \term[Tester]{Tester} should be able to view the instructions screen from the main menu screen,
+    type = Manual,
+    init = The \term[Tester]{tester} is viewing the main menu,
+    input = Tester chooses the option to view instructions,
+    output = The game should display instructions for the gameplay,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-4},
+    desc =  \term[Tester]{Tester} can choose the option to go to the main menu from the instructions menu,
+    type = Manual,
+    init = The \term[Tester]{tester} is viewing the instructions,
+    input = Tester chooses the option to return to the main menu,
+    output = The game should display the main menu,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-5},
+    desc = Opening the pause menu should be pause the game,
+    type = Manual,
+    init = The \term[Tester]{tester} is playing a \term[Game track]{game track},
+    input = Tester opens the pause menu,
+    output = The game should pause the game,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-6},
+    desc = The pause menu should allow you to open the settings menu or go back to the main menu,
+    type = Manual,
+    init = The \term[Tester]{tester} is playing a \term[Game track]{game track},
+    input = Tester opens the pause menu,
+    output = {The game should show the tester the options to opening the settings menu, going back to main menu, or restarting the \term[Game track]{game track}},
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-7},
+    desc = The pause menu should continue the game when the pause menu has been closed,
+    type = Manual,
+    init = The pause menu has been opened,
+    input = \term[Tester]{Tester} closes the pause menu,
+    output = The game should show stop showing the pause menu and resume the gameplay,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-8},
+    desc = The game volume can be changed using the settings menu,
+    init = The settings menu has been opened,
+    input = \term[Tester]{Tester} specifies the volume of the game to some level using the tester interface,
+    output = The game should change the volume of the game accordingly,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-9},
+    desc = The settings menu should display the version number,
+    init = The settings menu has been opened,
+    input = \term[Tester]{Tester} opened the settings menu,
+    output = The game should display the version of the game,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-10},
+    desc = The settings menu should have the option to rebind the gameplay keys to the one preferred by the \term[User]{User},
+    init = The settings menu has been opened,
+    input = \term[Tester]{Tester} chooses to rebind their input keys to some specific key using the user interface,
+    output = The game should change the input keys to the one specified by the user,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-11},
+    desc = The settings scene accessed from the main menu should have the option to go back to the main menu,
+    init = The settings menu has been opened,
+    input = \term[Tester]{Tester} chooses to go to the main menu,
+    output = The game should display the main menu screen,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-12},
+    desc = Leaderboard scene where player rankings can be scene should be accessible from the main menu,
+    init = The leaderboard screen is being displayed,
+    input = \term[Tester]{Tester} chooses to view the leaderboard,
+    output = The game should display a list of players and their respective score,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-14},
+    desc = There should be an option to return to the main menu scene from the leaderboard scene,
+    init =  The leaderboard screen is being displayed,
+    input = \term[Tester]{Tester} chooses to return to the main menu,
+    output = The game should display the main menu screen,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\testauto{
+    name = {FR-UI-15},
+    desc = Viewing a leaderboard when no score was saved should not throw an error and shod display an empty leaderbaord,
+    init =  Game is on the main menu, and there are no scores saved,
+    input = \term[Tester]{Tester} chooses to view the leaderboard,
+    output = The game should display an empty list,
+    pass = ,
+    result = \textcolor{Green}{PASS}
+}
+
+\newpage
+
+\section{Nonfunctional Requirements Evaluation}
+
+The following are the test cases that were evaluated to test the non functional requirements of this system.
+
+\subsection{Look and Feel Requirements}
+
+\testmanual{
+    name = {NFR-1-LF1},
+    desc = Tests that the user interface only contains essential information using a binary survey with the options of agree and disagree,
+    type = {Manual},
+    user = {Testing group},
+    pass = {Average survey score of at least $\hyperlink{theta}{\Theta}$},
+    result = \textcolor{Green}{PASSED} with an agreement of 90\%
+}
+
+\testmanual{
+    name = {NFR-2-LF2},
+    desc = Tests that the design was heavily inspired by \term{Frets on Fire} using a binary survey with the options of agree and disagree,
+    type = {Manual},
+    user = {Testing group},
+    pass = {Average survey score of at least $\hyperlink{theta}{\Theta}$},
+    result = \textcolor{Green}{PASSED} with an agreement of 100\%
+}
+
+\testmanual{
+    name = {NFR-2-LF3},
+    desc = Tests that the background of the \term[Game track]{game track}is not too distracting using a binary survey with the options of agree and disagree,
+    type = {Manual},
+    user = {Testing group},
+    pass = {Average survey score of at least $\hyperlink{theta}{\Theta}$},
+    result = \textcolor{Green}{PASSED} with an agreement of 82\%
+}
+
+\subsection{Usability}
+
+
+\testmanual{
+    name = {NFR-3-UH1},
+    desc = Tests that the cotrols are reachable at the same time using at most two hands,
+    type = {Manual},
+    user = {Testing group},
+    pass = {Average survey score of at least $\hyperlink{theta}{\Theta}$},
+    result = \textcolor{Green}{PASSED} with an agreement of 100\%
+}
+
+\testmanual{
+    name = {NFR-3-UH2},
+    desc = Tests that all the game is easily playable for children greater or equal than $\hyperlink{min_age}{MIN\_AGE}$ using a binary survey with the options of agree and disagree,
+    type = {Manual},
+    user = {Testing group made of children of age of $\hyperlink{min_age}{MIN\_AGE}$ or greater},
+    pass = {Average survey score of at least $\hyperlink{theta}{\Theta}$},
+    result = \textcolor{Green}{PASSED} with an agreement of 85\%
+}
+
+\testmanual{
+    name = {NFR-3-UH2},
+    desc = Tests that all the game is easily playable for children greater or equal than $\hyperlink{min_age}{MIN\_AGE}$ using a binary survey with the options of agree and disagree,
+    type = {Manual},
+    user = {Testing group made of children of age of $\hyperlink{min_age}{MIN\_AGE}$ or greater},
+    pass = {Average survey score of at least $\hyperlink{theta}{\Theta}$},
+    result = \textcolor{Green}{PASSED} with an agreement of 85\%
+}
+
+\testmanual{
+    name = {NFR-3-UH3},
+    desc = Test that the user should be able to understand the game mechanics within $\hyperlink{max_playthrough}{MAX\_PLAYTHROUGHS}$. Test was done using a suvey result whether the players understood the game after $\hyperlink{max_playthrough}{MAX\_PLAYTHROUGHS}$ runs,
+    type = {Manual},
+    user = {Testing group},
+    pass = {Average survey score of at least $\hyperlink{theta}{\Theta}$},
+    result = \textcolor{Green}{PASSED} with an agreement of 100\%
+}
+
+\testmanual{
+    name = {NFR-3-UH4},
+    desc = Test that the game is playable with no prior experience or training. Test done using using a binary survey with the options of agree and disagree.
+    type = {Manual},
+    user = {Testing group},
+    pass = {Average survey score of at least $\hyperlink{theta}{\Theta}$},
+    result = \textcolor{Green}{PASSED} with an agreement of 100\%
+}
+
+\testmanual{
+    name = {NFR-3-UH5},
+    desc = Test that the game provides a set of instructions describing the game's rules and objectives. Test done using using a binary survey with the options of agree and disagree,
+    type = {Manual},
+    user = {Testing group},
+    pass = {Average survey score of at least $\hyperlink{theta}{\Theta}$},
+    result = \textcolor{Green}{PASSED} with an agreement of 100\%
+}
+
+\testmanual{
+    name = {NFR-4-UH6},
+    desc = Test that the game uses common symbols and game terms for user interfaces. Test done using using a binary survey with the options of agree and disagree,
+    type = {Manual},
+    user = {Testing group},
+    pass = {Average survey score of at least $\hyperlink{theta}{\Theta}$},
+    result = \textcolor{Green}{PASSED} with an agreement of 91\%
+}
+\newpage
+\subsection{Performance}
+
+To test if the test case NFR-5-PE1 where the system should maintain a fps of $\hyperlink{fps}{MIN\_FRAMERATE}$ during gameplay, a fps tracker was used to track the fps of the game, and that data was then graphed which can be found in the figure below.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{fps.png}
+\caption{Framerate of game during a game track playthrough} \label{fig:frdynamic}
+\end{figure}
+
+The tests were run using the systems specified in the table below.
+
+\begin{table}[ht]
+\caption{Systems used in performance testing} \label{tab:systems}
+\begin{tabularx}{\textwidth}{p{5cm}X}
+\toprule {\bf System} & {\bf Hardware}\\
+\midrule
+Medium performance & i7 8550U @ 2.4 GHz\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The test is considered successful as the system has been able to maintain frame-rates above the $\hyperlink{fps}{MIN\_FRAMERATE}$  during gameplay.
+
+\testmanual{
+    name = {NFR-10-PE4},
+    desc = {Test that the system can store atleast $\hyperlink{min_user_score_saves_test}{MIN\_USER\_SCORE\_SAVES\_TEST}$ user scores. Test was carried out using automated script where 
+$\hypertarget{min_user_score_saves_test}{MIN\_USER\_SCORE\_SAVES\_TEST}$ scores were saved, and checked whether all scores still existed},
+    type = {Automated},
+    user = {Testing group},
+    pass = {All scores still persists},
+    result = \textcolor{Green}{PASSED}
+}
+
+	
+\section{Comparison to Existing Implementation}	
+
+In the original implementation, Frets on Fire, there were 18 test cases that tested for each component without referencing any documentation that would aid in the traceability of the test cases to functional and non-functional requirements. The test cases were not thorough as it did not test for all components of the system and it lacked testing for non-functional requirements. With Rhythm Master, the development team wrote a software requirements specification, test plan document, and design documentation to aid in the traceability to requirements and modules. Moreover, this document also serves as a way to keep track of all the tests that were done and to provide The team considered and used a variety of different testing including specification testing, functional testing, and exploratory testing and completed a total of 50 test cases prior to the final demonstration of the project.
+
+\section{Unit Testing}
+Unit testing was only used to test individual components of modules because of the highly interconnected nature of video games such as Rhythm Master. The numerous modules of the project must be correct in their interactions with each other, and it was too costly to conduct unit testing on each one to confirm correct behaviour. Large, experience-based projects such as this are better served via manual and exploratory testing, in order to ascertain correct user experiences.
+
+\section{Changes Due to Testing}
+Formal testing did not reveal any necessary changes in terms of module interfacing, decomposition, or internal design. Changes made to code were to address bugs and logical errors revealed by the testing plan. In terms of the gameplay experience, graphical improvements were made throughout the development process in response to feedback from developers and informal testers.
+
+\section{Automated Testing}
+Automated testing was only a minimal part of testing due to the fact that the software being tested is a game which is GUI based. The testing of the software required user inputs and exploration of various scenarios in the game. However, unit tests that test each game component's functionality was automated using Unity Test Framework,  
+
+\newpage
+		
+\section{Trace to Requirements}
+\subsection{Traceability Between Test Cases and Requirements}
+
+Traceability matrices can be found on the next few pages.
+\begin{landscape}
+\begin{table}[h]
+\caption{\textbf{Traceability Matrix for Gameplay Requirements}} \label{trace1}
+\begin{tabularx}{\textwidth}{cc|c|c|c|c|c|c|c|}
+\cline{3-9}
+& & \multicolumn{7}{ c|}{Requirements} \\ \cline{3-9}
+& & FR1  & FR2 & FR3 & FR4 & FR5 & FR6 & FR7   \\ \cline{1-9}
+\multicolumn{1}{ |c| }{\multirow{7}{*}{Test Cases} } &
+\multicolumn{1}{|c| } {FR-GP-1} &X&&&&&&\\ \cline{2-9}
+\multicolumn{1}{|c| }{} 	                  &
+\multicolumn{1}{|c| }{FR-GP-2} &  &X& &&&&  \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{|c| } {FR-GP-3} &   &   &  X&&&& \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-4} &   &   & &X&&& \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-5} &   &   & &&X&& \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-6} &   &   & &&&X& \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-7} &   &   & &&&&X \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-8} &   &   & &&X&& \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-9} &   &   & &&&X& \\ \cline{1-9}
+\end{tabularx}
+\end{table}
+
+\begin{table}[h]
+% \begin{center} 
+\caption{\textbf{Traceability Matrix for UI Requirements}} \label{trace2}
+\begin{tabularx}{\textwidth}{cc|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\cline{3-16}
+& & \multicolumn{14}{ c|}{Requirements} \\ \cline{3-16}
+& & FR8 & FR9 & FR10 & FR11 & FR12 & FR13 & FR14 & FR15 & FR16 & FR17 & FR18 & FR19 & FR20 & FR21  \\ \cline{1-16}
+    \multicolumn{1}{ |c| }{\multirow{14}{*}{Test Cases} } &
+    \multicolumn{1}{|c| } {FR-UI-1} &X&&&&&&&&&&&&&\\ \cline{2-16}
+    \multicolumn{1}{|c| }{} 	                  &
+    \multicolumn{1}{|c| }{FR-UI-2} &&X&&&&&&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-3} &&&X&&&&&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-4} &&&&X&&&&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-5} &&&&&X&&&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-6} &&&&&&X&&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-7} &&&&&&&X&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-8} &&&&&&&&X&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-9} &&&&&&&&&X&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-10} &&&&&&&&&&X&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-11} &&&&&&&&&&&X&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-12} &&&&&&&&&&&&X&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-13} &&&&&&&&&&&&&X& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-14} &&&&&&&&&&&&&&X \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-15} &&&&&&&&&&&&X&& \\ \cline{2-16}
+\end{tabularx}
+% \end{center}
+\end{table}
+\newpage
+
+\begin{table}[h]
+\begin{center}
+\caption{\textbf{Tracability Matrix for Non-Functional Requirements}} \label{trace3}
+\begin{tabularx}{\textwidth}{cc|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\cline{3-13}
+& & \multicolumn{11}{ c|}{Requirements} \\ \cline{3-13}
+& & LF1  & LF3 & UH2 & UH5 & PE1 & LF2 & PE6 & UH1 & UH5 & UH6 & PE4  \\ \cline{1-13}
+    \multicolumn{1}{ |c| }{\multirow{9}{*}{Test Cases} } &
+    \multicolumn{1}{|c| } {NFR-1-LF1} &X&&&&&&&&&&\\ \cline{2-13}
+        \multicolumn{1}{|c| }{} 	                  &
+    \multicolumn{1}{|c| }{\textcolor{black}{NFR-2-LF2}} &  &&&&&\textcolor{black}{X}&&&&&  \\ \cline{2-13}
+    \multicolumn{1}{|c| }{} 	                  &
+    \multicolumn{1}{|c| }{NFR-2-LF3} &  & X & &&&&&&&&  \\ \cline{2-13}
+    \multicolumn{1}{|c| }{} 	                  &
+    \multicolumn{1}{|c| }{\textcolor{black}{NFR-3-UH1}} &&&&&&&&\textcolor{black}{X}&& & \\ \cline{2-13}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{|c| } {NFR-3-UH2} &   &   &X  &&&&&&&& \\ \cline{2-13}
+    \multicolumn{1}{|c| }{} 	                  &
+    \multicolumn{1}{|c| }{\textcolor{black}{NFR-3-UH5}} &&&&&&&&&\textcolor{black}{X}&& \\ \cline{2-13}
+    \multicolumn{1}{|c| }{} 	                  &
+    \multicolumn{1}{|c| }{\textcolor{black}{NFR-4-UH6}} &  &&&&&&&&&\textcolor{black}{X}&  \\ \cline{2-13}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {NFR-4-UH5} &   &   & &X&&&&&&& \\ \cline{2-13}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {NFR-5-PE1} &   &   & &&X&&&&&& \\ \cline{2-13}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {\textcolor{black}{\sout{NFR-6-PE2}}} &   &   & &&&&&&&& \\ \cline{2-13}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {\textcolor{black}{NFR-7-PE4}} &   &   & &&&&X&&&&\textcolor{black}{X}  \\ \cline{2-13}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {\textcolor{black}{\sout{NFR-8-PE7}}} &   &   & &&&&&&&&\\ \cline{2-13}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {\textcolor{black}{\sout{NFR-9-PE9}}} &   &   & &&&&&&&& \\ \cline{1-13}
+    % \multicolumn{1}{|c| }{}                        &
+    % \multicolumn{1}{ |c| } {FR-UI-17} &   &   & &&&&&&&&& \\ \cline{2-14}
+    % \multicolumn{1}{|c| }{}                        &
+    % \multicolumn{1}{ |c| } {FR-UI-18} &   &   & &&&&&&&&& \\ \cline{2-14}
+    % \multicolumn{1}{|c| }{}                        &
+    % \multicolumn{1}{ |c| } {FR-UI-19} &   &   & &&&&&&&&& \\ \cline{2-14}
+    % \multicolumn{1}{|c| }{}                        &
+    % \multicolumn{1}{ |c| } {FR-UI-20} &   &   & &&&&&&&&& \\ \cline{2-14}
+    % \multicolumn{1}{|c| }{}                        &
+    % \multicolumn{1}{ |c| } {FR-UI-21} &   &   & &&&&&&&&& \\ \cline{1-14}
+\end{tabularx}
+\end{center}
+\end{table}
+\end{landscape}
+
+% \restoregeometry
+
+\newpage
+		
+\section{Trace to Modules}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Req.} & \textbf{Modules}\\
+\midrule
+FR-GP-1 & \mref{m6}\\
+FR-GP-2 & \mref{m6}, \mref{m15}\\
+FR-GP-3 & \mref{m10}, \mref{m6}\\
+FR-GP-4 & \mref{m1}\\
+FR-GP-5 & \mref{m6}, \mref{m15}, \mref{m13}\\
+FR-GP-6 & \mref{m6}\\
+FR-GP-7 & \mref{m6}, \mref{m15}, \mref{m16}\\
+FR-GP-8 & \mref{m15}, \mref{m6}\\
+FR-GP-9 & \mref{m15}, \mref{m6}\\
+FR-UI-1 & \mref{m6}\\
+FR-UI-2 & \mref{m6}\\
+FR-UI-3 & \mref{m9}\\
+FR-UI-4 & \mref{m9}\\
+FR-UI-5 & \mref{m11}, \mref{m4}\\
+FR-UI-6 & \mref{m11}, \mref{m4}\\
+FR-UI-7 & \mref{m11}, \mref{m4}, \mref{m17}\\
+FR-UI-8 & \mref{m4}\\
+FR-UI-9 & \mref{m4}, \mref{m2}\\
+FR-UI-10 & \mref{m4}\\
+FR-UI-11 & \mref{m4}\\
+FR-UI-12 & \mref{m8}, \mref{m5}\\% FR-UI-13 & \mref{m5}\\
+FR-UI-14 & \mref{m5}\\
+FR-UI-15 & \mref{m5}\\
+\bottomrule
+\end{tabular}
+\caption{Trace Between Requirements and Modules}
+\label{TblRT}
+\end{table}
+
+\newpage
+
+\section{Code Coverage Metrics}
+
+\bibliographystyle{plainnat}
+
+\bibliography{SRS}
+
+\subsection{Symbolic Parameters}
+The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS. Their values are defined in this section for easy maintenance.\\ \\
+$\hypertarget{fps}{MIN\_FRAMERATE}$ = 30 \\
+$\hypertarget{initial_score}{INITIAL\_SCORE}$ = 10\\
+$\hypertarget{max_latency}{\sout{MAX\_LATENCY}}$ \textcolor{black}{\sout{= 33}}\\
+$\hypertarget{max_playthrough}{MAX\_PLAYTHROUGHS}$ = 2\\
+$\hypertarget{max_storage}{MAX\_STORAGE}$ = 2\\
+$\hypertarget{max_upload_time}{\sout{MAX\_UPLOAD\_TIME}}$ \textcolor{black}{\sout{= 2}}\\
+$\hypertarget{min_user_score_saves}{MIN\_USER\_SCORE\_SAVES}$ = 100\\
+$\hypertarget{min_age}{MIN\_AGE}$ = 10\\
+$\hypertarget{time_cost}{TIME\_COST}$ = 60\\
+$\hypertarget{min_user_score_saves_test}{MIN\_USER\_SCORE\_SAVES\_TEST}$ = 101 \\
+$\hypertarget{theta}{\Theta}$ = 80
+
+\end{document}

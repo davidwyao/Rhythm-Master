@@ -1,0 +1,1788 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage[titletoc,title]{appendix}
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{hhline}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+\setcounter{secnumdepth}{0}
+
+\usepackage{color}
+
+\title{3XA3 Module Interface Specification\\ Rhythm Master} 
+\author{Team \#16, Rhythm Masters
+    \\ Almen Ng, nga18
+    \\ David Yao, yaod9
+    \\ Veerash Palanichamy, palanicv}
+
+\date{March 18, 2021}
+
+
+\begin {document}
+ 
+\maketitle
+\newpage
+\tableofcontents
+\listoftables
+\listoffigures
+
+\newpage
+\begin{table}[h]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+March 1, 2021 & 0.1 & Initial Document\\
+March 13, 2021 & 0.2 & Wrote MIS for 10 modules\\
+March 17, 2021 & 0.5 & Finished MIS for all modules\\
+\textcolor{red}{April 12, 2021} & \textcolor{red}{1.0} & \textcolor{red}{Revised MIS for final product}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Button Controller %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section {Button \textcolor{red}{Controller} Module}
+
+\subsection{Template Module}
+Button\textcolor{red}{Controller} inherits UnityEngine.MonoBehaviour
+
+\subsection {Uses}
+\textcolor{red}{UnityEngine, System.Collections}
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+N/A
+
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Start       &           &           &           \\
+\hline
+Update       &           &           &          \\
+\hline
+\textcolor{red}{CanPressLong}       &           &           &          \\
+\hline
+\textcolor{red}{CantPressLong}       &           &           &          \\
+\hline
+\textcolor{red}{CanPress}       &           &           &          \\
+\hline
+\textcolor{red}{CantPress}       &           &           &          \\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+
+\textit{keyToPress:} KeyCode \\
+\textcolor{red}{\textit{canBePressed}: bool\\
+\textit{canBePressedLong}: bool\\
+\textit{longBeingPressed}: bool\\
+\textit{colour}: string\\
+\textit{code}: int\\
+\textit{finishedLong}: bool}
+
+\subsubsection {Environment Variables}
+
+N/A
+
+\subsubsection {State Invariant}
+N/A
+\subsubsection {Assumptions}
+N/A
+\subsubsection {Access Routine Semantics}
+
+\textcolor{red}{\noindent Start():
+\begin{itemize}
+	\item transition: \\
+	keyToPress $:=$ (KeyCode)PlayerPrefs.GetInt(colour,code)
+	\item exception: None
+\end{itemize}}
+
+\noindent Update():
+\begin{itemize}
+	\item transition: \\
+	//\textit{move the button up when the button is pressed, and back when it is released}\\\\
+	UnityEngine.Input.GetKeyDown(keyToPress) $\Rightarrow$ \textit{button.z} $:=$ \textit{button.z} $+$ \textit{distance}\\
+	UnityEngine.Input.GetKeyUp(keyToPress) $\Rightarrow$ \textit{button.z}, $:=$ \textit{button.z} $-$ \textit{distance}
+	\item exception: None
+\end{itemize}
+
+\noindent\textcolor{red}{CanPressLong():
+\begin{itemize}
+	\item transition: \\
+	canBePressedLong $:=$ true
+	\item exception: None
+\end{itemize}}
+
+\noindent\textcolor{red}{CantPressLong():
+\begin{itemize}
+	\item transition: \\
+	longBeingPressed $\Rightarrow$ finishedLong $:=$ true\\
+	canBePressedLong $:=$ false
+	\item exception: None
+\end{itemize}}
+
+\noindent\textcolor{red}{CanPress():
+\begin{itemize}
+	\item transition: \\
+	canBePressed $:=$ true
+	\item exception: None
+\end{itemize}}
+
+\noindent\textcolor{red}{CantPress():
+\begin{itemize}
+	\item transition: \\
+	canBePressed $:=$ false
+	\item exception: None
+\end{itemize}}
+
+\subsection{Local Functions/Constants}
+N/A
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Change Scene %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section {\textcolor{red}{Change Scene Module}}
+
+\subsection{Template Module}
+ChangeScene inherits UnityEngine.MonoBehaviour
+
+\subsection {Uses}
+System.Collections, UnityEngine
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+N/A
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+BtnChangeScene    &  string        &           &          \\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+N/A
+
+\subsubsection {Environment Variables}
+N/A
+
+\subsubsection {State Invariant}
+N/A
+\subsubsection {Assumptions}
+N/A
+\subsubsection {Access Routine Semantics}
+
+\noindent BtnChangeScene(scene\_name):
+\begin{itemize}
+	\item transition: None
+	\item exception: None
+\end{itemize}
+
+\subsection{Local Functions/Constants}
+N/A
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Collision Detector %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Collision Detector Module}
+
+\subsection{Template Module}
+Collision Detector inherits  UnityEngine.MonoBehaviour
+
+\subsection {Uses}
+System.Collections, UnityEngine
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+N/A
+
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+\textcolor{red}{NoteHit} & & &\\
+\hline
+\textcolor{red}{NoteMissed} & & &\\
+\hline
+\textcolor{red}{LongNoteHit} & & &\\
+\hline
+\textcolor{red}{LongNoteClicked} & & &\\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+\textcolor{red}{\textit{hitLast}: bool} 
+
+\subsubsection {Environment Variables}
+\textcolor{red}{\textit{collider}: Collider} 
+
+\subsubsection {State Invariant}
+N/A
+
+\subsubsection {Assumptions}
+N/A
+
+\subsubsection {Access Routine Semantics}
+
+\noindent \textcolor{red}{NoteHit()}
+\begin{itemize}
+    \item Transition: Checks distance between centre of note and collider. Spawns effect and calls NormalHit(), GoodHit(), or PerfectHit() from GameManager.
+    \item Exception: None
+\end{itemize}
+
+\noindent \textcolor{red}{NoteMissed()}
+\begin{itemize}
+    \item Transition: Spawns effect and calls NoteMissed() from GameManager.
+    \item Exception: None
+\end{itemize}
+
+\noindent \textcolor{red}{LongNoteClicked()}
+\begin{itemize}
+    \item Transition: Calls LongHit() from GameManager.
+    \item Exception: None
+\end{itemize}
+
+\noindent \textcolor{red}{LongNoteClicked()}
+\begin{itemize}
+    \item Transition: hitLast $:=$ true. Calls LongClicked() from GameManager.
+    \item Exception: None
+\end{itemize}
+
+\subsection{Local Functions/Constants}
+
+\noindent OnTriggerEnter(noteCollider)
+\begin{itemize}
+    \item Transition: collider $:=$ noteCollider. Checks if \textit{noteCollider} is an "Activator". If it is, \textit{canBePressed} will be set to true.
+    \item Exception: None
+\end{itemize}
+
+\noindent OnTriggerExit(noteCollider):
+\begin{itemize}
+    \item Transition: collider $:=$ null. Checks if \textit{noteCollider} is an "Activator". If it is, \textit{canBePressed} will be set to false.
+    \item Exception: None
+\end{itemize}
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Complete Screen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{\textcolor{red}{Complete Screen Module}}
+
+\subsection{\textcolor{red}{Template Module}}
+\textcolor{red}{CompleteScreen inherits UnityEngine.MonoBehaviour}
+
+\subsection {\textcolor{red}{Uses}}
+\textcolor{red}{System.Collections, Systems.Collections.Generic; UnityEngine, TMPro}
+
+\subsection {\textcolor{red}{Syntax}}
+
+\subsubsection {\textcolor{red}{Exported Constants}}
+\textcolor{red}{N/A}
+
+\subsubsection {\textcolor{red}{Exported Types}}
+\textcolor{red}{CompleteScreen = this}
+
+\subsubsection {\textcolor{red}{Exported Access Programs}}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textcolor{red}{\textbf{Routine name}} & \textcolor{red}{\textbf{In}} & \textcolor{red}{\textbf{Out}} & \textcolor{red}{\textbf{Exceptions}}\\
+\hline
+\textcolor{red}{DisplayCompleteScreen} & \textcolor{red}{$\mathbb{R}$, $\mathbb{R}$, $\mathbb{R}$, $\mathbb{R}$} & & \\
+\hline
+\textcolor{red}{SaveFinalScore} & & & \\
+\hline
+\end{tabular}
+
+\subsection {\textcolor{red}{Semantics}}
+
+\subsubsection {\textcolor{red}{State Variables}}
+\textcolor{red}{\textit{finalScoreSave: }$\mathbb{R}$}
+
+\subsubsection {\textcolor{red}{Environment Variables}}
+\textcolor{red}{\textit{completeScreen:} GameObject of complete screen screen}\\
+\textcolor{red}{\textit{normalHitText:} TextMeshProUGUI field for number of normal hits}\\
+\textcolor{red}{\textit{goodHitText:} TextMeshProUGUI field for number of good hits}\\
+\textcolor{red}{\textit{perfectHitText:} TextMeshProUGUI field for number of perfect hits}\\
+\textcolor{red}{\textit{missedHitText:} TextMeshProUGUI field for number of missed hits}\\
+\textcolor{red}{\textit{accuracyText:} TextMeshProUGUI field for accuracy}\\
+\textcolor{red}{\textit{finalScoreText:} TextMeshProUGUI field for final score}\\
+\textcolor{red}{\textit{userNameInput:} TextMeshProUGUI field for username input}\\
+\textcolor{red}{\textit{submitButton}: GameObject field for submit button}\\
+\textcolor{red}{\textit{instance}: CompleteScreen}
+
+\subsubsection {\textcolor{red}{State Invariant}}
+\textcolor{red}{N/A}
+
+\subsubsection {\textcolor{red}{Assumptions}}
+\textcolor{red}{N/A}
+
+\subsubsection {\textcolor{red}{Access Routine Semantics}}
+
+\noindent \textcolor{red}{DisplayCompleteScreen(normalCount, goodCount, perfectCount, missedCount, accuracy, finalScore)}
+\begin{itemize}
+    \item \textcolor{red}{transition: finalScoreSave $:=$ finalScore\\
+          completeScreen.activeInHierarchy $\Rightarrow$ All texts $:=$ textCount.ToString()}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\noindent \textcolor{red}{SaveFinalScore()}
+\begin{itemize}
+    \item \textcolor{red}{transition: Add entry for current game to the leaderboard.}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\subsection{\textcolor{red}{Local Functions/Constants}}
+\textcolor{red}{N/A}
+
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Detect Key %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{\textcolor{red}{Detect Key}}
+
+\subsection{\textcolor{red}{Template Module}}
+\textcolor{red}{DetectKey inherits UnityEngine.MonoBehaviour}
+
+\subsection {\textcolor{red}{Uses}}
+\textcolor{red}{System, System.Collections, System.Collections.Generic, UnityEngine, UnityEngine.UI}
+
+\subsection {\textcolor{red}{Syntax}}
+
+\subsubsection {\textcolor{red}{Exported Constants}}
+\textcolor{red}{N/A}
+\subsubsection {\textcolor{red}{Exported Types}}
+\textcolor{red}{N/A}
+
+\subsubsection {\textcolor{red}{Exported Access Programs}}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textcolor{red}{\textbf{Routine name}} & \textcolor{red}{\textbf{In}} & \textcolor{red}{\textbf{Out}} & \textcolor{red}{\textbf{Exceptions}}\\
+\hline
+& & & \\
+\hline
+\end{tabular}
+
+\subsection {\textcolor{red}{Semantics}}
+
+\subsubsection {\textcolor{red}{State Variables}}
+\textcolor{red}{\textit{keyColour:} string}\\
+\textcolor{red}{\textit{keyPressed:} string}
+
+\subsubsection {\textcolor{red}{Environment Variables}}
+\textcolor{red}{\textit{key:} GameObject that defines the key}\\
+\textcolor{red}{\textit{ui:} GameObject that controls the UI aspect of rebinding the keys}\\
+\textcolor{red}{\textit{settingsButtonText:} Text field that shows the user what key the button is binded to}
+
+\subsubsection {\textcolor{red}{State Invariant}}
+\textcolor{red}{N/A}
+
+\subsubsection {\textcolor{red}{Assumptions}}
+\textcolor{red}{N/A}
+
+\subsubsection {\textcolor{red}{Access Routine Semantics}}
+\textcolor{red}{N/A}
+
+\subsection{\textcolor{red}{Local Functions/Constants}}
+\noindent \textcolor{red}{Update()}
+\begin{itemize}
+    \item \textcolor{red}{transition: Input.anyKeyDown $\Rightarrow$ \textit{key.keyToPress} is set to keycode.}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Effects %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Effects Module}
+
+\subsection{Template Module}
+Effects inherits UnityEngine.MonoBehaviour
+
+\subsection{Uses}
+System.Collections, System.Collections.Generic, UnityEngine
+
+\subsection{Syntax}
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Types}
+N/A
+
+\subsubsection{Exported Access Programs}
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+\textcolor{red}{\sout{Start }}   &      &           &          \\
+\hline
+\end{tabular}
+
+\subsection{Semantics}
+\subsubsection{State Variables}
+\textcolor{red}{\sout{\textit{lifetime:} $\mathbb{R}$}}\\
+\textcolor{red}{N/A}
+
+\subsubsection{Environment Variables}
+\textcolor{red}{\sout{\textit{missEffect:} GameObject}}\\
+\textcolor{red}{\sout{\textit{okEffect:} GameObject}}\\
+\textcolor{red}{\sout{\textit{goodEffect:} GameObject}}\\
+\textcolor{red}{\sout{\textit{perfEffect:} GameObject}}\\
+\textcolor{red}{N/A}
+
+\subsubsection{State Invariant}
+\textcolor{red}{\sout{\textit{lifetime} $>$ 0}}\\
+\textcolor{red}{N/A}
+
+\subsubsection{Assumptions}
+N/A
+
+\subsubsection{Access Routine Semantics}
+\noindent \textcolor{red}{\sout{Start()}}:
+\begin{itemize}
+	\item \textcolor{red}{\sout{transition: Display either \textit{missEffect}, \textit{okEffect}, \textit{goodEffect}, \textit{perfEffect}}}.
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+\noindent \textcolor{red}{\sout{Update():}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{transition: Effect is deleted after \textit{lifetime} has passed.}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+
+\subsection{Local Functions/Constants}
+\textcolor{red}{\sout{N/A}}\\
+\textcolor{red}{\textit{lifetime}: $\mathbb{N}$}\\
+\textcolor{red}{\textit{lifetime} $\equiv$ 1}\\\\
+
+\noindent \textcolor{red}{Update():}
+\begin{itemize}
+	\item \textcolor{red}{transition: Effect is deleted after \textit{lifetime} has passed.}
+	\item \textcolor{red}{exception: None}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Effects Manager %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{\textcolor{red}{Effects Manager}}
+
+\subsection{\textcolor{red}{Template Module}}
+\textcolor{red}{Effects Manager inherits UnityEngine.MonoBehaviour}
+
+\subsection{\textcolor{red}{Uses}}
+\textcolor{red}{System.Collections, System.Collections.Generic, UnityEngine}
+
+\subsection{\textcolor{red}{Syntax}}
+
+\subsubsection {\textcolor{red}{Exported Constants}}
+\textcolor{red}{N/A}
+
+\subsubsection {\textcolor{red}{Exported Types}}
+\textcolor{red}{EffectsManager = this}
+
+\subsubsection {\textcolor{red}{Exported Access Programs}}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textcolor{red}{\textbf{Routine name}} & \textcolor{red}{\textbf{In}} & \textcolor{red}{\textbf{Out}} & \textcolor{red}{\textbf{Exceptions}}\\
+\hline
+\textcolor{red}{SpawnNormalEffect} & \textcolor{red}{$\mathbb{R}$, $\mathbb{R}$, $\mathbb{R}$} & &\\
+\hline
+\textcolor{red}{SpawnGoodEffect} & \textcolor{red}{$\mathbb{R}$, $\mathbb{R}$, $\mathbb{R}$} & &\\
+\hline
+\textcolor{red}{SpawnPerfectEffect} & \textcolor{red}{$\mathbb{R}$, $\mathbb{R}$, $\mathbb{R}$} & &\\
+\hline
+\textcolor{red}{SpawnMissedtEffect} & \textcolor{red}{$\mathbb{R}$, $\mathbb{R}$, $\mathbb{R}$}& &\\
+\hline
+\end{tabular}
+
+\subsection {\textcolor{red}{Semantics}}
+
+\subsubsection {\textcolor{red}{State Variables}}
+\textcolor{red}{N/A}
+
+\subsubsection {\textcolor{red}{Environment Variables}}
+\textcolor{red}{\textit{instance: EffectsManager}}\\
+\textcolor{red}{\textit{normalEffect:} GameObject of normal effect}\\
+\textcolor{red}{\textit{goodEffect:} GameObject of good effect}\\
+\textcolor{red}{\textit{perfEffect:} GameObject of perfect effect} \\
+\textcolor{red}{\textit{missEffect:} GameObject of miss effect}
+
+\subsubsection {\textcolor{red}{State Invariant}}
+\textcolor{red}{N/A}
+
+\subsubsection {\textcolor{red}{Assumptions}}
+\textcolor{red}{N/A}
+
+\subsubsection {\textcolor{red}{Access Routine Semantics}}
+\noindent \textcolor{red}{SpawnNormalEffect(x, y, z)}
+\begin{itemize}
+    \item \textcolor{red}{transition: Instantiate \textit{normalEffect} at the position(x coordinate, y coordinate, z coordinate) defined by the parameters $x, y,$ \& $z$ respectively}
+\end{itemize}
+\noindent \textcolor{red}{SpawnGoodEffect(x, y, z)}
+\begin{itemize}
+    \item \textcolor{red}{transition: Instantiate \textit{goodEffect} at the position(x coordinate, y coordinate, z coordinate) defined by the parameters $x, y,$ \& $z$ respectively}
+\end{itemize}
+\noindent \textcolor{red}{SpawnPerfectEffect(x, y, z)}
+\begin{itemize}
+    \item \textcolor{red}{transition: Instantiate \textit{perfectEffect} at the position(x coordinate, y coordinate, z coordinate) defined by the parameters $x, y,$ \& $z$ respectively}
+\end{itemize}
+\noindent \textcolor{red}{SpawnMissedEffect(x, y, z)}
+\begin{itemize}
+    \item \textcolor{red}{transition: Instantiate \textit{missedEffect} at the position(x coordinate, y coordinate, z coordinate) defined by the parameters $x, y,$ \& $z$ respectively}
+\end{itemize}
+\subsection{\textcolor{red}{Local Functions/Constants}}
+\noindent \textcolor{red}{Start():}
+\begin{itemize}
+	\item \textcolor{red}{transition: instance $:=$ this}
+	\item \textcolor{red}{exception: None}
+\end{itemize}
+
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FileIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section {\textcolor{red}{FileIO} Module}
+
+\subsection{Template Module}
+SaveFileHandler
+
+\subsection {Uses}
+\textcolor{red}{System.Collections, System.Collections.Generic, UnityEngine, }UnityEngine.PlayerPrefs
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+\textcolor{red}{\sout{N/A} FileIO = this}
+
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+\textcolor{red}{\sout{writeUserData}} &  \textcolor{red}{\sout{$\mathbb{N}$, String}} &  &  \\
+\hline
+\textcolor{red}{\sout{getAllData}}    &   &  \textcolor{red}{\sout{seq of $\langle$ $\mathbb{N}$, String $\rangle$}}       &          \\
+\hline
+\textcolor{red}{ReadFile} & \textcolor{red}{String, Char} & \textcolor{red}{seq of $\langle$ String $\rangle$} &\\
+\hline
+\textcolor{red}{GetLeadboardList} &  & \textcolor{red}{seq of $\langle$ LeaderboardEntry $\rangle$} &\\
+\hline
+\textcolor{red}{AddEntryToLeaderboard} & \textcolor{red}{LeaderboardEntry} &  &\\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+\textcolor{red}{\sout{\textit{filename:} String}}\\
+\textcolor{red}{N/A}
+
+\subsubsection {Environment Variables}
+\textcolor{red}{\sout{\textit{file:} Local file to which user data will be written and read from.}}\\
+\textcolor{red}{\textit{instance}: FileIO}
+
+\subsubsection {State Invariant}
+N/A
+\subsubsection {Assumptions}
+\textcolor{red}{\sout{N/A}}\\
+\textcolor{red}{It is assumed that the file in the path exists, is in the correct format, and the layout within the file is consistent with the parsing of the file.}
+
+\subsubsection {Access Routine Semantics}
+
+\noindent \textcolor{red}{\sout{writeUserData(score, name):}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{transition: \textit{file} $:=$ \textit{file} $||<$ name score $>$}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+
+\noindent \textcolor{red}{\sout{getAllData():}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{output: $out:= \langle i: \mathbb{N} | 0 \leq i < |file|: \langle file[i][0], file[i][1] \rangle\rangle$\\\textit{//file[x][y] means line x word number y in that file}}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+
+\noindent \textcolor{red}{ReadFile(pathName, separator):}
+\begin{itemize}
+    \item \textcolor{red}{output: array of string, signifying the separated values in the file separated by \textit{separator}, located in the file path, \textit{pathName}.}
+    \item \textcolor{red}{exception: none}
+\end{itemize}
+
+\noindent \textcolor{red}{GetLeaderboardList():}
+\begin{itemize}
+    \item \textcolor{red}{output: Returns a list of LeaderboardEntry objects that represent the leaderboard.}
+    \item \textcolor{red}{exception: none}
+\end{itemize}
+
+\noindent \textcolor{red}{AddEntryToLeaderboard(entry):}
+\begin{itemize}
+    \item \textcolor{red}{transition: Adds $entry$, a LeaderboardEntry object to the list of LeaderboardEntry objects representing the leaderboard}
+    \item \textcolor{red}{exception: none}
+\end{itemize}
+
+\subsection{Local Functions/Constants}
+N/A
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Game Manager %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Game Manager Module}
+
+\subsection{Template Module}
+GameManager inherits UnityEngine.MonoBehaviour
+
+\subsection{Uses}
+System.Collections, Systems.Collections.Generic, UnityEngine, UnityEngine.UI, TMPro
+
+\subsection{Syntax}
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Types}
+\textcolor{red}{GameManager = this}
+
+\subsubsection{Exported Access Programs}
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+\textcolor{red}{\sout{Start}}   &      &           &          \\
+\hline
+\textcolor{red}{\sout{Update}}   &     &           &          \\
+\hline
+\textcolor{red}{StartMusic}   &     &           &          \\
+\hline
+\textcolor{red}{NormalHit}   &     &           &          \\
+\hline
+\textcolor{red}{GoodHit}   &     &           &          \\
+\hline
+\textcolor{red}{PerfectHit}   &     &           &          \\
+\hline
+\textcolor{red}{LongHit}   &     &           &          \\
+\hline
+\textcolor{red}{NoteMissed}   &     &           &          \\
+\hline
+\textcolor{red}{LongClicked}   &     &           &          \\
+\hline
+\textcolor{red}{SetMultiplier}   &     &           &          \\
+\hline
+\textcolor{red}{SetScore}   &     &           &          \\
+\hline
+\end{tabular}
+
+\subsection{Semantics}
+\subsubsection{State Variables}
+\textit{instance:} GameManager\\
+\textcolor{red}{\sout{\textit{startPlaying:} boolean}}\\
+\textcolor{red}{\sout{\textit{music:}} song: AudioSource} \\
+\textcolor{red}{\textit{guitar}: AudioSource}\\
+\textcolor{red}{\textit{currentScore}: $\mathbb{Z}$}\\
+\textcolor{red}{\textit{currentMultiplier: $\mathbb{Z}$}}\\
+\textcolor{red}{\textit{songStarted}: bool = false}\\
+\textcolor{red}{\textit{totalNotes}: $\mathbb{R}$}\\
+\textcolor{red}{\textit{normalHits}: $\mathbb{R}$}\\
+\textcolor{red}{\textit{goodHits}: $\mathbb{R}$}\\
+\textcolor{red}{\textit{perfectHits}: $\mathbb{R}$}\\
+\textcolor{red}{\textit{missedHits}: $\mathbb{R}$}\\
+\textcolor{red}{\textit{accuracy}: $\mathbb{R}$}
+\textcolor{red}{\textit{noteList}: seq of Strings}
+\textcolor{red}{\textit{defaultVolume}: $\mathbb{R}$}
+
+\subsubsection{Environment Variables}
+\textcolor{red}{\sout{\textit{theNS:} NoteScroller controlling the movement of notes along the game screen.}}\\
+\textcolor{red}{\textit{scoreText}: TextMeshProUGUI field for current score}\\
+\textcolor{red}{\textit{multiText}: TextMeshProUGUI field for current multiplier}
+
+\subsubsection{State Invariant}
+\textcolor{red}{totalNotes, normalHits, goodHits, perfectHits, missedHits, accuracy, defaultVolume $\geq$ 0}
+
+\subsubsection{Assumptions}
+N/A
+
+\subsubsection{Access Routine Semantics}
+\noindent \textcolor{red}{\sout{Start():}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{transition:instance $:=$ this}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+\noindent \textcolor{red}{\sout{Update():}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{transition: Initiates both music playing and note scrolling when startPlaying = true.}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+
+\noindent \textcolor{red}{StartMusic():}
+\begin{itemize}
+    \item \textcolor{red}{transition: Play \textit{song} and \textit{guitar} and mute \textit{guitar} when called}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\noindent \textcolor{red}{NormalHit():}
+\begin{itemize}
+    \item \textcolor{red}{transition: Set $guitar.mute = false$ if $guitar.mute = true$, increase \textit{normalHits} by calling NormalHit() from the ScoreCalculator module, and call NoteHit()}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\noindent \textcolor{red}{GoodHit():}
+\begin{itemize}
+    \item \textcolor{red}{transition: Set $guitar.mute = false$ if $guitar.mute = true$, increase \textit{goodHits} by calling GoodHit() from the ScoreCalculator module, and call NoteHit()}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\noindent \textcolor{red}{PerfectHit():}
+\begin{itemize}
+    \item \textcolor{red}{transition: Set $guitar.mute = false$ if $guitar.mute = true$, increase \textit{perfectHits} by calling PerfectHit() from the ScoreCalculator module, and call NoteHit()}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\noindent \textcolor{red}{LongHit():}
+\begin{itemize}
+    \item \textcolor{red}{transition: Increase \textit{normalHits} by calling LongHit() from the ScoreCalculator module, and call NoteHit()}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\noindent \textcolor{red}{NoteMissed():}
+\begin{itemize}
+    \item \textcolor{red}{transition: Set $guitar.mute = true$ if $guitar.mute = false$, increase \textit{missedHits} by calling NoteMissed() from the ScoreCalculator module, and call NoteHit()}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\noindent \textcolor{red}{LongClicked():}
+\begin{itemize}
+    \item \textcolor{red}{transition: Set $guitar.mute = false$ if $guitar.mute = true$}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\noindent \textcolor{red}{SetMultiplier(mult):}
+\begin{itemize}
+    \item \textcolor{red}{transition: Set $currentMultiplier = mult$}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\subsection{Local Functions/Constants}
+\noindent \textcolor{red}{Start():}
+\begin{itemize}
+	\item \textcolor{red}{transition: \textit{instance} $:=$ this, \textit{currentScore} $:=$ 0, \textit{currentMultiplier} $:=$ 1, call ReadFile from FileIO and store the output in noteList, set the volume to \textit{defaultVolume}}
+	\item \textcolor{red}{exception: None}
+\end{itemize}
+
+\noindent \textcolor{red}{Update():}
+\begin{itemize}
+	\item \textcolor{red}{transition: Call GameComplete() if the the PauseMenu is not displayed, the song is not playing, and the song has started}
+	\item \textcolor{red}{exception: None}
+\end{itemize}
+
+\noindent \textcolor{red}{NoteHit():}
+\begin{itemize}
+    \item \textcolor{red}{transition: Set \textit{multiText} to \textit{currentMultiplier} and \textit{scoreText} to \textit{currentScore}}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+\noindent \textcolor{red}{GameComplete():}
+\begin{itemize}
+    \item \textcolor{red}{transition: Call Accuracycalculation() from ScoreCalculator and store the returned value in \textit{accuracy}, call DisplayCompleteScreen() from the CompleteScreen module with parameters \textit{normalHits, goodHits, perfectHits, missedHits,} and \textit{accuracy} to display the Complete Screen.}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Leaderboard Entry %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{\textcolor{red}{Leaderboard Entry}}
+
+\subsection{Template Module}
+Leaderboard Entry 
+
+\subsection {Uses}
+System.Collections, System.Collections.Generic
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+
+\subsubsection {Exported Types}
+N/A
+
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+& & & \\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+\textcolor{red}{name: String}\\
+\textcolor{red}{score: $\mathbb{Z}$}\\
+\textcolor{red}{date: String}
+
+\subsubsection {Environment Variables}
+\textcolor{red}{N/A}
+
+\subsubsection {State Invariant}
+\textcolor{red}{score $\geq$ 0}
+
+\subsubsection {Assumptions}
+\textcolor{red}{N/A}
+
+\subsubsection {Access Routine Semantics}
+\textcolor{red}{N/A}
+
+\subsection{Local Functions/Constants}
+\textcolor{red}{N/A}
+
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Load Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section {\textcolor{red}{Load Settings \sout{Data}} Module}
+
+\subsection{Template Module}
+SettingsData
+
+\subsection {Uses}
+UnityEngine.PlayerPrefs
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+N/A
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+\textcolor{red}{\sout{setVolumeLevel}}    &  \textcolor{red}{\sout{$\mathbb{R}$}}         &           &          \\
+\hline
+\textcolor{red}{\sout{setKeyBinds}}       &  \textcolor{red}{\sout{seq of $\mathbb{N}$}}     &           &          \\
+\hline
+\textcolor{red}{\sout{getKeyBinds}}       &           &      \textcolor{red}{\sout{seq of $\mathbb{N}$}}     &          \\
+\hline
+\textcolor{red}{\sout{getVolumeLevel}}       &           &    \textcolor{red}{\sout{$\mathbb{R}$}}       &           \\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+N/A
+
+\subsubsection {Environment Variables}
+N/A
+
+\subsubsection {State Invariant}
+N/A
+\subsubsection {Assumptions}
+N/A
+\subsubsection {Access Routine Semantics}
+
+\noindent \textcolor{red}{\sout{setVolumeLevel(v):}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{transition: UnityEngine.PlayerPrefs.SetFloat(``volume", v)}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+
+\noindent \textcolor{red}{\sout{setKeyBinds(s):}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{transition: $\forall(i: \mathbb{N} | 0 \leq i < |s|: \text{UnityEngine.PlayerPrefs.SetInt}(nameMap[i], s[i]))$}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+
+\noindent \textcolor{red}{\sout{getKeyBinds():}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{output: $out:=\langle i: \mathbb{N} | 0 \leq i < |s|: \text{UnityEngine.PlayerPrefs.GetInt}(nameMap[i], s[i]) \rangle$}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+
+\noindent \textcolor{red}{\sout{getVolumeLevel():}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{output: $out$:=UnityEngine.PlayerPrefs.GetFloat(``volume", v)}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+\textcolor{red}{N/A}
+
+\subsection{Local Functions/Constants}
+\textcolor{red}{\sout{nameMap: String [``GreenB", ``RedB", ``YellowB", ``BlueB", ``PinkB"]}}
+
+\noindent \textcolor{red}{greenCode: $\mathbb{Z}$}\\
+\textcolor{red}{greenCode $\equiv$ 97}\\
+\textcolor{red}{redCode: $\mathbb{Z}$}\\
+\textcolor{red}{redCode $\equiv$ 115}\\
+\textcolor{red}{yellowCode: $\mathbb{Z}$}\\
+\textcolor{red}{yellowCode $\equiv$ 100}\\
+\textcolor{red}{blueCode: $\mathbb{Z}$}\\
+\textcolor{red}{blueCode $\equiv$ 102}\\
+\textcolor{red}{pinkCode: $\mathbb{Z}$}\\
+\textcolor{red}{pinkCode $\equiv$ 118}\\
+
+\noindent \textcolor{red}{Start():}
+\begin{itemize}
+    \item \textcolor{red}{transition: Set\textit{greenButtonSettings, redbuttonSettings, yellowButtonSettings, blueButtonSettings, pinkButtonSettings} to \textit{greenCode, redCode, yellowCode, blueCode,} and \textit{pinkCode} respectively}
+    \item \textcolor{red}{exception: None}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Main Menu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Main Menu}
+
+\subsection{Template Module}
+MainMenu inherits UnityEngine.MonoBehaviour
+
+\subsection {Uses}
+System.Collections, System.Collections.Generic, UnityEngine, UnityEngine.SceneManagement
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+N/A
+
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+PlayGame & & & \\
+\hline
+\textcolor{red}{\sout{QuitGame}} & & & \\
+\hline
+\textcolor{red}{\sout{NavigateSettings}} & & & \\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+N/A
+
+\subsubsection {Environment Variables}
+\textcolor{red}{\sout{\textit{gameUI}: Unity Scene for the game play}}\\
+
+\noindent \textcolor{red}{\sout{\textit{settingsUI}: Unity Scene that enables editing of the settings}}\\
+
+\noindent \textcolor{red}{\sout{\textit{startGameButton}: Button that will trigger the action of navigating to the \textit{gameUI}, specifically calling  the \textbf{PlayGame()} function.}}\\
+
+\noindent \textcolor{red}{\sout{\textit{quitGameButton}: Button that will trigger the action of quitting the game, specifically calling the \textbf{QuitGame()} function.}}\\
+
+\noindent \textcolor{red}{\sout{\textit{navigateSettingsButton}: Button that will trigger the action of navigating to the \textbf{Settings Menu}, specifically calling the \textbf{NavigateSettings()} function.}}\\
+
+\subsubsection {State Invariant}
+
+\subsubsection {Assumptions}
+\textcolor{red}{\sout{The environment variables are initialized manually through the Unity interface.}}
+
+\subsubsection {Access Routine Semantics}
+PlayGame():
+\begin{itemize}
+    \item Transition: Navigates to \textit{gameUI} once \textit{startGameButton} is pressed.
+    \item Exception: None
+\end{itemize}
+
+
+\textcolor{red}{\sout{\noindent QuitGame():}}
+\begin{itemize}
+    \item \textcolor{red}{\sout{Transition: Quits the application once \textit{quitGameButton} is pressed.}}
+    \item \textcolor{red}{\sout{Exception: None}}
+\end{itemize}
+
+\noindent \textcolor{red}{\sout{NavigateSettings():}}
+\begin{itemize}
+    \item \textcolor{red}{\sout{Transition: Navigates to \textit{settingsUI} once \textit{navigateSettingsButton} is pressed.}}
+    \item \textcolor{red}{\sout{Exception: None}}
+\end{itemize}
+
+\subsection{Local Functions/Constants}
+N/A
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Note Object %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{\textcolor{red}{Note Object}}
+
+\subsection{Template Module}
+NoteObject inherits UnityEngine.MonoBehaviour
+
+\subsection {Uses}
+System.Collections, System.Collections.Generic, UnityEngine
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+N/A
+
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+& & &\\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+N/A
+
+\subsubsection {Environment Variables}
+\textcolor{red}{\textit{keyToPress}: KeyCode}
+\textcolor{red}{\textit{key}: GameObject}
+
+\subsubsection {State Invariant}
+N/A
+
+\subsubsection {Assumptions}
+N/A
+
+\subsubsection {Access Routine Semantics}
+N/A
+
+\subsection{Local Functions/Constants}
+N/A
+
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Note Scroller %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Note Scroller}
+
+\subsection{Module}
+NoteScroller inherits UnityEngine.MonoBehaviour
+
+\subsection {Uses}
+System.Collections, System.Collections.Generic, UnityEngine
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+N/A
+
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+\textcolor{red}{\sout{Start}} & & & \\
+\hline
+\textcolor{red}{\sout{Update}} & & & \\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+\textit{hasStarted}: $\mathbb{B}$ \\
+\textcolor{red}{\textit{beatTempo}: $\mathbb{R}$}
+
+\subsubsection {Environment Variables}
+N/A
+
+\subsubsection {State Invariant}
+N/A
+
+\subsubsection {Assumptions}
+\textcolor{red}{beatTempo is set externally through the Unity interface.}
+
+\subsubsection {Access Routine Semantics}
+N/A
+
+\subsection{Local Functions/Constants}
+
+\noindent Start():
+\begin{itemize}
+    \item Transition: \textcolor{red}{Set note collider size. Remove note after it leaves the screen.}
+    \item Exception: None
+\end{itemize}
+
+\noindent Update():
+\begin{itemize}
+    \item Transition: Checks \textit{hasStarted}. If True, move the GameObject based on \textit{beatTempo}. 
+    \item Exception: None
+\end{itemize}
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Note Spawner %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Note Spawner}
+
+\subsection{Template Module}
+NoteSpawner inherits UnityEngine.MonoBehaviour
+
+\subsection{Uses}
+GameManager, System, System.Collections, System.Collections.Generic, UnityEngine
+
+\subsection{Syntax}
+\subsubsection{Exported Constants}
+N/A
+\subsubsection{Exported Types}
+N/A
+\subsubsection{Exported Access Programs}
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+\textcolor{red}{\sout{Start}}   &     &           &          \\
+\textcolor{red}{\sout{SpawnNote}}   &     &           &     \\
+\hline
+\end{tabular}
+
+\subsection{Semantics}
+\subsubsection{State Variables}
+\textcolor{red}{\textit{BPM} := $\mathbb{R}$}\\
+\textcolor{red}{\textit{floatIndex:} $\mathbb{R}$}\\
+\textcolor{red}{\textit{nextIndex:} $\mathbb{Z}$}\\
+\textcolor{red}{\textit{index:} $\mathbb{Z}$}\\
+\textcolor{red}{\textit{noteList:} string[]}
+
+
+\subsubsection{Environment Variables}
+\textit{notes:} GameObject[]\\
+\textcolor{red}{\textit{longNotes:} GameObject[]}\\
+\textcolor{red}{\textit{keys:} GameObject[]}
+
+\subsubsection{State Invariant}
+N/A
+
+\subsubsection{Assumptions}
+\textcolor{red}{noteList is populated by GameManager and FileIO.}
+
+\subsubsection{Access Routine Semantics}
+\noindent SpawnNote():
+\begin{itemize}
+	\item transition:\\
+	    Instantiates a single \textit{note} and adds it to the game.
+	\item exception: None
+\end{itemize}
+
+\subsection{Local Functions/Constants}
+\textcolor{red}{\textit{numNotes} := 5}\\
+\textit{spawnDelay:} := 2\\
+\textit{\textcolor{red}{minute \sout{spawnStartTime}:}} := 60
+
+\noindent Start():
+\begin{itemize}
+	\item transition:\\
+	    \textcolor{red}{\textit{BPM} := 175, \textit{nextIndex} := 0}. Repeatedly calls SpawnNote, starting after \textit{spawnStartTime} and repeating every \textit{minute/BPM}.
+	\item exception: None
+\end{itemize}
+
+\noindent \textcolor{red}{SpawnNote():}
+\begin{itemize}
+	\item transition:\\
+	    \textcolor{red}{Parse the next entry in noteList, representing the notes to spawn on the current beat. Spawn the correct notes.\\
+	    \textit{nextIndex := nextIndex + 1}}
+	\item exception: None
+\end{itemize}
+
+\noindent \textcolor{red}{SpawnLongNote(len, index):}
+\begin{itemize}
+	\item transition:\\
+	    \textcolor{red}{Spawn a long note of length \textit{len}, from the given \textit{index} in \textit{noteList}.}
+	\item exception: None
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Pause Menu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Pause Menu}
+
+\subsection{Template Module}
+PauseMenu inherits UnityEngine.MonoBehaviour
+
+\subsection {Uses}
+\textcolor{red}{System.Collections, System.Collections.Generic, UnityEngine\\ \sout{UnityEngine.Input, UnityEngine.GameObject}}
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+N/A
+
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+\textcolor{red}{Settings \sout{Update}} & & & \\
+\hline
+Resume & & & \\
+\hline
+Pause & & & \\
+\hline 
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+\textit{Paused}: $\mathbb{B}$ \\
+\textcolor{red}{\textit{SettingsShown}: $\mathbb{B}$} \\
+
+\subsubsection {Environment Variables}
+\textit{pauseMenuUI}: GameObject that shows the pause menu\\
+\textcolor{red}{\textit{settingsMenuUI}: GameObject that shows the settings menu}
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+The environment variables are initialized manually through the Unity interface.
+
+\subsubsection {Access Routine Semantics}
+
+\noindent Resume():
+\begin{itemize}
+    \item Transition: Set \textit{pauseMenuUI} to false, unfreeze time, and set \textit{gamePaused} to False.
+    \item Exception: None
+\end{itemize}
+
+\noindent Pause():
+\begin{itemize}
+    \item Transition: Set \textit{pauseMenuUI} to active, freeze time, and set \textit{gamePaused} to True.
+    \item Exception: None
+\end{itemize}
+
+\noindent \textcolor{red}{Settings():}
+\begin{itemize}
+    \item \textcolor{red}{Transition: \textit{SettingsShown} := true \\ Set \textit{settingsMenuUI} to active.}
+    \item Exception: None
+\end{itemize}
+
+\subsection{Local Functions/Constants}
+Update():
+\begin{itemize}
+    \item Transition: Checks if "esc" button has been pressed and \textit{gamePaused} is True. If both are True, call \textbf{Resume()}, otherwise, if only "esc" button has been pressed, call \textbf{Pause()}.
+    \item Exception: None
+\end{itemize}
+
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Populate Leaderboard %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section {\textcolor{red}{Populate}Leaderboard Module}
+
+\subsection{Template Module}
+\textcolor{red}{Populate}Leaderboard inherits UnityEngine.MonoBehaviour
+
+\subsection {Uses}
+FileIO, System.Collections, System.Collections.Generic, UnityEngine, UnityEngine.UI
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+N/A
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+\textcolor{red}{\sout{Start}}    &      &           &          \\
+\hline
+\textcolor{red}{\sout{Update}}   &      &           &          \\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+\textcolor{red}{\sout{\textit{saveFile:} SaveFileHandler
+\textit{playerList:} seq of $\langle String, \mathbb{N} \rangle$}}
+
+\subsubsection {Environment Variables}
+\textcolor{red}{\sout{\textit{table:} table that displays the player rank,  name and score. This table's data can be indexed such as table[row][column] where 1st columns is the rank, the 2nd the name and lastly the score. The table will also have a heading of rank, player and score.}}\\
+
+\noindent\textcolor{red}{\textit{textTemplate}: Text. Used to display text.} 
+
+\subsubsection {State Invariant}
+N/A
+\subsubsection {Assumptions}
+\textcolor{red}{\sout{\textit{saveFile} should have been assigned referenced to a SaveFileHandler component}}
+\subsubsection {Access Routine Semantics}
+
+\subsection{Local Functions/Constants}
+\noindent Start():
+\begin{itemize}
+	\item transition: \\
+	\textcolor{red}{Read leaderboard list from FileIO, sort it from highest to lowest score, and output each entry to the screen.}
+	\item exception: None
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Quit Game %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{\textcolor{red}{Quit Game Module}}
+
+\subsection{Template Module}
+QuitGame inherits UnityEngine.MonoBehaviour
+
+\subsection {Uses}
+System.Collections, System.Collections.Generic, UnityEngine
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+N/A
+
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+ExitGame & & &\\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+N/A
+
+\subsubsection {Environment Variables}
+N/A
+
+\subsubsection {State Invariant}
+N/A
+
+\subsubsection {Assumptions}
+N/A
+
+\subsubsection {Access Routine Semantics}
+
+\noindent ExitGame():
+\begin{itemize}
+    \item Transition: Quit the application.
+    \item Exception: None
+\end{itemize}
+
+\subsection{Local Functions/Constants}
+N/A
+
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Score Calculator %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Score Calculator Module}
+
+\subsection{Template Module}
+ScoreCalculator inherits UnityEngine.MonoBehaviour
+
+\subsection {Uses}
+System.Collections, System.Collections.Generic, UnityEngine
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+\textit{scorePerNote} $:=$ 100\\
+\textit{scorePerGoodNote} $:=$ 125\\
+\textit{scorePerPerfectNote} $:=$ 150\\
+\textit{scorePerLongNote} $:=$ 200
+
+\subsubsection {Exported Types}
+\textit{ScoreCalculator} = this
+
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+\textcolor{red}{\sout{Start}} & & &\\
+\hline
+\textcolor{red}{NoteHit} & & & \\
+\hline
+NormalHit & \textcolor{red}{$\mathbb{Z}, \mathbb{Z}$} & \textcolor{red}{$\mathbb{R}$} & \\
+\hline
+GoodHit & \textcolor{red}{$\mathbb{Z}, \mathbb{Z}$} & \textcolor{red}{$\mathbb{R}$} & \\
+\hline
+PerfectHit & \textcolor{red}{$\mathbb{Z}, \mathbb{Z}$} & \textcolor{red}{$\mathbb{R}$} & \\
+\hline
+NoteMissed & & \textcolor{red}{$\mathbb{R}$} & \\
+\hline
+\textcolor{red}{LongHit} & \textcolor{red}{$\mathbb{Z}, \mathbb{Z}$} & \textcolor{red}{$\mathbb{R}$} & \\
+\hline
+\textcolor{red}{AccuracyCalculation}&\textcolor{red}{$\mathbb{R},\mathbb{R},\mathbb{R},\mathbb{R}$}&\textcolor{red}{$\mathbb{R}$} &\\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+\textcolor{red}{\textit{currentMultiplier}: $\mathbb{N}$}\\
+\textit{multiplierTracker}: $\mathbb{N} $ \\
+\textit{multiplierThresholds}: seq of $<\mathbb{N}>$ \\
+\textcolor{red}{\sout{
+\textit{totalNotes}: $\mathbb{N} $ \\
+\textit{normalHits}: $\mathbb{N} $ \\
+\textit{goodHits}: $\mathbb{N} $ \\
+\textit{perfectHits}: $\mathbb{N} $ \\
+\textit{missedHits}: $\mathbb{N} $ \\
+\textit{currentScore}: $\mathbb{N} $ \\
+\textit{totalNotes}: $\mathbb{N}$
+}}
+
+\subsubsection {Environment Variables}
+\textit{instance}: ScoreCalculator
+
+\subsubsection {State Invariant}
+N/A
+
+\subsubsection {Assumptions}
+\textit{multiplierThresholds} are set manually within the Unity interface.
+
+\subsubsection {Access Routine Semantics}
+
+\noindent NormalHit(\textcolor{red}{currentScore, currentMultiplier}):
+\begin{itemize}
+    \item Transition: \textcolor{red}{GameManager.instance.SetScore\\(currentScore + scorePerNote * currentMultiplier)\\Calls NoteHit(currentMultiplier).}\\
+    \item \textcolor{red}{Output: out := 1}
+    \item Exception: None
+\end{itemize}
+
+\noindent GoodHit(\textcolor{red}{currentScore, currentMultiplier}):
+\begin{itemize}
+    \item Transition: \textcolor{red}{GameManager.instance.SetScore\\(currentScore + scorePerGoodNote * currentMultiplier)\\Calls NoteHit(currentMultiplier).}
+    \item \textcolor{red}{Output: out := 1}
+    \item Exception: None
+\end{itemize}
+
+\noindent PerfectHit(\textcolor{red}{currentScore, currentMultiplier}):
+\begin{itemize}
+    \item Transition: \textcolor{red}{GameManager.instance.SetScore\\(currentScore + scorePerPerfectNote * currentMultiplier)\\Calls NoteHit(currentMultiplier).}
+    \item \textcolor{red}{Output: out := 1}
+    \item Exception: None
+\end{itemize}
+
+\noindent NoteMissed(\textcolor{red}{currentScore, currentMultiplier}):
+\begin{itemize}
+    \item Transition: Resets the \textit{currentMultiplier} and \textit{multiplierTracker} to its initial values, 1 and 0 respectively.
+    \item \textcolor{red}{Output: out := 1}
+    \item Exception: None
+\end{itemize}
+
+\noindent \textcolor{red}{LongHit(currentScore, currentMultiplier):}
+\begin{itemize}
+    \item \textcolor{red}{Transition: GameManager.instance.SetScore\\(currentScore + scorePerLongNote * currentMultiplier)\\Calls NoteHit(currentMultiplier).}
+    \item \textcolor{red}{Output: out := 1}
+\end{itemize}
+
+\noindent \textcolor{red}{AccuracyCalculation(normalHits, goodHits, perfectHits, totalNotes):}
+\begin{itemize}
+    \item \textcolor{red}{Transition: float totalHits := normalHits + goodHits + perfectHits}
+    \item \textcolor{red}{Output: out := totalHits / totalNotes * 100}
+    \item \textcolor{red}{Exception: None}
+\end{itemize}
+
+\subsection{Local Functions/Constants}
+
+\noindent Start():
+\begin{itemize}
+    \item Transition: instance := this
+    \item Exception: None
+\end{itemize}
+
+\noindent NoteHit():
+\begin{itemize}
+    \item Transition: Increments \textit{multiplierTracker} every time a note is hit consecutively and increments the \textit{currentMultiplier} once a threshold based on \textit{multiplierThresholds} is met by comparing \textit{multiplierThreshold}[\textit{currentMultiplier}] and \textit{multiplierTracker}.
+    \item Exception: None
+\end{itemize}
+
+\textit{scorePerNote}: $\mathbb{N} $ \\
+\textit{scorePerNote} $\equiv$ 100
+
+\noindent \textit{scorePerGoodNote}: $\mathbb{N} $ \\
+\textit{scorePerGoodNote} $\equiv$ 125
+
+\noindent \textit{scorePerPerfectNote}: $\mathbb{N} $ \\
+\textit{scorePerPerfectNote} $\equiv$ 150
+
+\noindent \textit{scorePerLongNote}: $\mathbb{N} $ \\
+\textit{scorePerLongNote} $\equiv$ 200
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Settings Menu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section {Settings Menu Module}
+
+\subsection{Template Module} 
+SettingsMenu inherits UnityEngine.MonoBehaviour
+
+\subsection {Uses}
+SettingsData, System.Collections, \textcolor{red}{System.Collections.Generic}, UnityEngine, \textcolor{red}{UnityEngine.UI}
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+N/A
+\subsubsection {Exported Types}
+N/A
+\subsubsection {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+\textcolor{red}{SetVolume \sout{Start}}    &      &           &          \\
+\hline
+\textcolor{red}{GreenPressed \sout{Update}}   &     &           &          \\
+\hline
+\textcolor{red}{RedPressed \sout{saveSettings}}    &          &     &          \\
+\hline
+\textcolor{red}{YellowPressed \sout{loadSettings}}   &          &     &          \\
+\hline
+\textcolor{red}{BluePressed}   &          &     &          \\
+\hline
+\textcolor{red}{PinkPressed}   &          &     &          \\
+\hline
+\end{tabular}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+\textcolor{red}{\sout{\textit{temp\_volume:} $\mathbb{N}$}}\\
+\textcolor{red}{\sout{\textit{data:} SettingsData}}
+
+\subsubsection {Environment Variables}
+\textit{slider:} Slider used to adjust the volume. The slider can take any value from 0 to 100. This slider will call the \textbf{sliderUpdate()} function when the user changes the slider\\\\
+\textit{\textcolor{red}{uiGreen \sout{textfield\_green}}:} Text field where the user chooses which keyboard key controls the green button during gameplay\\\\
+\textit{\textcolor{red}{uiRed \sout{textfield\_red}}:} Text field where the user chooses which keyboard key controls the red button during gameplay\\\\
+\textit{\textcolor{red}{uiYellow \sout{textfield\_yellow}}:} Text field where the user chooses which keyboard key controls the yellow button during gameplay\\\\
+\textit{\textcolor{red}{uiBlue \sout{textfield\_blue}}:} Text field where the user chooses which keyboard key controls the blue button during gameplay\\\\
+\textit{\textcolor{red}{uiPink \sout{textfield\_pink}}:} Text field where the user chooses which keyboard key controls the pink button during gameplay\\\\
+\textcolor{red}{\sout{\textit{apply\_button:} Button that will trigger the action of changing the actual settings of the game and saving the settings, specifically call the \textbf{saveSettings()} function.}}
+
+\subsubsection {State Invariant}
+N/A
+\subsubsection {Assumptions}
+N/A
+\subsubsection {Access Routine Semantics}
+
+\noindent SetVolume():
+\begin{itemize}
+	\item transition: \\
+	Sets AudioListener volume to slider value and saves to PlayerPrefs.
+	\item exception: None
+\end{itemize}
+
+\noindent GreenPressed():
+\begin{itemize}
+	\item transition: \\
+	Displays uiGreen.
+	\item exception: None
+\end{itemize}
+
+\noindent RedPressed():
+\begin{itemize}
+	\item transition: \\
+	Displays uiRed.
+	\item exception: None
+\end{itemize}
+
+\noindent YellowPressed():
+\begin{itemize}
+	\item transition: \\
+	Displays uiYellow.
+	\item exception: None
+\end{itemize}
+
+\noindent BluePressed():
+\begin{itemize}
+	\item transition: \\
+	Displays uiBlue.
+	\item exception: None
+\end{itemize}
+
+\noindent PinkPressed():
+\begin{itemize}
+	\item transition: \\
+	Displays uiPink.
+	\item exception: None
+\end{itemize}
+
+\noindent \textcolor{red}{\sout{saveSettings():}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{transition:}} \\
+	\textcolor{red}{\sout{\textit{data}.setVolumeLevel(temp\_volume)}}\\
+	\textcolor{red}{\sout{\textit{data}.setKeyBinds($\langle$ value(\textit{textfield\_green}),}} \\
+	\textcolor{red}{\sout{\hspace*{3.65cm}value(\textit{textfield\_red}),}} \\
+	\textcolor{red}{\sout{\hspace*{3.65cm}value(\textit{textfield\_yellow}),}} \\
+	\textcolor{red}{\sout{\hspace*{3.65cm}value(\textit{textfield\_blue}),}} \\
+	\textcolor{red}{\sout{\hspace*{3.65cm}value(\textit{textfield\_pink})$\rangle$)}}
+	
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+
+\noindent \textcolor{red}{\sout{sliderUpdate():}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{transition: \textit{temp\_volume} $:=$ slider\_value(\textit{slider})}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+
+\subsection{Local Functions/Constants}
+
+\noindent Start():
+\begin{itemize}
+	\item transition: \\
+	\textit{slider} $:=$ \textit{data}.getVolumeLevel()\\
+	\textit{textfield\_green} $:=$ \textit{data}.getKeyBinds()[0]\\
+	\textit{textfield\_red} $:=$ \textit{data}.getKeyBinds()[1]\\
+	\textit{textfield\_yellow} $:=$ \textit{data}.getKeyBinds()[2]\\
+	\textit{textfield\_blue} $:=$ \textit{data}.getKeyBinds()[3]\\
+	\textit{textfield\_pink} $:=$ \textit{data}.getKeyBinds()[4]
+	\item exception: None
+\end{itemize}
+
+value: \textit{textfield}$\rightarrow \mathbb{N}$\\
+value $\equiv$ returns the value that the textfields contains\\
+
+\noindent slider\_value: \textit{slider}$\rightarrow \mathbb{N}$\\
+slider\_value $\equiv$ returns the value of a slider
+
+\newpage
+\section{\textcolor{red}{\sout{Leaderboard Calculator}}}
+
+\subsection{\textcolor{red}{\sout{Template Module}}}
+\textcolor{red}{\sout{LeaderboardCalculator inherits UnityEngine.MonoBehaviour}}
+
+\subsection{\textcolor{red}{\sout{Uses}}}
+\textcolor{red}{\sout{System.Collections.Generic}}
+
+\subsection{\textcolor{red}{\sout{Syntax}}}
+\subsubsection{\textcolor{red}{\sout{Exported Constants}}}
+\textcolor{red}{N/A}
+
+\subsubsection{\textcolor{red}{\sout{Exported Types}}}
+\textcolor{red}{\sout{\textit{playerList:} seq of $\langle String, \mathbb{N} \rangle$}}
+
+\subsubsection{\textcolor{red}{\sout{Exported Access Programs}}}
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textcolor{red}{\sout{\textbf{Routine name}}} & \textcolor{red}{\sout{\textbf{In}}} & \textcolor{red}{\sout{\textbf{Out}}} & \textcolor{red}{\sout{\textbf{Exceptions}}}\\
+\hline
+\textcolor{red}{\sout{Sort}} & \textcolor{red}{\sout{seq of $\langle String, \mathbb{N} \rangle$}} & \textcolor{red}{\sout{seq of $\langle String, \mathbb{N} \rangle$}} & \textcolor{red}{\sout{None}}\\
+\hline
+\end{tabular}
+
+\subsection{\textcolor{red}{\sout{Semantics}}}
+\subsubsection{\textcolor{red}{\sout{State Variables}}}
+\textcolor{red}{\sout{\textit{playerList:} seq of $\langle String, \mathbb{N} \rangle$}}
+
+\subsubsection{\textcolor{red}{\sout{Environment Variables}}}
+\textcolor{red}{\sout{N/A}}
+
+\subsubsection{\textcolor{red}{\sout{State Invariant}}}
+\textcolor{red}{\sout{N/A}}
+
+\subsubsection{\textcolor{red}{\sout{Assumptions}}}
+\textcolor{red}{\sout{The scores in playerList are all from the same game track.}}
+
+\subsubsection{\textcolor{red}{\sout{Access Routine Semantics}}}
+\noindent \textcolor{red}{\sout{Sort(vector<pair<string,int>> playerList):}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{transition:}}\\
+	    \textcolor{red}{\sout{Values in playerList are sorted in descending order of their int values.}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+
+\subsection{\textcolor{red}{\sout{Local Functions/Constants}}}
+\textcolor{red}{\sout{None}}
+
+\newpage
+
+\section{\textcolor{red}{\sout{Instructions}}}
+
+\subsection{\textcolor{red}{\sout{Template Module}}}
+\textcolor{red}{\sout{Instructions inherits UnityEngine.MonoBehaviour}}
+
+\subsection{\textcolor{red}{\sout{Uses}}}
+\textcolor{red}{\sout{UnityEngine.Input, UnityEngine.GameObject}}
+
+\subsection{\textcolor{red}{\sout{Syntax}}}
+\subsubsection{\textcolor{red}{\sout{Exported Constants}}}
+\textcolor{red}{\sout{N/A}}
+\subsubsection{\textcolor{red}{\sout{Exported Types}}}
+\textcolor{red}{\sout{N/A}}
+\subsubsection{\textcolor{red}{\sout{Exported Access Programs}}}
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textcolor{red}{\sout{\textbf{Routine name}}} & \textcolor{red}{\sout{\textbf{In}}} & \textcolor{red}{\sout{\textbf{Out}}} & \textcolor{red}{\sout{\textbf{Exceptions}}}\\
+\hline
+\textcolor{red}{\sout{Toggle}}   &     &           &          \\
+\hline
+\end{tabular}
+
+\subsection{\textcolor{red}{\sout{Semantics}}}
+\subsubsection{\textcolor{red}{\sout{State Variables}}}
+\textcolor{red}{\sout{N/A}}
+
+\subsubsection{\textcolor{red}{\sout{Environment Variables}}}
+\textcolor{red}{\sout{\textit{instructionUI:} GameObject showing the instructions}}\\
+\textcolor{red}{\sout{\textit{toggleButton:} Button to toggle the instruction screen}}
+
+\subsubsection{\textcolor{red}{\sout{State Invariant}}}
+\textcolor{red}{\sout{N/A}}
+
+\subsubsection{\textcolor{red}{\sout{Assumptions}}}
+\textcolor{red}{\sout{N/A}}
+
+\subsubsection{\textcolor{red}{\sout{Access Routine Semantics}}}
+\noindent \textcolor{red}{\sout{Toggle():}}
+\begin{itemize}
+	\item \textcolor{red}{\sout{transition:}}\\
+	    \textcolor{red}{\sout{Displays the instruction screen if it is not currently being displayed, otherwise stops displaying it.}}
+	\item \textcolor{red}{\sout{exception: None}}
+\end{itemize}
+
+\subsection{\textcolor{red}{\sout{Local Functions/Constants}}}
+\textcolor{red}{\sout{N/A}}
+
+\end {document}

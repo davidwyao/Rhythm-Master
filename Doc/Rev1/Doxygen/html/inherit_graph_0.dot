@@ -1,0 +1,48 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="MonoBehaviour",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node1 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="ButtonController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classButtonController.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ChangeScene",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classChangeScene.html",tooltip=" "];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="CollisionDetector",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCollisionDetector.html",tooltip=" "];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="CompleteScreen",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCompleteScreen.html",tooltip=" "];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="DetectKey",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classDetectKey.html",tooltip=" "];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="EffectManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classEffectManager.html",tooltip=" "];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Effects",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classEffects.html",tooltip=" "];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="FileIO",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classFileIO.html",tooltip=" "];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="GameManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGameManager.html",tooltip=" "];
+  Node1 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="LoadSettings",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classLoadSettings.html",tooltip=" "];
+  Node1 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="MainMenu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classMainMenu.html",tooltip=" "];
+  Node1 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="MMSettings",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classMMSettings.html",tooltip=" "];
+  Node1 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="NoteObject",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classNoteObject.html",tooltip=" "];
+  Node1 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="NoteScroller",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classNoteScroller.html",tooltip=" "];
+  Node1 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="NoteSpawner",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classNoteSpawner.html",tooltip=" "];
+  Node1 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="PauseMenu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPauseMenu.html",tooltip=" "];
+  Node1 -> Node18 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="PopulateLeaderboard",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPopulateLeaderboard.html",tooltip=" "];
+  Node1 -> Node19 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node19 [label="QuitGame",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classQuitGame.html",tooltip=" "];
+  Node1 -> Node20 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node20 [label="ScoreCalculator",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classScoreCalculator.html",tooltip=" "];
+  Node1 -> Node21 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 [label="SettingsMenu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSettingsMenu.html",tooltip=" "];
+}

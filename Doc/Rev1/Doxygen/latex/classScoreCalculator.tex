@@ -1,0 +1,177 @@
+\hypertarget{classScoreCalculator}{}\doxysection{Score\+Calculator Class Reference}
+\label{classScoreCalculator}\index{ScoreCalculator@{ScoreCalculator}}
+
+
+Inheritance diagram for Score\+Calculator\+:
+% FIG 0
+
+
+Collaboration diagram for Score\+Calculator\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{classScoreCalculator_a4ae8a5cd49e092b468c7adb46df0c3de}{Normal\+Hit}} (int current\+Score, int current\+Multiplier)
+\begin{DoxyCompactList}\small\item\em Called when a normal hit has been made. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classScoreCalculator_ab3c2cf1199765516e603e09af49deca4}{Good\+Hit}} (int current\+Score, int current\+Multiplier)
+\begin{DoxyCompactList}\small\item\em Called when a good hit has been made. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classScoreCalculator_a25030e7007268f77d5fdf99f54a3f451}{Perfect\+Hit}} (int current\+Score, int current\+Multiplier)
+\begin{DoxyCompactList}\small\item\em Called when a perfect hit has been made. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classScoreCalculator_ac192eab56a103635ee46852b4f8e02f4}{Long\+Hit}} (int current\+Score, int current\+Multiplier)
+\begin{DoxyCompactList}\small\item\em Called when a long hit has been made. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classScoreCalculator_a75758f358138afa11190732cd7f1bb14}{Note\+Missed}} ()
+\begin{DoxyCompactList}\small\item\em Called when a note has been missed. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classScoreCalculator_a89bde04d3c1dd753e1a2eb8401773d72}{Accuracy\+Calculation}} (float normal\+Hits, float good\+Hits, float perfect\+Hits, float total\+Notes)
+\begin{DoxyCompactList}\small\item\em Calculates the user\textquotesingle{}s net accuracy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classScoreCalculator_a7c8e4ad308a7304acb45b5a1d2b56c09}\label{classScoreCalculator_a7c8e4ad308a7304acb45b5a1d2b56c09}} 
+int \mbox{\hyperlink{classScoreCalculator_a7c8e4ad308a7304acb45b5a1d2b56c09}{multiplier\+Tracker}}
+\begin{DoxyCompactList}\small\item\em The number of notes going toward the next multiplier. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classScoreCalculator_a6d1fc35b5fdf7600ac20d26e72474f72}\label{classScoreCalculator_a6d1fc35b5fdf7600ac20d26e72474f72}} 
+int\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classScoreCalculator_a6d1fc35b5fdf7600ac20d26e72474f72}{multiplier\+Thresholds}}
+\begin{DoxyCompactList}\small\item\em The number of notes that must be hit for the next multiplier. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classScoreCalculator_a4ee9d4f1a6b2dcdeba4650cfc519d643}\label{classScoreCalculator_a4ee9d4f1a6b2dcdeba4650cfc519d643}} 
+int \mbox{\hyperlink{classScoreCalculator_a4ee9d4f1a6b2dcdeba4650cfc519d643}{score\+Per\+Note}} = 100
+\begin{DoxyCompactList}\small\item\em The score for a normal hit, before multipliers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classScoreCalculator_abe9a16f9e107f848616198c214b146ce}\label{classScoreCalculator_abe9a16f9e107f848616198c214b146ce}} 
+int \mbox{\hyperlink{classScoreCalculator_abe9a16f9e107f848616198c214b146ce}{score\+Per\+Good\+Note}} = 125
+\begin{DoxyCompactList}\small\item\em The score for a good hit, before multipliers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classScoreCalculator_a7f37dd269fcb5fa0062cba6e5520f5e5}\label{classScoreCalculator_a7f37dd269fcb5fa0062cba6e5520f5e5}} 
+int \mbox{\hyperlink{classScoreCalculator_a7f37dd269fcb5fa0062cba6e5520f5e5}{score\+Per\+Perfect\+Note}} = 150
+\begin{DoxyCompactList}\small\item\em The score for a perfect hit, before multipliers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classScoreCalculator_a8cb3f6d3da4b81cbe607ff6f17206522}\label{classScoreCalculator_a8cb3f6d3da4b81cbe607ff6f17206522}} 
+int \mbox{\hyperlink{classScoreCalculator_a8cb3f6d3da4b81cbe607ff6f17206522}{score\+Per\+Long\+Note}} = 200
+\begin{DoxyCompactList}\small\item\em The score for a long hit, before multipliers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classScoreCalculator_a1a8dec2931fe4c4cf04a2aae715bf94d}\label{classScoreCalculator_a1a8dec2931fe4c4cf04a2aae715bf94d}} 
+static \mbox{\hyperlink{classScoreCalculator}{Score\+Calculator}} \mbox{\hyperlink{classScoreCalculator_a1a8dec2931fe4c4cf04a2aae715bf94d}{instance}}
+\begin{DoxyCompactList}\small\item\em The instance of \mbox{\hyperlink{classScoreCalculator}{Score\+Calculator}} to be referenced globally. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classScoreCalculator_a89bde04d3c1dd753e1a2eb8401773d72}\label{classScoreCalculator_a89bde04d3c1dd753e1a2eb8401773d72}} 
+\index{ScoreCalculator@{ScoreCalculator}!AccuracyCalculation@{AccuracyCalculation}}
+\index{AccuracyCalculation@{AccuracyCalculation}!ScoreCalculator@{ScoreCalculator}}
+\doxysubsubsection{\texorpdfstring{AccuracyCalculation()}{AccuracyCalculation()}}
+{\footnotesize\ttfamily float Score\+Calculator.\+Accuracy\+Calculation (\begin{DoxyParamCaption}\item[{float}]{normal\+Hits,  }\item[{float}]{good\+Hits,  }\item[{float}]{perfect\+Hits,  }\item[{float}]{total\+Notes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates the user\textquotesingle{}s net accuracy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em normal\+Hits} & The number of normal hits made. \\
+\hline
+{\em good\+Hits} & The number of good hits made. \\
+\hline
+{\em perfect\+Hits} & The number of perfect hits made. \\
+\hline
+{\em total\+Notes} & The number of notes spawned. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The user\textquotesingle{}s hit accuracy, in percent. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classScoreCalculator_ab3c2cf1199765516e603e09af49deca4}\label{classScoreCalculator_ab3c2cf1199765516e603e09af49deca4}} 
+\index{ScoreCalculator@{ScoreCalculator}!GoodHit@{GoodHit}}
+\index{GoodHit@{GoodHit}!ScoreCalculator@{ScoreCalculator}}
+\doxysubsubsection{\texorpdfstring{GoodHit()}{GoodHit()}}
+{\footnotesize\ttfamily float Score\+Calculator.\+Good\+Hit (\begin{DoxyParamCaption}\item[{int}]{current\+Score,  }\item[{int}]{current\+Multiplier }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Called when a good hit has been made. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Score} & The current gameplay score. \\
+\hline
+{\em current\+Multiplier} & The current gameplay multiplier. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1. Used to increment the number of good hits logged. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classScoreCalculator_ac192eab56a103635ee46852b4f8e02f4}\label{classScoreCalculator_ac192eab56a103635ee46852b4f8e02f4}} 
+\index{ScoreCalculator@{ScoreCalculator}!LongHit@{LongHit}}
+\index{LongHit@{LongHit}!ScoreCalculator@{ScoreCalculator}}
+\doxysubsubsection{\texorpdfstring{LongHit()}{LongHit()}}
+{\footnotesize\ttfamily float Score\+Calculator.\+Long\+Hit (\begin{DoxyParamCaption}\item[{int}]{current\+Score,  }\item[{int}]{current\+Multiplier }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Called when a long hit has been made. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Score} & The current gameplay score. \\
+\hline
+{\em current\+Multiplier} & The current gameplay multiplier. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1. Used to increment the number of long hits logged. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classScoreCalculator_a4ae8a5cd49e092b468c7adb46df0c3de}\label{classScoreCalculator_a4ae8a5cd49e092b468c7adb46df0c3de}} 
+\index{ScoreCalculator@{ScoreCalculator}!NormalHit@{NormalHit}}
+\index{NormalHit@{NormalHit}!ScoreCalculator@{ScoreCalculator}}
+\doxysubsubsection{\texorpdfstring{NormalHit()}{NormalHit()}}
+{\footnotesize\ttfamily float Score\+Calculator.\+Normal\+Hit (\begin{DoxyParamCaption}\item[{int}]{current\+Score,  }\item[{int}]{current\+Multiplier }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Called when a normal hit has been made. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Score} & The current gameplay score. \\
+\hline
+{\em current\+Multiplier} & The current gameplay multiplier. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1. Used to increment the number of normal hits logged. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classScoreCalculator_a75758f358138afa11190732cd7f1bb14}\label{classScoreCalculator_a75758f358138afa11190732cd7f1bb14}} 
+\index{ScoreCalculator@{ScoreCalculator}!NoteMissed@{NoteMissed}}
+\index{NoteMissed@{NoteMissed}!ScoreCalculator@{ScoreCalculator}}
+\doxysubsubsection{\texorpdfstring{NoteMissed()}{NoteMissed()}}
+{\footnotesize\ttfamily float Score\+Calculator.\+Note\+Missed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Called when a note has been missed. 
+
+\begin{DoxyReturn}{Returns}
+1. Used to increment the number of misses logged. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classScoreCalculator_a25030e7007268f77d5fdf99f54a3f451}\label{classScoreCalculator_a25030e7007268f77d5fdf99f54a3f451}} 
+\index{ScoreCalculator@{ScoreCalculator}!PerfectHit@{PerfectHit}}
+\index{PerfectHit@{PerfectHit}!ScoreCalculator@{ScoreCalculator}}
+\doxysubsubsection{\texorpdfstring{PerfectHit()}{PerfectHit()}}
+{\footnotesize\ttfamily float Score\+Calculator.\+Perfect\+Hit (\begin{DoxyParamCaption}\item[{int}]{current\+Score,  }\item[{int}]{current\+Multiplier }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Called when a perfect hit has been made. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Score} & The current gameplay score. \\
+\hline
+{\em current\+Multiplier} & The current gameplay multiplier. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1. Used to increment the number of perfect hits logged. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/mnt/c/users/david/documents/everything/school/3xa3/3xa3\+\_\+\+\_\+l01\+\_\+gr16\+\_\+project/src/\+Assets/\+Scripts/Score\+Calculator.\+cs\end{DoxyCompactItemize}

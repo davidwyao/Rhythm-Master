@@ -1,0 +1,585 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{fullpage}
+\usepackage[round]{natbib}
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{lscape}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{indentfirst}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+\usepackage[round]{natbib}
+
+\usepackage{xifthen}
+\def\namedlabel#1#2{\begingroup
+    #2%
+    \def\@currentlabel{#2}%
+    \phantomsection\label{#1}\endgroup
+}
+\newcommand{\newterm}[1]{\label{Term:#1} \MakeUppercase #1}
+\newcommand{\term}[2][]{\ifthenelse{\equal{#1}{}}{\hyperref[Term:#2]{\textbf{#2}}}{\hyperref[Term:#1]{\textbf{#2}}}}
+
+\newcounter{acnum}
+\newcommand{\actheacnum}{AC\theacnum}
+\newcommand{\acref}[1]{AC\ref{#1}}
+
+\newcounter{ucnum}
+\newcommand{\uctheucnum}{UC\theucnum}
+\newcommand{\uref}[1]{UC\ref{#1}}
+
+\newcounter{mnum}
+\newcommand{\mthemnum}{M\themnum}
+\newcommand{\mref}[1]{M\ref{#1}}
+
+\title{SE 3XA3: Software Requirements Specification\\Rhythm Master}
+
+\author{Team \#16, Rhythm Masters
+		\\ Almen Ng, nga18
+        \\ David Yao, yaod9
+        \\ Veerash Palanichamy, palanicv
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+\listoftables
+\listoffigures
+
+\newpage
+\begin{table}[H]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+March 1, 2021 & 1.0 & Initial Document\\
+March 8, 2021 & 1.1 & Added anticipated changes\\
+March 13, 2021 & 1.2 & Added the introduction, scope and purpose\\
+March 17, 2021 & 1.2 & Finished module decomposition and hierarchy\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Introduction}
+Rhythm Master is modeled after the the original \term[Game]{video game}, \term{Frets on Fire}. The goal of the project is to recreate the main features of the original \term[Game]{game} by following the software development process midst providing proper detailed documentation. Additionally, we will be programming the \term[Game]{game} in a modern language, C\#, improving on the outdated graphics, as well as providing meaningful test cases using Unity Test Framework.
+
+\subsection{Purpose}
+The purpose of this document is to outline the modular structure of the system that was found using decomposition based on the principle of information hiding and to allow new project members, maintainers, and designers to easily identify parts within the software ~\citep{Parnas1972a}. This document also supports the idea of high coupling and low cohesion among the modules as it helps outline how the modules are broken up to reduce module complexity which in turn increases readability and maintainability.
+
+\subsection{Scope}
+The Module Guide outlines the modules which are based off the requirements specified in the \href{https://gitlab.cas.mcmaster.ca/palanicv/3xa3__l01_gr16_project/-/blob/master/Doc/SRS/SRS.pdf}{\textbf{Software Requirements Specification}}. In addition, the external behavior of the modules outlined in this document will be specified in the \href{https://gitlab.cas.mcmaster.ca/palanicv/3xa3__l01_gr16_project/-/blob/master/Doc/Design/MIS/MIS.pdf}{\textbf{Module Interface Specification}}. Anticipated and unlikely  changes are documented, which are represented by "secrets" as a result of using the principle of information hiding. Finally, a use hierarchy including all the modules specified in the document would be made to outline the use relation between modules.
+
+\subsection{Acronyms, Abbreviations, and Symbols}
+
+\begin{table}[hbp]
+\caption{\textbf{Table of Abbreviations}} \label{abbrev}
+
+\begin{tabularx}{\textwidth}{p{3cm}X}
+\toprule
+\textbf{Abbreviation} & \textbf{Definition} \\
+\midrule
+\newterm{FPS} & Frames per second\\
+\hline
+\newterm{GUI} & \term{Graphical User Interface}\\
+\hline
+\newterm{PC} & Personal computer\\
+\hline
+\newterm{SRS} & \term{Software Requirements Specification}\\
+\hline
+\newterm{UTF} & \term{Unity Test Framework}\\
+\bottomrule
+\end{tabularx}
+
+\end{table}
+
+\begin{table}[H]
+\caption{\textbf{Table of Definitions}} \label{def}
+
+\begin{tabularx}{\textwidth}{p{3cm}X}
+\toprule
+\textbf{Term} & \textbf{Definition}\\
+\midrule
+    \newterm{C Sharp}[C\#] & The programming language used in this project.\\
+    \hline
+    \newterm{Fret Board} & A vertical musical staff upon which \term[Note]{notes} will be displayed.\\
+    \hline
+    \newterm{Frets on Fire} & An open source \term{Guitar Hero} clone.\\
+    \hline
+    \newterm{Game}/\newterm{Project}/\newterm{Rhythm Master} & The game that will be made by Group 16.\\
+    \hline
+    \newterm{Game track} & The game track is where the gameplay happens. It consists of  music track where the user interacts to score points.\\
+    \hline
+    \newterm{Graphical User Interface} & A visual representation of the program allowing user interaction\\
+    \hline
+    \newterm{Guitar Hero} & A rhythm game where users simulate playing a guitar to a music track of their choice.\\
+    \hline
+    \newterm{Note} & An indicator for a button for the \term[Player]{player} to press.\\
+    \hline
+    \newterm{Pause menu} & The menu the user can open during a \term[Game track]{game track}\\
+    \hline
+    \newterm{Player}/\newterm{User} & The individual playing the \term[Game]{game}.\\
+    \hline
+    \newterm{Python} & The programming language used in \term{Frets on Fire}.\\
+    \hline
+    \newterm{Score} & A numerical value quantifying the \term[Player]{player's} performance in their last game.\\
+    \hline
+    \newterm{Software Requirements Specification} & A document that describes what the \term[System]{system} will do and the expected performance\\
+    \hline
+    \newterm{System} & The software of the \term[Game]{game}\\
+    \hline
+    \newterm{Tester} & An individual testing the game either via playing the game or inspecting the code.\\
+    \hline
+    \newterm{Unity Test Framework} & Automated software testing provided by the Unity game engine\\
+    \hline
+    \newterm{Typeform} & Website that builds surveys online surveys\\
+\bottomrule
+\end{tabularx}
+\end{table}	
+
+\newpage
+\subsection{Overview of Document}
+The rest of the document is organized as follows. 
+
+\begin{itemize}
+    \item Section \ref{SecChange} lists the anticipated and unlikely changes of the software requirements. 
+    \item Section \ref{SecMH} summarizes the module decomposition that was constructed according to the likely changes. 
+    \item Section \ref{SecConnection} specifies the connections between the software requirements and the modules. \item Section \ref{SecMD} gives a detailed description of the modules. 
+    \item Section \ref{SecTM} includes two traceability matrices. One checks the completeness of the design against the requirements provided in the SRS. The other shows the relation between anticipated changes and the modules. 
+    \item Section \ref{SecUse} describes the use relation between modules. 
+\end{itemize}
+
+\section{Anticipated and Unlikely Changes} \label{SecChange}
+This section lists possible changes to the system. According to the likeliness
+of the change, the possible changes are classified into two
+categories. Anticipated changes are listed in Section \ref{SecAchange}, and
+unlikely changes are listed in Section \ref{SecUchange}.
+
+\begin{comment}
+Decomposing a system into modules is a commonly accepted approach to developing
+software.  A module is a work assignment for a programmer or programming
+team~\citep{ParnasEtAl1984}.  We advocate a decomposition
+based on the principle of information hiding~\citep{Parnas1972a}.  This
+principle supports design for change, because the ``secrets'' that each module
+hides represent likely future changes.  Design for change is valuable in SC,
+where modifications are frequent, especially during initial development as the
+solution space is explored.  
+Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
+\begin{itemize}
+\item System details that are likely to change independently should be the
+  secrets of separate modules.
+\item Each data structure is used in only one module.
+\item Any other program that requires information stored in a module's data
+  structures must obtain it by calling access programs belonging to that module.
+\end{itemize}
+After completing the first stage of the design, the Software Requirements
+Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
+specifies the modular structure of the system and is intended to allow both
+designers and maintainers to easily identify the parts of the software.  The
+potential readers of this document are as follows:
+\begin{itemize}
+\item New project members: This document can be a guide for a new project member
+  to easily understand the overall structure and quickly find the
+  relevant modules they are searching for.
+\item Maintainers: The hierarchical structure of the module guide improves the
+  maintainers' understanding when they need to make changes to the system. It is
+  important for a maintainer to update the relevant sections of the document
+  after changes have been made.
+\item Designers: Once the module guide has been written, it can be used to
+  check for consistency, feasibility and flexibility. Designers can verify the
+  system in various ways, such as consistency among modules, feasibility of the
+  decomposition, and flexibility of the design.
+\end{itemize}
+The rest of the document is organized as follows. Section
+\ref{SecChange} lists the anticipated and unlikely changes of the software
+requirements. Section \ref{SecMH} summarizes the module decomposition that
+was constructed according to the likely changes. Section \ref{SecConnection}
+specifies the connections between the software requirements and the
+modules. Section \ref{SecMD} gives a detailed description of the
+modules. Section \ref{SecTM} includes two traceability matrices. One checks
+the completeness of the design against the requirements provided in the SRS. The
+other shows the relation between anticipated changes and the modules. Section
+\ref{SecUse} describes the use relation between modules.
+\section{Anticipated and Unlikely Changes} \label{SecChange}
+This section lists possible changes to the system. According to the likeliness
+of the change, the possible changes are classified into two
+categories. Anticipated changes are listed in Section \ref{SecAchange}, and
+unlikely changes are listed in Section \ref{SecUchange}.
+\end{comment}
+
+\subsection{Anticipated Changes} \label{SecAchange}
+
+Anticipated changes are the source of the information that is to be hidden
+inside the modules. Ideally, changing one of the anticipated changes will only
+require changing the one module that hides the associated decision. The approach
+adapted here is called design for
+change.
+
+\begin{description}
+\item[\refstepcounter{acnum} \actheacnum \label{ac1}:] The key binds for the keys the user will use to interact in the game.
+\item[\refstepcounter{acnum} \actheacnum \label{ac2}:] The algorithm that determines when new notes should be spawned in the game.
+\item[\refstepcounter{acnum} \actheacnum \label{ac3}:] The visual effect when buttons are pressed
+\item[\refstepcounter{acnum} \actheacnum \label{ac4}:] The instructions to the game
+\item[\refstepcounter{acnum} \actheacnum \label{ac5}:] How user score data is saved locally
+\item[\refstepcounter{acnum} \actheacnum \label{ac6}:] How scoring works during gameplay
+\item[\refstepcounter{acnum} \actheacnum \label{ac7}:] The settings for the game
+\item[\refstepcounter{acnum} \actheacnum \label{ac8}:] The visual effect when notes are scored
+\item[\refstepcounter{acnum} \actheacnum \label{ac9}:] The algorithm for calculating leaderboard data
+
+\end{description}
+
+\subsection{Unlikely Changes} \label{SecUchange}
+
+The module design should be as general as possible. However, a general system is
+more complex. Sometimes this complexity is not necessary. Fixing some design
+decisions at the system architecture stage can simplify the software design. If
+these decision should later need to be changed, then many parts of the design
+will potentially need to be modified. Hence, it is not intended that these
+decisions will be changed.
+
+\begin{description}
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices: The game is not intended to support alternative input devices such as gaming controllers
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] Architecture of the system because that is heavily dependent on Unity
+\item[\refstepcounter{ucnum} \uctheucnum \label{uc3}:] There will always be a source of input data external to the software.
+\item[\refstepcounter{ucnum} \uctheucnum \label{uc4}:] The graphical components of the game will always be made using Unity models.
+\end{description}
+
+\newpage
+\section{Module Hierarchy} \label{SecMH}
+
+This section provides an overview of the module design. Modules are summarized
+in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
+below, which are leaves in the hierarchy tree, are the modules that will
+actually be implemented.
+
+\begin{description}
+\item [\refstepcounter{mnum} \mthemnum \label{m1}:] Button Handler
+\item [\refstepcounter{mnum} \mthemnum \label{m2}:] Settings Data
+\item [\refstepcounter{mnum} \mthemnum \label{m3}:] Save File Handler
+\item [\refstepcounter{mnum} \mthemnum \label{m4}:] Settings Menu
+\item [\refstepcounter{mnum} \mthemnum \label{m5}:] Leaderboard
+
+\item [\refstepcounter{mnum} \mthemnum \label{m6}:] Game Manager
+\item [\refstepcounter{mnum} \mthemnum \label{m7}:] Effects
+\item [\refstepcounter{mnum} \mthemnum \label{m8}:] Leaderboard Calculator
+\item [\refstepcounter{mnum} \mthemnum \label{m9}:] Instructions
+\item [\refstepcounter{mnum} \mthemnum \label{m10}:] Note Spawner
+
+\item [\refstepcounter{mnum} \mthemnum \label{m11}:] Pause Menu
+\item [\refstepcounter{mnum} \mthemnum \label{m12}:] Main Menu
+\item [\refstepcounter{mnum} \mthemnum \label{m13}:] Collision Detector
+\item [\refstepcounter{mnum} \mthemnum \label{m14}:] Note Scroller
+\item [\refstepcounter{mnum} \mthemnum \label{m15}:] Score Calculator
+\end{description}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Level 1} & \textbf{Level 2}\\
+\midrule
+
+{Hardware-Hiding Module} & ~ \\
+& ~ \\
+\midrule
+
+{Behaviour-Hiding Module} & Button Handler\\
+& Note Scroller \\
+& Main Menu \\
+& Pause Menu \\
+& Leaderboard \\
+& Instructions \\ 
+& Settings Menu \\
+& Effects \\
+& Save File Handler\\
+\midrule
+
+{Software Decision Module} & Note Spawner\\
+& Collision Detector\\
+& Score Calculator\\
+& Leaderboard Calculator\\
+& Game Manager\\
+& Settings Data\\
+\bottomrule
+
+\end{tabular}
+\caption{Module Hierarchy}
+\label{TblMH}
+\end{table}
+
+\section{Connection Between Requirements and Design} \label{SecConnection}
+
+The system encompassing \term{Rhythm Master} is designed to satisfy all of the functional and non-functional requirements that were laid out in the \term{SRS}. To ensure this, the system is decomposed into modules, each with clear connections to different sets of requirements. The connections between requirements and modules are shown via traceability matrices in Table \ref{TblRT}.
+
+Modules are decomposed such that every requirement can be traced to at least one module. Modular decomposition helps to conceptualize these links because it breaks the system down into parts which are easier to understand. The responsibilities of a single module can generally be understood from the module name.
+
+\section{Module Decomposition} \label{SecMD}
+
+Modular decomposition is done in line with the principle of ``information hiding''
+laid out by \citet{ParnasEtAl1984}. Each module is specified with a \emph{Secret}, a \emph{Service}, and an \emph{Implemented By} field. The secret is a noun describing the design decision hidden by the module. The service describes the module's function without describing how it achieves it. Finally, the \emph{Implemented By} field describes what software is used to implement the module.
+
+\subsection{Hardware Hiding Modules}
+N/A
+% \begin{description}
+% \item[Secrets:]The data structure and algorithm used to implement the virtual
+%   hardware.
+% \item[Services:]Serves as a virtual hardware used by the rest of the
+%   system. This module provides the interface between the hardware and the
+%   software. So, the system can use it to display outputs or to accept inputs.
+% \item[Implemented By:] OS
+% \end{description}
+
+\subsection{Behaviour-Hiding Module}
+
+% \begin{description}
+% \item[Secrets:]The contents of the required behaviours.
+% \item[Services:]Includes programs that provide externally visible behaviour of
+%   the system as specified in the software requirements specification (SRS)
+%   documents. This module serves as a communication layer between the
+%   hardware-hiding module and the software decision module. The programs in this
+%   module will need to change if there are changes in the SRS.
+% \item[Implemented By:] --
+% \end{description}
+
+\subsubsection{Button Handler (\mref{m1})}
+
+\begin{description}
+\item[Secrets:]Actions that will be done when the gameplay buttons are pressed
+\item[Services:]When the the gameplay buttons are pressed, the buttons should display a visual effect and move.
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Settings Data (\mref{m2})}
+
+\begin{description}
+\item[Secrets:]Data that can be modified in the settings menu
+\item[Services:]This module will save and hold the data such as volume level and key binds when the user changes the settings
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Save File Handler (\mref{m3})}
+
+\begin{description}
+\item[Secrets:]Name, format and structure of the data file
+\item[Services:]Reads and writes game data stored in data structures via a local file.
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Settings Menu (\mref{m4})}
+
+\begin{description}
+\item[Secrets:]The method to visualize the settings menu
+\item[Services:]Visualizes the settings menu with interactive GUI and text.
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Leaderboard (\mref{m5})}
+
+\begin{description}
+\item[Secrets:]The method to visualize the leaderboard menu
+\item[Services:]Visualizes the leaderboard with a list of player scores with interactive GUI and text.
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Effects (\mref{m7})}
+
+\begin{description}
+\item[Secrets:]The user's inputs.
+\item[Services:]Displays feedback to the user's input regarding timing, point combos, and note types.
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Instructions (\mref{m9})}
+
+\begin{description}
+\item[Secrets:] The method to visualize the instructions menu
+\item[Services:] Displays the game instructions to the user.
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Pause Menu (\mref{m11})}
+
+\begin{description}
+\item[Secrets:] The interface of the game the player interacts with once the game is paused
+\item[Services:] Displays an overlay representing the pause menu, provides clickable buttons that resumes the game and navigate to the main menu.
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Main Menu (\mref{m12})}
+
+\begin{description}
+\item[Secrets:] The interface of the game the player interacts with once the game is launched
+\item[Services:] Displays the main menu, provides clickable buttons that starts the game, and navigate to the Settings Menu and Leaderboard
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Note Scroller (\mref{m14})}
+
+\begin{description}
+\item[Secrets:] Manager of displaying and scrolling notes 
+\item[Services:] Displays and removes the notes on the screen and advancing notes at a certain tempo.
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsection{Software Decision Module}
+
+% \begin{description}
+% \item[Secrets:] The design decision based on mathematical theorems, physical
+%   facts, or programming considerations. The secrets of this module are
+%   \emph{not} described in the SRS.
+% \item[Services:] Includes data structure and algorithms used in the system that
+%   do not provide direct interaction with the user. 
+%   % Changes in these modules are more likely to be motivated by a desire to
+%   % improve performance than by externally imposed changes.
+% \item[Implemented By:] --
+% \end{description}
+
+\subsubsection{Game Manager(\mref{m6})}
+
+\begin{description}
+\item[Secrets:]The method calls to initialize modules
+\item[Services:] Overarching controller, initializes all other controllers. Initiates music upon gameplay start.
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Leaderboard Calculator(\mref{m8})}
+
+\begin{description}
+\item[Secrets:]The sorting algorithm to order scores from most to least
+\item[Services:]
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Note Spawner (\mref{m10})}
+
+\begin{description} 
+\item[Secrets:] Algorithm used for timing and placement of spawned notes
+\item[Services:] Calls the note scroller to spawn a note to the \term[Game track]{game track}
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\subsubsection{Collision Detector (\mref{m13})}
+
+\begin{description} 
+\item[Secrets:] Detector of collision and overlap of two objects
+\item[Services:] Provides methods and functions to determine if a collision has occured 
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+
+\subsubsection{Score Calculator (\mref{m15})}
+
+\begin{description}
+\item[Secrets:] Calculator of scores the user has earned 
+\item[Services:] Provides methods and functions to determine the calculation of scores
+\item[Implemented By:] Rhythm Master
+\end{description}
+
+\newpage
+\section{Traceability Matrix} \label{SecTM}
+
+This section shows two traceability matrices: between the modules and the
+requirements and between the modules and the anticipated changes.
+
+% \begin{comment}
+% the table should use mref, the requirements should be named, use something
+% like fref
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Req.} & \textbf{Modules}\\
+\midrule
+FR1 & \mref{m6}\\
+FR2 & \mref{m6}, \mref{m15}\\
+FR3 & \mref{m10}, \mref{m6}\\
+FR4 & \mref{m1}\\
+FR5 & \mref{m6}, \mref{m15}\\
+FR6 & \mref{m6}\\
+FR7 & \mref{m6}, \mref{m3}\\
+FR8 & \mref{m6}\\
+FR9 & \mref{m6}\\
+FR10 & \mref{m9}\\
+FR11 & \mref{m9}\\
+FR12 & \mref{m11}\\
+FR13 & \mref{m11}, \mref{m12}, \mref{m4}\\
+FR14 & \mref{m11}\\
+FR15 & \mref{m4}, \mref{m2}\\
+FR16 & \mref{m4}\\
+FR17 & \mref{m4}, \mref{m2}\\
+FR18 & \mref{m4}\\
+FR19 & \mref{m5}\\
+FR20 & \mref{m8}\\
+FR21 & \mref{m5}\\
+\bottomrule
+\end{tabular}
+\caption{Trace Between Requirements and Modules}
+\label{TblRT}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{AC} & \textbf{Modules}\\
+\midrule
+\acref{ac1} & \mref{m2}\\
+\acref{ac2} & \mref{m10}\\
+\acref{ac3} & \mref{m1}\\
+\acref{ac4} & \mref{m9}\\
+\acref{ac5} & \mref{m3}\\
+\acref{ac6} & \mref{m15}\\
+\acref{ac7} & \mref{m4}\\
+\acref{ac8} & \mref{m7}\\
+\acref{ac9} & \mref{m8}\\
+\bottomrule
+\end{tabular}
+\caption{Trace Between Anticipated Changes and Modules}
+\label{TblACT}
+\end{table}
+% \end{comment}
+\section{Use Hierarchy Between Modules} \label{SecUse}
+
+In this section, the uses hierarchy between modules is
+provided. \citet{Parnas1978} said of two programs A and B that A {\em uses} B if
+correct execution of B may be necessary for A to complete the task described in
+its specification. That is, A {\em uses} B if there exist situations in which
+the correct functioning of A depends upon the availability of a correct
+implementation of B.  Figure \ref{FigUH} illustrates the use relation between
+the modules. It can be seen that the graph is a directed acyclic graph
+(DAG). Each level of the hierarchy offers a testable and usable subset of the
+system, and modules in the higher level of the hierarchy are essentially simpler
+because they use modules from the lower levels.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.46]{3xUse.png}
+\caption{Use hierarchy among modules}
+\label{FigUH}
+\end{figure}
+
+%\section*{References}
+
+\bibliographystyle {plainnat}
+\bibliography {MG}
+
+\end{document}

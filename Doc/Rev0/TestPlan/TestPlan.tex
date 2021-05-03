@@ -1,0 +1,882 @@
+\documentclass[12pt, titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage[titletoc,title]{appendix}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{lscape}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{indentfirst}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\usepackage[round]{natbib}
+\usepackage{xifthen}
+\def\namedlabel#1#2{\begingroup
+    #2%
+    \def\@currentlabel{#2}%
+    \phantomsection\label{#1}\endgroup
+}
+\newcommand{\newterm}[1]{\label{Term:#1} \MakeUppercase #1}
+\newcommand{\term}[2][]{\ifthenelse{\equal{#1}{}}{\hyperref[Term:#2]{\textbf{#2}}}{\hyperref[Term:#1]{\textbf{#2}}}}
+
+\title{3XA3 Test Plan\\ Rhythm Master} 
+\author{Team \#16, Rhythm Masters
+    \\ Almen Ng, nga18
+    \\ David Yao, yaod9
+    \\ Veerash Palanichamy, palanicv}
+
+\date{March 5, 2021}
+
+\begin{document}
+
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+\listoftables
+\listoffigures
+
+\newpage
+
+\begin{table}[H]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+February 25, 2021 & 1.0 & Initial Document\\
+February 27, 2021 & 1.1 & Finished the General Information Section\\
+March 1, 2021 & 1.2 & Finished the Test Plan Section\\
+March 2, 2021 & 1.3 & Finished Functional Requirements System Test Descriptions\\
+March 3, 2021 & 1.4 & Finished Non-Functional Requirements System Test Descriptions\\
+March 4, 2021 & 1.5 & Finished Proof of Concept, Comparison, and Unit Testing Plan\\
+March 5, 2021 & 1.6 & Final Draft\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\pagenumbering{arabic}
+
+This document details the plan for the software testing of the \term{Rhythm Master} program.
+
+\section{General Information}
+
+\subsection{Purpose}
+This test plan describes in specific terms the testing procedures that will be used to ascertain proper functioning of the \term{Rhythm Master} video game, as specified through its functional and non-functional requirements. The test cases within are to be used as a reference once the software is implemented and ready to use. The test structure documented here is used to minimize the possibility that a user will encounter an error during their gameplay.
+
+\subsection{Scope}
+The tests detailed in the plan encompass all functional and non-functional requirements set out in the \href{https://gitlab.cas.mcmaster.ca/palanicv/3xa3__l01_gr16_project/-/blob/master/Doc/SRS/SRS.pdf}{\textbf{Software Requirements Specification}}. In addition, the testing procedure for the proof of concept demonstration is highlighted. Finally, there is a discussion on unit tests of internal functions. The tests outlined in this document will be conducted and the document will be revised as the development of the project progresses.
+
+\subsection{Acronyms, Abbreviations, and Symbols}
+
+\begin{table}[hbp]
+\caption{\textbf{Table of Abbreviations}} \label{abbrev}
+
+\begin{tabularx}{\textwidth}{p{3cm}X}
+\toprule
+\textbf{Abbreviation} & \textbf{Definition} \\
+\midrule
+\newterm{FPS} & Frames per second\\
+\hline
+\newterm{GUI} & \term{Graphical User Interface}\\
+\hline
+\newterm{PC} & Personal computer\\
+\hline
+\newterm{SRS} & \term{Software Requirements Specification}\\
+\hline
+\newterm{UTF} & \term{Unity Test Framework}\\
+\bottomrule
+\end{tabularx}
+
+\end{table}
+
+\begin{table}[H]
+\caption{\textbf{Table of Definitions}} \label{def}
+
+\begin{tabularx}{\textwidth}{p{3cm}X}
+\toprule
+\textbf{Term} & \textbf{Definition}\\
+\midrule
+    \newterm{C Sharp}[C\#] & The programming language used in this project.\\
+    \hline
+    \newterm{Fret Board} & A vertical musical staff upon which \term[Note]{notes} will be displayed.\\
+    \hline
+    \newterm{Frets on Fire} & An open source \term{Guitar Hero} clone.\\
+    \hline
+    \newterm{Game}/\newterm{Project}/\newterm{Rhythm Master} & The game that will be made by Group 16.\\
+    \hline
+    \newterm{Game track} & The game track is where the gameplay happens. It consists of  music track where the user interacts to score points.\\
+    \hline
+    \newterm{Graphical User Interface} & A visual representation of the program allowing user interaction\\
+    \hline
+    \newterm{Guitar Hero} & A rhythm game where users simulate playing a guitar to a music track of their choice.\\
+    \hline
+    \newterm{Note} & An indicator for a button for the \term[Player]{player} to press.\\
+    \hline
+    \newterm{Pause menu} & The menu the user can open during a \term[Game track]{game track}\\
+    \hline
+    \newterm{Player}/\newterm{User} & The individual playing the \term[Game]{game}.\\
+    \hline
+    \newterm{Python} & The programming language used in \term{Frets on Fire}.\\
+    \hline
+    \newterm{Score} & A numerical value quantifying the \term[Player]{player's} performance in their last game.\\
+    \hline
+    \newterm{Software Requirements Specification} & A document that describes what the \term[System]{system} will do and the expected performance\\
+    \hline
+    \newterm{System} & The software of the \term[Game]{game}\\
+    \hline
+    \newterm{Tester} & An individual testing the game either via playing the game or inspecting the code.\\
+    \hline
+    \newterm{Unity Test Framework} & Automated software testing provided by the Unity game engine\\
+    \hline
+    \newterm{Typeform} & Website that builds surveys online surveys\\
+\bottomrule
+\end{tabularx}
+
+\end{table}	
+
+\subsection{Overview of Document}
+The test plan document will summarize the software, the team testing it, and the automated tools that will be used to run tests. It will then explicitly describe every test relating to an \term{SRS} requirement, as well as tests for the proof of concept demonstrations. Unit tests will also be described, as well as a comparison to the original implementation, \term{Frets on Fire}.
+
+\section{Plan}
+	
+\subsection{Software Description}
+\term{Rhythm Master} is the re-implementation of Frets on Fire, an open source Python rhythm game that simulates playing an electric guitar with gameplay strongly resembling that of \term{Guitar Hero}. Rhythm  Master has been built using the Unity 3D engine and \term[C Sharp]{C\#}.
+
+\subsection{Test Team}
+The core test team consists of all members of Group-16 are responsible for writing and executing tests:
+\begin{enumerate}
+    \item David Yao
+    \item Veerash Palanichamy
+    \item Almen Ng
+\end{enumerate}
+In addition, once the product is in the final stages of development, volunteers would also be recruited to provide feedback on the product.
+
+\subsection{Automated Testing Approach}
+
+Automated testing will only be a minimal part of our testing plan due to the fact that the software being tested is a game which is \term{GUI} based. The testing of the software requires user inputs and exploration of various scenarios in the game. However, unit tests that test each game component's functionality will be automated using \term{Unity Test Framework}(\term{UTF}),  
+
+\subsection{Testing Tools}
+
+One of the main unit testing tool being used is \term{Unity Test Framework}(\term{UTF}). This is a framework provided by Unity which is also the game engine \term{Rhythm Master}'s is developed in. \term{UTF} is based of NUnit library, which is an open-source unit testing library for .Net languages. \term{UTF} allows automated testing for both unit testing and integration testing. \term{Typeform} would also be used to obtain feedback from volunteer \term[Tester]{testers}.
+
+
+\subsection{Testing Schedule}
+		
+The testing schedule is laid out via the \href{https://gitlab.cas.mcmaster.ca/palanicv/3xa3__l01_gr16_project/-/blob/master/ProjectSchedule/Group16Gantt.pdf}{\textbf{Gantt chart}}.
+
+\newpage
+
+\section{System Test Description}
+	
+\subsection{Tests for Functional Requirements}
+
+\subsubsection{Gameplay Testing}
+
+\begin{enumerate}
+
+
+\item{FR-GP-1\\}
+
+Type: Functional, Manual
+					
+Initial State: Empty screen within the \term{Game track}
+					
+Input: An event of starting a new \term{Game track}
+					
+Output: A blank fret board
+					
+How test will be performed: A \term[Tester]{tester} will start a new round and check whether it starts with an empty fret board
+
+\item{FR-GP-2\\}
+
+Type: Functional, Automated
+					
+Initial State: Initialization of the \term{Game track}
+					
+Input: An event of starting a new \term{Game track}
+					
+Output: \term{Score} should be set to $\hyperlink{initial_score}{INITIAL\_SCORE}$
+					
+How test will be performed: An automated test script will initialize a \term{Game track} and check whether the \term{Score} is $\hyperlink{initial_score}{INITIAL\_SCORE}$.
+
+\item{FR-GP-3\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: \term{Game track} should have been initialized
+					
+Input: \term{Game track} has been initialized
+					
+Output: \term[Note]{Notes} should be displayed
+					
+How test will be performed: A \term[Tester]{tester} will check whether \term[Note]{notes} are spawning when they start a new \term{Game track}.
+
+\item{FR-GP-4\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: \term{Game track} should have been initialized
+					
+Input: \term[Note]{Notes} are in a state to be played
+					
+Output: \term[Note]{Notes} are played
+					
+How test will be performed: A \term[Tester]{tester} will check whether \term[Note]{notes} can be played using their keyboard.
+
+\item{FR-GP-5\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: \term{Game track} should have been initialized
+					
+Input: \term[Note]{Notes} are played accurately
+					
+Output: \term{Tester} is awarded points
+					
+How test will be performed: A tester can check whether their score goes up once they played a note accurately. 
+
+\item{FR-GP-6\\}
+
+Type: Functional, Manual
+					
+Initial State: \term{Game track} should have been initialized
+					
+Input: Initialization and changes to \term[Score]{score}
+					
+Output: \term[Score]{score} should be displayed
+					
+How test will be performed: A \term[Tester]{tester} can check whether a score is being displayed on the screen
+
+\item{FR-GP-7\\}
+
+Type: Functional, Manual
+					
+Initial State: \term{Game track} should have been completed
+					
+Input: \term[Tester]{Tester} chooses the option to save their score with a username
+					
+Output: \term[Score]{score} should be saved locally with the given username
+					
+How test will be performed: A tester can complete the \term{Game track} and choose the option to save their score with a username. They can then check if the score is saved by viewing the leaderboard and confirming that score exists.
+
+\item{FR-GP-8\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: \term{Game track} should have been initialized
+					
+Input: \term{Tester} presses an invalid key
+					
+Output: \term{Tester} is not awarded points
+					
+How test will be performed: A tester can check whether their score remains the same once they pressed an invalid key. 
+
+
+\item{FR-GP-9\\}
+
+Type: Functional, Manual
+					
+Initial State: \term{Game track} should have been completed
+					
+Input: \term[Tester]{Tester} chooses the option to save their score with a username and enters empty username
+					
+Output: The \newterm{Game} should provide a warning, and prompt their username again
+					
+How test will be performed: A tester can complete the \term{Game track} and choose the option to save their score with a empty username.
+
+\end{enumerate}
+
+\subsubsection{User Interface Testing}
+\begin{enumerate}
+\item{FR-UI-1\\}
+
+Type: Functional, Manual
+					
+Initial State: \term{Game track} should have been completed
+					
+Input: \term[Tester]{Tester} chooses the option to redo the \term{Game track}
+					
+Output: \term{Game track} should be reinitialized
+					
+How test will be performed: A tester can complete the \term{Game track} and choose the option to redo the \term{Game track}. They should be able to play the \term{Game track} again.
+
+\item{FR-UI-2\\}
+
+Type: Functional, Manual
+					
+Initial State: \term{Game track} should have been completed
+					
+Input: \term[Tester]{Tester} chooses the option to go back to the main menu.
+					
+Output: The game should display the main menu
+					
+How test will be performed: A tester can complete the \term{Game track} and choose the option to go to the main menu. They should be shown the main menu once they choose that option.
+
+\item{FR-UI-3\\}
+
+Type: Functional, Manual
+					
+Initial State: The \term[Tester]{tester} is viewing the main menu
+					
+Input: Tester chooses the option to view instructions
+					
+Output: The game should display instructions for the gameplay
+					
+How test will be performed: A tester can choose the option to view the instruction from the main menu and check whether instructions are shown.
+
+\item{FR-UI-4\\}
+
+Type: Functional, Manual
+					
+Initial State: The \term[Tester]{tester} is viewing the instructions
+					
+Input: Tester chooses the option to return to the main menu
+					
+Output: The game should display the main menu
+					
+How test will be performed: A tester can choose the option to go to the main menu and check whether they are shown the main menu.
+
+\item{FR-UI-5\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: The \term[Tester]{tester} is playing a \term[Game track]{game track}
+					
+Input: Tester opens the pause menu
+					
+Output: The game should pause the game
+					
+How test will be performed: A tester can open the pause menu while playing and check whether the game has been paused.
+
+\item{FR-UI-6\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: The \term[Tester]{tester} is playing a \term[Game track]{game track}
+					
+Input: Tester opens the pause menu
+					
+Output: The game should show the tester the options to opening the settings menu, going back to main menu, or restarting the \term[Game track]{game track}.
+					
+How test will be performed: A tester can open the pause menu while playing and check whether the options (settings menu, going back to main menu, or restarting the \term[Game track]{game track}) are show to them.
+
+\item{FR-UI-7\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: The pause menu has been opened
+					
+Input: \term[Tester]{Tester} closes the pause menu
+					
+Output: The game should show stop showing the pause menu and resume the gameplay.
+					
+How test will be performed: A tester can open the pause menu while playing and close it, and check whether the game has resumed.
+
+\item{FR-UI-8\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: The settings menu has been opened
+					
+Input: \term[Tester]{Tester} specifies the volume of the game to some level using the tester interface.
+					
+Output: The game should change the volume of the game accordingly
+					
+How test will be performed: A tester will open the settings menu and check whether the volume of the game changes when they change it in the settings menu
+
+\item{FR-UI-9\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: The settings menu has been opened.
+					
+Input: \term[Tester]{Tester} opened the settings menu.
+					
+Output: The game should display the version of the game.
+					
+How test will be performed: A tester will open the settings menu and check whether the version of the game is displayed.
+
+\item{FR-UI-10\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: The settings menu has been opened.
+					
+Input: \term[Tester]{Tester} chooses to rebind their input keys to some specific key using the user interface
+					
+Output: The game should change the input keys to the one specified by the user
+					
+How test will be performed: A tester will open the settings menu and change the input keys. They will then play the game and check whether the new input keys are effective instead of the old one. In order to compare the implementation to that of \term{Frets on Fire}, every input key that is tested with \term{Rhythm Master} is to be tested with that game as well. Any key functioning in one game should function in the other.
+
+\item{FR-UI-11\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: The settings menu has been opened.
+					
+Input: \term[Tester]{Tester} chooses to go to the main menu
+					
+Output: The game should display the main menu screen.
+					
+How test will be performed: A tester will open the settings menu and choose to go back to the main menu. They can then check if they view the main menu.
+
+\item{FR-UI-12\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: The leaderboard screen is being displayed
+					
+Input: \term[Tester]{Tester} chooses to view the leaderboard
+					
+Output: The game should display a list of players and their respective score
+					
+How test will be performed: A tester will open the leaderboard and check whether they can view a list of players with their respective score.
+
+\item{FR-UI-15\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: Game is on the main menu, and there are no scores saved
+					
+Input: \term[Tester]{Tester} chooses to view the leaderboard
+					
+Output: The game should display an empty list
+					
+How test will be performed: The data structure holding high scores must be empty. To ensure that viewing an empty data structure does not raise an exception, testers must attempt to access the list of high scores while this is the case. The game should correctly display the high score table, with no values contained within.
+
+\item{FR-UI-13\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: The leaderboard screen is being displayed
+					
+Input: \term[Tester]{Tester} chooses to filter the score based on the time
+					
+Output: The game should display a list of players and their respective score in the order that the tester chose.
+					
+How test will be performed: A tester will open the leaderboard and check whether filtering the score by time displays the score according to that order.
+
+\item{FR-UI-14\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: The leaderboard screen is being displayed
+					
+Input: \term[Tester]{Tester} chooses to return to the main menu
+					
+Output: The game should display the main menu screen.
+					
+How test will be performed: A tester will open the leaderboard and check whether choosing the option to returning to main menu brings them to the main menu.
+
+
+\end{enumerate}
+
+
+\subsection{Tests for Nonfunctional Requirements}
+
+\subsubsection{Look and Feel Testing}
+
+\begin{enumerate}
+
+\item{NFR-1-LF1\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: The \term[Tester]{tester} is playing a \term[Game track]{game track}
+					
+Condition: Game track is unpaused and in motion
+					
+Output: Visual effects and informational graphics produced by the game
+					
+How test will be performed: The ability for each element shown on the screen to relay information otherwise unavailable to the tester is to be analyzed. These include information on the next note to be played, feedback on input timing, game score, and the current score multiplier. Redundant elements are to be minimized. Gameplay visuals are to be further compared to those of \term{Frets on Fire}, since that game is considered complete. Any additional visuals on top of those included in the original implementation are to be analyzed for necessity.
+					
+\item{NFR-2-LF3\\}
+
+Type: Manual, Static
+					
+Initial State: An example image of the \term[Fret Board]{fret board}
+					
+Condition: The image is representative of a point in time during a gameplay session
+					
+Output: Background colour in contrast with gameplay elements
+					
+How test will be performed: \term[Tester]{Testers} will provide their answer to question 5 of the \hyperref[sec:usersurvey]{\textbf{Usability Survey}}. Their responses will be assessed to determine if the background colours are appropriate to gameplay. The background colour is also to be compared to that of \term{Frets on Fire}, in order to find a subjective comparison of visual clarity.
+
+\end{enumerate}
+
+\subsubsection{Usability and Humanity Testing}
+
+\begin{enumerate}
+
+\item{NFR-3-UH2}
+
+Type: Functional, Manual, Dynamic
+
+Initial State: In game, but gameplay has not yet started
+
+Input: \term[Tester]{Tester} begins gameplay
+
+Output: Total score after completion
+
+How test will be performed: Tester will be using a test \term[Game track]{game track} of decreased difficulty, either through fewer or slower notes. They will hit every note, then compare their final score with a theoretical calculation of the maximum attainable score. The score they attain must match this value.
+
+\item{NFR-4-UH5}
+
+Type: Functional, Manual, Dynamic
+
+Initial State: In game, but gameplay has not yet started
+
+Input: \term[Tester]{Tester} begins gameplay
+
+Result: Tester  has completed enough playthroughs to sufficiently understand gameplay
+
+How test will be performed: Testers will provide their answer to question 6 of the \hyperref[sec:usersurvey]{\textbf{Usability Survey}}. Their responses will be assessed to determine if the level of difficulty is appropriate.
+
+\end{enumerate}
+
+\subsubsection{Performance Testing}
+
+\begin{enumerate}
+
+\item{NFR-5-PE1}
+
+Type: Functional, Manual, Dynamic
+
+Initial State: In game, but gameplay has not yet started
+
+Input: \term[Tester]{Tester} begins gameplay
+
+Output: Values of an \term{FPS} counter
+
+How test will be performed: Unity includes a built-in statistics box in its game player window. This box will be observed during gameplay to ensure framerates do not dip below $\hyperlink{fps}{MIN\_FRAMERATE}$ over the course of the \term[Game track]{game track}. All testers must complete this test to ensure framerate is maintained across multiple computers.
+
+\item{NFR-6-PE2}
+
+Type: Functional, Manual, Dynamic
+
+Initial State: In game, during gameplay
+
+Input: \term[Tester]{Tester} presses any button to hit a note
+
+Output: Recording of gameplay
+
+How test will be performed: Testers will record gameplay using the screen recorder of their choice. They will make an input then view the recording frame-by-frame, observing how many frames it takes for their input to be reflected on-screen. Assuming the framerate is known, each passed frame takes a known amount of time.
+
+\item{NFR-7-PE6}
+
+Type: Structural, Automated, Static
+
+Initial State: User score list has fewer than $\hyperlink{maxscoresaves}{MAX\_USER\_SCORE\_SAVES}$ entries
+
+Input: A script using the same method to add a high score as the game itself
+
+Output: User score list with $\hyperlink{maxscoresaves}{MAX\_USER\_SCORE\_SAVES}$ entries or more
+
+How test will be performed: The script will be run as many times as needed to manually fill the user score list. The test is successful if the list successfully stores $\hyperlink{maxscoresaves}{MAX\_USER\_SCORE\_SAVES}$ values or more, and if those scores can all be viewed from within the game.
+
+\item{NFR-8-PE7}
+
+Type: Structural, Manual, Dynamic
+
+Initial State: Game contains just the original \term[Game track]{game track}
+
+Input: A new game track created by the developers
+
+Result: Game can be played with no difference in gameplay with the new game track
+
+How test will be performed: Developers will create a new game track separate from the track that already exists in the game. They will then switch the game to run on the new track. When a new game is started, the new track will be the one that is playing. The new track should be playable by the game without changing the game's behaviour in any way.
+
+\end{enumerate}
+
+\subsubsection{Operational and Environmental Testing}
+
+\begin{enumerate}
+
+\item{NFR-9-PE9}
+
+Type: Functional, Manual, Dynamic
+
+Initial State: Game is not running.
+
+Condition: Computer is disconnected from the Internet.
+
+Result: Game runs the same as when there is an Internet connection available.
+
+How test will be performed: \term[Tester]{Testers} will disconnect their system from the Internet, then launch the game and proceed with gameplay. They will attempt to access high score lists, instructions, and the \term[Game track]{game track}. All operations should proceed identically to when the Internet connection was active.
+
+\end{enumerate}
+
+% & & ~  & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~   \\ \cline{1-14}
+\subsection{Traceability Between Test Cases and Requirements}
+\begin{landscape}
+\begin{table}[H]
+\caption{\textbf{Traceability Matrix for Gameplay Requirements}} \label{trace1}
+\begin{tabularx}{\textwidth}{cc|c|c|c|c|c|c|c|}
+\cline{3-9}
+& & \multicolumn{7}{ c|}{Requirements} \\ \cline{3-9}
+& & FR1  & FR2 & FR3 & FR4 & FR5 & FR6 & FR7   \\ \cline{1-9}
+\multicolumn{1}{ |c| }{\multirow{7}{*}{Test Cases} } &
+\multicolumn{1}{|c| } {FR-GP-1} &X&&&&&&\\ \cline{2-9}
+\multicolumn{1}{|c| }{} 	                  &
+\multicolumn{1}{|c| }{FR-GP-2} &  &X& &&&&  \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{|c| } {FR-GP-3} &   &   &  X&&&& \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-4} &   &   & &X&&& \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-5} &   &   & &&X&& \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-6} &   &   & &&&X& \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-7} &   &   & &&&&X \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-8} &   &   & &&X&& \\ \cline{2-9}
+\multicolumn{1}{|c| }{}                        &
+\multicolumn{1}{ |c| } {FR-GP-9} &   &   & &&&X& \\ \cline{1-9}
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+% \begin{center} 
+\caption{\textbf{Traceability Matrix for UI Requirements}} \label{trace2}
+\begin{tabularx}{\textwidth}{cc|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\cline{3-16}
+& & \multicolumn{14}{ c|}{Requirements} \\ \cline{3-16}
+& & FR8 & FR9 & FR10 & FR11 & FR12 & FR13 & FR14 & FR15 & FR16 & FR17 & FR18 & FR19 & FR20 & FR21  \\ \cline{1-16}
+    \multicolumn{1}{ |c| }{\multirow{14}{*}{Test Cases} } &
+    \multicolumn{1}{|c| } {FR-UI-1} &X&&&&&&&&&&&&&\\ \cline{2-16}
+    \multicolumn{1}{|c| }{} 	                  &
+    \multicolumn{1}{|c| }{FR-UI-2} &&X&&&&&&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-3} &&&X&&&&&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-4} &&&&X&&&&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-5} &&&&&X&&&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-6} &&&&&&X&&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-7} &&&&&&&X&&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-8} &&&&&&&&X&&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-9} &&&&&&&&&X&&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-10} &&&&&&&&&&X&&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-11} &&&&&&&&&&&X&&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-12} &&&&&&&&&&&&X&& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-13} &&&&&&&&&&&&&X& \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-14} &&&&&&&&&&&&&&X \\ \cline{2-16}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {FR-UI-15} &&&&&&&&&&&&X&& \\ \cline{2-16}
+\end{tabularx}
+% \end{center}
+\end{table}
+\newpage
+
+\begin{table}[H]
+\begin{center}
+\caption{\textbf{Tracability Matrix for Non-Functional Requirements}} \label{trace3}
+\begin{tabularx}{\textwidth}{cc|c|c|c|c|c|c|c|c|c|c|c|c|}
+\cline{3-11}
+& & \multicolumn{9}{ c|}{Requirements} \\ \cline{3-11}
+& & LF1  & LF3 & UH2 & UH5 & PE1 & PE2 & PE6 & PE7 & PE9   \\ \cline{1-11}
+    \multicolumn{1}{ |c| }{\multirow{9}{*}{Test Cases} } &
+    \multicolumn{1}{|c| } {NFR-1-LF1} &X&&&&&&&&\\ \cline{2-11}
+    \multicolumn{1}{|c| }{} 	                  &
+    \multicolumn{1}{|c| }{NFR-2-LF3} &  & X & &&&&&&  \\ \cline{2-11}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{|c| } {NFR-3-UH2} &   &   &X  &&&&&& \\ \cline{2-11}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {NFR-4-UH5} &   &   & &X&&&&& \\ \cline{2-11}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {NFR-5-PE1} &   &   & &&X&&&& \\ \cline{2-11}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {NFR-6-PE2} &   &   & &&&X&&& \\ \cline{2-11}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {NFR-7-PE6} &   &   & &&&&X&& \\ \cline{2-11}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {NFR-8-PE7} &   &   & &&&&&X& \\ \cline{2-11}
+    \multicolumn{1}{|c| }{}                        &
+    \multicolumn{1}{ |c| } {NFR-9-PE9} &   &   & &&&&&&X \\ \cline{1-11}
+    % \multicolumn{1}{|c| }{}                        &
+    % \multicolumn{1}{ |c| } {FR-UI-17} &   &   & &&&&&&&&& \\ \cline{2-14}
+    % \multicolumn{1}{|c| }{}                        &
+    % \multicolumn{1}{ |c| } {FR-UI-18} &   &   & &&&&&&&&& \\ \cline{2-14}
+    % \multicolumn{1}{|c| }{}                        &
+    % \multicolumn{1}{ |c| } {FR-UI-19} &   &   & &&&&&&&&& \\ \cline{2-14}
+    % \multicolumn{1}{|c| }{}                        &
+    % \multicolumn{1}{ |c| } {FR-UI-20} &   &   & &&&&&&&&& \\ \cline{2-14}
+    % \multicolumn{1}{|c| }{}                        &
+    % \multicolumn{1}{ |c| } {FR-UI-21} &   &   & &&&&&&&&& \\ \cline{1-14}
+\end{tabularx}
+\end{center}
+\end{table}
+\end{landscape}
+
+% \restoregeometry
+
+\newpage
+
+
+\section{Tests for Proof of Concept}
+Our proof of concept implemented most of the gameplay features. The following are test cases related to gameplay that were conducted.
+\subsection{Gameplay Testing}
+		
+\begin{enumerate}
+
+\item{POC-GP-1\\}
+
+Type: Functional, Manual
+					
+Initial State: Initialization of the \term{Game track}
+					
+Input: Play button has been clicked
+					
+Output: A blank fret board is displayed
+					
+How test will be performed: The \term[Tester]{tester} will start a new round and check whether it starts with an empty fret board
+					
+\item{POC-GP-2\\}
+
+Type: Functional, Automated
+					
+Initial State: Initialization of the \term{Game track}
+					
+Input: An event of starting a new \term{Game track}
+					
+Output: \term{Score} should be set to $\hyperlink{initial_score}{INITIAL\_SCORE}$
+					
+How test will be performed: An automated test script will initialize a \term{Game track} and check whether the \term{Score} is $\hyperlink{initial_score}{INITIAL\_SCORE}$.
+
+\item{POC-GP-3\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: \term{Game track} should have been initialized
+					
+Input: \term{Game track} has been initialized
+					
+Output: \term[Note]{Notes} should be displayed
+					
+How test will be performed: A user will check whether \term[Note]{notes} are spawning when they start a new \term{Game track}.
+
+\item{POC-GP-4\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: \term{Game track} should have been initialized
+					
+Input: \term[Note]{Notes} are in a state to be played
+					
+Output: \term[Note]{Notes} are played
+					
+How test will be performed: A \term[Tester]{tester} will check whether \term[Note]{notes} can be played using their keyboard.
+
+\item{POC-GP-5\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: \term{Game track} should have been initialized
+					
+Input: \term[Note]{Notes} are played accurately
+					
+Output: \term{Tester} is awarded points
+					
+How test will be performed: A tester can check whether their score goes up once they played a note accurately.
+
+\item{POC-GP-6\\}
+
+Type: Functional, Manual
+					
+Initial State: \term{Game track} should have been initialized
+					
+Input: Initialization and changes to \term[Score]{score}
+					
+Output: \term[Score]{score} should be displayed
+					
+How test will be performed: A user can check whether a score is being displayed on the screen
+
+\item{FR-GP-7\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: \term{Game track} should have been initialized
+					
+Input: \term{Tester} inputs the wrong key
+					
+Output: \term{Tester} is not awarded points
+					
+How test will be performed: A tester can check whether their score remains the same once they played a note incorrectly. 
+
+\end{enumerate}
+
+\section{Comparison to Existing Implementation}	
+\term{Rhythm Master}, as of the time of the creation of this document, has implemented a skeleton mirroring the gameplay behaviour of \term{Frets on Fire}. Scrolling \term[Note]{notes} on a background \term[Fret Board]{fret board} in conjunction with playing background music have all been implemented. In addition, score-keeping functionality is fully implemented, with score and score multiplier incrementation based on the amount of notes hit.
+
+Things that remain to be implemented include a main menu, locally stored high scores, complete \term[Game track]{game tracks}, and tangible graphical improvements over \term{Frets on Fire}.
+
+\section{Unit Testing Plan}
+		
+\subsection{Unit testing of internal functions}
+Unit tests of internal functions of the software are done using ASSERT statements within test scripts using the \term{Unity Test Framework}, each script corresponds to a module. The ASSERT statements take in certain predetermined values/statements and compare the method output against the intended output. The inputs would consist of normal, boundary, and inputs that should generate exceptions/errors. If the ASSERT statements evaluate to TRUE, it would prove the correctness of the code. 
+
+None of these test cases need stubs or drivers. 
+
+Coverage matrices will be used to track all unit tests to ensure that all requirements that can be tested with unit tests has been covered. 
+
+An important detail to note is that not all internal functions are able to be tested using unit testing and would instead be tested manually.
+
+By the end of unit testing, $\hypertarget{unit_testing_coverage}{UNIT\_TEST\_COVERAGE}$ percent of the code should be tested and the rest would be manual testing.
+
+\subsection{Unit testing of output files}	
+There will be not unit testing of output files conducted as \term{Rhythm Master} does not output any files.
+
+\bibliographystyle{plainnat}
+
+\bibliography{SRS}
+
+\newpage
+
+\section{Appendix}
+
+\subsection{Symbolic Parameters}
+
+The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
+Their values are defined in this section for easy maintenance.\\
+
+\noindent $\hypertarget{initial_score}{INITIAL\_SCORE}$ = 0\\ 
+$\hypertarget{fps}{MIN\_FRAMERATE}$ = 30 \\
+$\hypertarget{maxscoresaves}{MAX\_USER\_SCORE\_SAVES}$ = 100\\
+$\hypertarget{unit_testing_coverage}{UNIT\_TEST\_COVERAGE}$ = 30\\
+
+
+\subsection{Usability Survey Questions}
+\label{sec:usersurvey}
+
+\term[Tester]{Tester} feedback is an important component of testing and their experience playing \term{Rhythm Master} will be taken into account.
+\begin{enumerate}
+    \item Subjectively, how would you compare your experience playing this game to other games, such as \term{Guitar Hero}?
+    \item On a scale from 1-5, how comfortable is the placement of the controls? 
+    \item On a scale from 1-5, how responsive did the game feel to your inputs?
+    \item On a scale from 1-5, how well does the \term[Game track]{game track} match the background music?
+    \item Would you consider the background colour distracting from your gameplay?
+    \item How many times did you need to play the game to understand its mechanics well?
+\end{enumerate}
+
+\end{document}

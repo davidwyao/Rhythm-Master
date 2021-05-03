@@ -1,0 +1,103 @@
+\begin{theindex}
+
+  \item {AccuracyCalculation}
+    \subitem {ScoreCalculator}, \hyperpage{17}
+  \item {AddEntryToLeaderboard}
+    \subitem {FileIO}, \hyperpage{9}
+
+  \indexspace
+
+  \item {BtnChangeScene}
+    \subitem {ChangeScene}, \hyperpage{5}
+  \item {ButtonController}, \hyperpage{5}
+
+  \indexspace
+
+  \item {ChangeScene}, \hyperpage{5}
+    \subitem {BtnChangeScene}, \hyperpage{5}
+  \item {CollisionDetector}, \hyperpage{6}
+  \item {CompleteScreen}, \hyperpage{6}
+    \subitem {DisplayCompleteScreen}, \hyperpage{7}
+
+  \indexspace
+
+  \item {DetectKey}, \hyperpage{7}
+  \item {DisplayCompleteScreen}
+    \subitem {CompleteScreen}, \hyperpage{7}
+
+  \indexspace
+
+  \item {EffectManager}, \hyperpage{8}
+  \item {Effects}, \hyperpage{8}
+
+  \indexspace
+
+  \item {FileIO}, \hyperpage{9}
+    \subitem {AddEntryToLeaderboard}, \hyperpage{9}
+    \subitem {GetLeaderboardList}, \hyperpage{9}
+    \subitem {ReadFile}, \hyperpage{10}
+
+  \indexspace
+
+  \item {GameManager}, \hyperpage{10}
+    \subitem {SetMultiplier}, \hyperpage{12}
+    \subitem {SetScore}, \hyperpage{12}
+  \item {GetLeaderboardList}
+    \subitem {FileIO}, \hyperpage{9}
+  \item {GoodHit}
+    \subitem {ScoreCalculator}, \hyperpage{18}
+
+  \indexspace
+
+  \item {LeaderboardEntry}, \hyperpage{12}
+  \item {LoadSettings}, \hyperpage{13}
+  \item {LongHit}
+    \subitem {ScoreCalculator}, \hyperpage{18}
+
+  \indexspace
+
+  \item {MainMenu}, \hyperpage{13}
+  \item {MMSettings}, \hyperpage{13}
+
+  \indexspace
+
+  \item {NormalHit}
+    \subitem {ScoreCalculator}, \hyperpage{19}
+  \item {NoteMissed}
+    \subitem {ScoreCalculator}, \hyperpage{19}
+  \item {NoteObject}, \hyperpage{14}
+  \item {NoteScroller}, \hyperpage{14}
+  \item {NoteSpawner}, \hyperpage{14}
+
+  \indexspace
+
+  \item {PauseMenu}, \hyperpage{15}
+  \item {PerfectHit}
+    \subitem {ScoreCalculator}, \hyperpage{19}
+  \item {PopulateLeaderboard}, \hyperpage{16}
+
+  \indexspace
+
+  \item {QuitGame}, \hyperpage{16}
+
+  \indexspace
+
+  \item {ReadFile}
+    \subitem {FileIO}, \hyperpage{10}
+
+  \indexspace
+
+  \item {ScoreCalculator}, \hyperpage{17}
+    \subitem {AccuracyCalculation}, \hyperpage{17}
+    \subitem {GoodHit}, \hyperpage{18}
+    \subitem {LongHit}, \hyperpage{18}
+    \subitem {NormalHit}, \hyperpage{19}
+    \subitem {NoteMissed}, \hyperpage{19}
+    \subitem {PerfectHit}, \hyperpage{19}
+  \item {SetMultiplier}
+    \subitem {GameManager}, \hyperpage{12}
+  \item {SetScore}
+    \subitem {GameManager}, \hyperpage{12}
+  \item {SettingsMenu}, \hyperpage{20}
+
+\end{theindex}

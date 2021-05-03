@@ -1,0 +1,131 @@
+\hypertarget{classGameManager}{}\doxysection{Game\+Manager Class Reference}
+\label{classGameManager}\index{GameManager@{GameManager}}
+
+
+Inheritance diagram for Game\+Manager\+:
+% FIG 0
+
+
+Collaboration diagram for Game\+Manager\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGameManager_a887bf83adc4aa43f10e8b2a02f185586}\label{classGameManager_a887bf83adc4aa43f10e8b2a02f185586}} 
+void \mbox{\hyperlink{classGameManager_a887bf83adc4aa43f10e8b2a02f185586}{Start\+Music}} ()
+\begin{DoxyCompactList}\small\item\em Start playing music. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_addeb6ce5ab78b07298c647b4b1fd3fb6}\label{classGameManager_addeb6ce5ab78b07298c647b4b1fd3fb6}} 
+void \mbox{\hyperlink{classGameManager_addeb6ce5ab78b07298c647b4b1fd3fb6}{Normal\+Hit}} ()
+\begin{DoxyCompactList}\small\item\em Called during a normal hit. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_aeed8c2241e0b632a542e0eca8fd8fe98}\label{classGameManager_aeed8c2241e0b632a542e0eca8fd8fe98}} 
+void \mbox{\hyperlink{classGameManager_aeed8c2241e0b632a542e0eca8fd8fe98}{Good\+Hit}} ()
+\begin{DoxyCompactList}\small\item\em Called during a good hit. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a2de092416c6557404b5ea2f9166c1e11}\label{classGameManager_a2de092416c6557404b5ea2f9166c1e11}} 
+void \mbox{\hyperlink{classGameManager_a2de092416c6557404b5ea2f9166c1e11}{Perfect\+Hit}} ()
+\begin{DoxyCompactList}\small\item\em Called during a perfect hit. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_abc119764ca159e91fdc41edf83f25852}\label{classGameManager_abc119764ca159e91fdc41edf83f25852}} 
+void \mbox{\hyperlink{classGameManager_abc119764ca159e91fdc41edf83f25852}{Long\+Hit}} ()
+\begin{DoxyCompactList}\small\item\em Called after a long note is completed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a271d886577636f16f66db0e6964e4b32}\label{classGameManager_a271d886577636f16f66db0e6964e4b32}} 
+void \mbox{\hyperlink{classGameManager_a271d886577636f16f66db0e6964e4b32}{Note\+Missed}} ()
+\begin{DoxyCompactList}\small\item\em Called when a note is missed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_aacd73e43317839150c45068abe2ec0f9}\label{classGameManager_aacd73e43317839150c45068abe2ec0f9}} 
+void \mbox{\hyperlink{classGameManager_aacd73e43317839150c45068abe2ec0f9}{Long\+Clicked}} ()
+\begin{DoxyCompactList}\small\item\em Called when a long note has been hit. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameManager_a7afb20733899b1a80cc62ee68c915e46}{Set\+Multiplier}} (int mult)
+\begin{DoxyCompactList}\small\item\em Setter method for multiplier. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameManager_a136731efabe4738f0c683d1a5916a30b}{Set\+Score}} (int score)
+\begin{DoxyCompactList}\small\item\em Setter method for score. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGameManager_ae14206d2bcf07e894717edf6460cbf07}\label{classGameManager_ae14206d2bcf07e894717edf6460cbf07}} 
+Audio\+Source \mbox{\hyperlink{classGameManager_ae14206d2bcf07e894717edf6460cbf07}{song}}
+\begin{DoxyCompactList}\small\item\em The music to play during gameplay. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a815710ae0284343bcde719d1a8a7ebcd}\label{classGameManager_a815710ae0284343bcde719d1a8a7ebcd}} 
+Audio\+Source \mbox{\hyperlink{classGameManager_a815710ae0284343bcde719d1a8a7ebcd}{guitar}}
+\begin{DoxyCompactList}\small\item\em The accompanying music, to play only when the player has hit the most recent note. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_aa27823dc4131692d211cf3ef5398058e}\label{classGameManager_aa27823dc4131692d211cf3ef5398058e}} 
+int \mbox{\hyperlink{classGameManager_aa27823dc4131692d211cf3ef5398058e}{current\+Score}}
+\begin{DoxyCompactList}\small\item\em The current score during the session. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a6d1e9cd7f178ec97252a2b654ae89aef}\label{classGameManager_a6d1e9cd7f178ec97252a2b654ae89aef}} 
+int \mbox{\hyperlink{classGameManager_a6d1e9cd7f178ec97252a2b654ae89aef}{current\+Multiplier}}
+\begin{DoxyCompactList}\small\item\em The current score multiplier during the session. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a5576abf429db53e023662815bc60a2fa}\label{classGameManager_a5576abf429db53e023662815bc60a2fa}} 
+bool \mbox{\hyperlink{classGameManager_a5576abf429db53e023662815bc60a2fa}{song\+Started}} = false
+\begin{DoxyCompactList}\small\item\em False if the song has not begun playing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_aa4996b2e1ea42f4d93494879f5deafa0}\label{classGameManager_aa4996b2e1ea42f4d93494879f5deafa0}} 
+float \mbox{\hyperlink{classGameManager_aa4996b2e1ea42f4d93494879f5deafa0}{total\+Notes}} = 0
+\begin{DoxyCompactList}\small\item\em Total notes spawned. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a24830729fbfe33cab759331bddd4b679}\label{classGameManager_a24830729fbfe33cab759331bddd4b679}} 
+float \mbox{\hyperlink{classGameManager_a24830729fbfe33cab759331bddd4b679}{normal\+Hits}} = 0
+\begin{DoxyCompactList}\small\item\em Normal hits by the player. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a7e92511b3879bdcdb51acc70f51f5fb1}\label{classGameManager_a7e92511b3879bdcdb51acc70f51f5fb1}} 
+float \mbox{\hyperlink{classGameManager_a7e92511b3879bdcdb51acc70f51f5fb1}{good\+Hits}} = 0
+\begin{DoxyCompactList}\small\item\em Good hits by the player. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a862f5690178441d243952cb681825ec2}\label{classGameManager_a862f5690178441d243952cb681825ec2}} 
+float \mbox{\hyperlink{classGameManager_a862f5690178441d243952cb681825ec2}{perfect\+Hits}} = 0
+\begin{DoxyCompactList}\small\item\em Perfect hits by the player. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_ab99d770ac171c555dfe1330b7688b6a9}\label{classGameManager_ab99d770ac171c555dfe1330b7688b6a9}} 
+float \mbox{\hyperlink{classGameManager_ab99d770ac171c555dfe1330b7688b6a9}{missed\+Hits}} = 0
+\begin{DoxyCompactList}\small\item\em Missed hits by the player. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a80661704ce0c5dcbe278465950b320d5}\label{classGameManager_a80661704ce0c5dcbe278465950b320d5}} 
+float \mbox{\hyperlink{classGameManager_a80661704ce0c5dcbe278465950b320d5}{accuracy}} = 0
+\begin{DoxyCompactList}\small\item\em Net hit accuracy, in percent. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a3a2e0643883dd944af83d00ace36bb5f}\label{classGameManager_a3a2e0643883dd944af83d00ace36bb5f}} 
+int \mbox{\hyperlink{classGameManager_a3a2e0643883dd944af83d00ace36bb5f}{score\+Per\+Note}} = 100
+\begin{DoxyCompactList}\small\item\em Baseline score to be awarded per note hit, before multipliers and accuracy bonuses. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a07a35b0a314690c64b4d21873bc4c366}\label{classGameManager_a07a35b0a314690c64b4d21873bc4c366}} 
+string\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classGameManager_a07a35b0a314690c64b4d21873bc4c366}{note\+List}}
+\begin{DoxyCompactList}\small\item\em The complete sequence of notes to spawn for the selected song. @detail Notes from left to right are number from 0 through 4. Long notes are additionally denoted by a decimal following this number.~\newline
+ Simultaneous notes are separated by a slash (/). For example, 0.\+2 gives a long leftmost note of length 2. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_a7b08871a77b3b6442f88194d57ecec33}\label{classGameManager_a7b08871a77b3b6442f88194d57ecec33}} 
+Text\+Mesh\+Pro\+U\+G\+UI \mbox{\hyperlink{classGameManager_a7b08871a77b3b6442f88194d57ecec33}{score\+Text}}
+\begin{DoxyCompactList}\small\item\em Display text for score. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameManager_acd84550e4a395cb990786e2d226dd110}\label{classGameManager_acd84550e4a395cb990786e2d226dd110}} 
+Text\+Mesh\+Pro\+U\+G\+UI \mbox{\hyperlink{classGameManager_acd84550e4a395cb990786e2d226dd110}{multi\+Text}}
+\begin{DoxyCompactList}\small\item\em Display text for multiplier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGameManager_a7666e8468dac197b9eb32dd32128524f}\label{classGameManager_a7666e8468dac197b9eb32dd32128524f}} 
+static \mbox{\hyperlink{classGameManager}{Game\+Manager}} \mbox{\hyperlink{classGameManager_a7666e8468dac197b9eb32dd32128524f}{instance}}
+\begin{DoxyCompactList}\small\item\em The instance of \mbox{\hyperlink{classGameManager}{Game\+Manager}} to be referenced globally. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGameManager_a7afb20733899b1a80cc62ee68c915e46}\label{classGameManager_a7afb20733899b1a80cc62ee68c915e46}} 
+\index{GameManager@{GameManager}!SetMultiplier@{SetMultiplier}}
+\index{SetMultiplier@{SetMultiplier}!GameManager@{GameManager}}
+\doxysubsubsection{\texorpdfstring{SetMultiplier()}{SetMultiplier()}}
+{\footnotesize\ttfamily void Game\+Manager.\+Set\+Multiplier (\begin{DoxyParamCaption}\item[{int}]{mult }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Setter method for multiplier. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mult} & The new multiplier. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameManager_a136731efabe4738f0c683d1a5916a30b}\label{classGameManager_a136731efabe4738f0c683d1a5916a30b}} 
+\index{GameManager@{GameManager}!SetScore@{SetScore}}
+\index{SetScore@{SetScore}!GameManager@{GameManager}}
+\doxysubsubsection{\texorpdfstring{SetScore()}{SetScore()}}
+{\footnotesize\ttfamily void Game\+Manager.\+Set\+Score (\begin{DoxyParamCaption}\item[{int}]{score }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Setter method for score. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em score} & The new score. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/mnt/c/users/david/documents/everything/school/3xa3/3xa3\+\_\+\+\_\+l01\+\_\+gr16\+\_\+project/src/\+Assets/\+Scripts/Game\+Manager.\+cs\end{DoxyCompactItemize}

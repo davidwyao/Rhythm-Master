@@ -1,0 +1,521 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage[titletoc,title]{appendix}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{biblatex}
+\bibliography{SRS}
+\usepackage{indentfirst}
+% \usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\usepackage{xifthen}
+\def\namedlabel#1#2{\begingroup
+    #2%
+    \def\@currentlabel{#2}%
+    \phantomsection\label{#1}\endgroup
+}
+\newcommand{\newterm}[1]{\label{Term:#1} \MakeUppercase #1}
+\newcommand{\term}[2][]{\ifthenelse{\equal{#1}{}}{\hyperref[Term:#2]{\textbf{#2}}}{\hyperref[Term:#1]{\textbf{#2}}}}
+
+% \usepackage[round]{natbib}
+
+\title{SE 3XA3: Software Requirements Specification\\Frets On Fire}
+
+\author{Team \#16, Rhythm Master
+    \\ Almen Ng, nga18
+    \\ David Yao, yaod9
+    \\ Veerash Palanichamy, palanicv}
+    
+\date{February 5, 2021}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\pagenumbering{roman}
+\tableofcontents
+\listoftables
+\listoffigures
+
+\newpage 
+\begin{table}[h!]
+\caption{Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+February 2, 2021 & 1.0 & Initial Document\\
+February 8, 2021 & 1.1 & Finished Project Drivers\\
+February 10, 2021 & 1.2 & Finished Non-Functional Requirements Section\\
+February 12, 2021 & 1.3 & Added Functional Requirements Section and respective diagrams\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\pagenumbering{arabic}
+
+This document describes the requirements for the \href{https://github.com/skyostil/fretsonfire}{\term{Frets on Fire}} project created by Unreal Voodoo.  The template for the \term[SRS]{Software Requirements Specification (SRS)} is a subset of the Volere\cite{volere}.
+\section{Project Drivers}
+
+\subsection{The Purpose of the Project}
+The purpose of this project is to recreate the main functionality of the \term[Game]{video game}, \term{Frets on Fire}, by following the software development process midst providing proper detailed documentation. Additionally, we will be programming the \term[Game]{game} in a modern language, C\#, improving on the outdated graphics, as well as providing meaningful test cases using Unity Test Framework.
+
+\subsection{The Stakeholders}
+
+\subsubsection{The Client}
+The clients of this \term[Project]{project} is the instructor of SFWRENG 3XA3, Dr. Ashgar Bokhari, and the teaching assistants (TAs) of the course, Mohammed Mirajkar and Maryan Hosseinkord. As the clients, they will provide instructions on what deliverables need to be completed, offer assistance wherever possible, and evaluate the degree to which the \term[Project]{project} meets the requirements outlined in the \term{SRS}.
+
+\subsubsection{The Customers}
+The customers of this \term[Project]{project} are any individuals who are interested in playing \term{Frets on Fire} or an open source game similar to \term{Guitar Hero} on \term{PC}. The \term[Project]{project} does not target a specific demographic and is available for the general public who have the hardware and software requirements to download and play. 
+
+\subsubsection{Other Stakeholders}
+Group 16 members, are considered stakeholders of the \term[Project]{project} as their skills are necessary in the development of the \term[Project]{project}, including responsibilities such as implementing, testing and documenting the \term[Project]{project}, and they are interested in the success of the \term[Project]{project}. In addition, The developers of the \term{Frets on Fire}, Unreal Voodoo, and Github Users who have forked the \term{Frets on Fire} repository are also stakeholders as they wish to seek improvements of the \term[Game]{game} and, like Group 16 members, are interest in the success of it.
+
+\newpage
+\section{Project Constraints}
+\subsection{Mandated Constraints}
+\subsubsection{Solution Design Constraints}
+\noindent \textbf{Description:} The \term[Game]{game} must operate on any machine running on Windows 7 or newer, macOS Sierra 10.12 or newer, or Linux Ubuntu 16.04 or newer.\\
+\textbf{Rationale:} The potential users of the \term[Game]{game} will need to have the listed operating systems in order to run the project smoothly without any additional installations/configurations. \\
+\textbf{Fit Criterion:} The \term[Game]{game} will be made to run on Windows 7 or newer, macOS Sierra 10.12 or newer, or Linux Ubuntu 16.04 or newer.
+
+\subsubsection{Implementation Environment of the Current System}
+\noindent \emph{N/A}
+
+\subsubsection{Partner or Collaborative Applications}
+\noindent \emph{N/A}
+
+\subsubsection{Off-the-Shelf Software}
+\noindent \emph{N/A}
+
+\subsubsection{Anticipated Workplace Environment}
+\noindent \emph{N/A}
+
+\subsubsection{Schedule Constraints}
+\noindent \textbf{Description:} The \term[Project]{project} must follow the project schedule shown in the \hyperref[subsec:Tasks]{\textbf{Tasks section}}\\
+\textbf{Rationale:} The \term[Project]{project} needs to follow a predefined plan in order to ensure the completion of the deliverables by their respective due dates and the \term[Project]{project} by the end of the course. \\
+\textbf{Fit Criterion:} The \term[Project]{project} will be completed with all deliverable submitted on time by April 16, 2021. 
+
+\subsubsection{Budget Constraints}
+\noindent \emph{N/A}
+
+\subsubsection{Enterprise Constraints}
+\noindent \emph{N/A}
+
+\newpage
+\subsection{Naming Conventions and Terminology}
+\label{sub:Naming Conventions and Terminology}
+\begin{table}[h!]
+    \centering
+    \caption{Table of Naming Conventions and Terminology}
+    \label{tab:Definitions}
+    \begin{tabular}{p{0.21\linewidth}  p{0.70\linewidth}}
+    \toprule
+    \textbf{Term} & \textbf{Definition}\\
+    \midrule
+    \newterm{C Sharp}(C\#) & The programming language used in this project.\\
+    \hline
+    \newterm{Clone Hero} & A \term{Guitar Hero} clone made for personal computers, rather than game consoles.\\
+    \hline
+    \newterm{Fret Board} & A vertical musical staff upon which \term[Note]{notes} will be displayed.\\
+    \hline
+    \newterm{Frets on Fire} & An open source \term{Guitar Hero} clone.\\
+    \hline
+    \newterm{Game}/\newterm{Project}/\newterm{Rhythm Master} & The game that will be made by Group 16.\\
+    \hline
+    \newterm{Guitar Hero} & A rhythm game where users simulate playing a guitar to a music track of their choice.\\
+    \hline
+    \newterm{Note} & An indicator for a button for the \term[Player]{player} to press.\\
+    \hline
+    \newterm{Player}/\newterm{User} & The individual playing the \term[Game]{game}.\\
+    \hline
+    \newterm{PC} & A personal computer.\\
+    \hline
+    \newterm{Python} & The programming language used in \term{Frets on Fire}.\\
+    \hline
+    \newterm{Score} & A numerical value quantifying the \term[Player]{player's} performance in their last game.\\
+    \hline
+    \newterm{SRS} & Acronym for Software Requirements Specification; A document that describes what the \term[System]{system} will do and the expected performance\\
+    \hline
+    \newterm{System} & The software of the \term[Game]{game}\\
+    \hline
+    \newterm{Game track} & The game track is where the gameplay happens. It consists of  music track where the user interacts to score points.\\
+    \hline
+    \newterm{Pause menu} & The menu the user can open during a \term[Game track]{game track}\\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Relevant Facts and Assumptions}
+\subsubsection{Facts}
+\begin{itemize}
+    \item The original repository contains approximately 8000 lines of Python 2 code.
+\end{itemize}
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item \term[User]{Users} have the necessary peripherals, a mouse and keyboard, to play the \term[Game]{game}.
+    \item \term[User]{Users} have an elementary proficiency in English.
+    \item \term[User]{Users} know how to operate a \term{PC} .
+    \item \term[User]{Users} the \term[Game]{game} know of the game, \term{Guitar Hero}.
+    \item \term[User]{Users} have the visual and physical capabilities to play the \term[Game]{game}.
+\end{itemize}
+
+\newpage
+\section{Functional Requirements}
+
+\subsection{The Scope of the Work and the Product}
+
+\subsubsection{The Context of the Work}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{context_3x.png}
+    \caption{Context diagram for Rhythm Master}
+\end{figure}
+Rhythm Master is a standalone application that does not interact with other systems. It consists of one actor which is the user/player.
+\newpage
+\subsubsection{Work Partitioning}
+\begin{table}[h!]
+\caption{Work Partitioning Events}
+    \centering
+    \begin{tabular}{|c|p{3.5cm}|c|p{3.5cm}|}
+    \hline
+    \textbf{Event Number} & \centering\textbf{Event Name} & \textbf{Input} & \textbf{Output} \\
+    \hline
+    1 & Starting a new game track & Keyboard/Mouse & Final Score \\
+    \hline
+    2 & Reading the instructions & Keyboard/Mouse & Instructions \\
+    \hline
+    3 & Opening the pause menu during gameplay & Keyboard & Pause menu \\
+    \hline
+    4 & Opening the settings menu & Mouse & Manipulated Hand \\
+    \hline
+    5 & Viewing the leaderboard & Mouse & Leaderboard \\
+    \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{Work Partitioning Summaries}
+    \centering
+    \begin{tabular}{|c|p{10cm}|}
+    \hline
+    \textbf{Event Number} & \textbf{Summary} \\
+    \hline
+    1 & The user, through the keyboard or mouse input, decides to start a new game track. At the end of the game track, the user will be shown their score. \\
+    \hline
+    2 & The user, through keyboard or mouse input, chooses to read the instructions of playing Rhythm Master. \\
+    \hline
+    3 & During a \term[Game track]{game track}, the user can use keyboard input to open the pause menu. \\
+    \hline
+    4 & During a game track, the user can use keyboard input to open the main menu. \\
+    \hline
+    5 &  The user, through the keyboard or mouse input, views the leaderboard for a specific \term[Game track]{game track}.\\
+    \hline
+    \end{tabular}
+\end{table}
+
+\newpage
+\subsubsection{Individual Product Use Cases}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=12cm, height=13cm]{use_case_3x.png}
+    \caption{Use case diagram that displays the main functionalities of the application.}
+\end{figure}
+
+The use case diagram above shows the various way a user can interact with our application. As starting a game track involves the gameplay itself, it has lots of included use cases. The other uses cases such as view instructions, open settings menu, and view leaderboard are self-explanatory. The user can also access these 3 use cases using the pause menu, and that is shown using the extend relationship.
+
+
+\subsection{Functional Requirements}
+\begin{enumerate}[{BE}1.] 
+\item The \term[User]{user} plays a new \term[Game track]{track}.
+\begin{enumerate}[{FR}1.] 
+    \item The \term[System]{system} must present the \term[User]{user} with a blank \term[Fret Board]{fret board} upon initializing the \term[Game track]{track}.
+    \item The \term[System]{system} must initialize the \term[Score]{score} to $\hyperlink{initial_score}{INITIAL\_SCORE}$ when initializing the \term[Game track]{track}.
+    \item The \term[System]{system} must display \term[Note]{notes} for the \term[User]{user} to play along with an indication of when to play them.
+    \item The \term[System]{system} must allow the \term[User]{user} to play the \term[Note]{notes} through some interactive method.
+    \item The \term[System]{system} must award points every time the \term[User]{user} plays a note accurately.
+    \item The \term[System]{system} must display the \term[User]{user's} score during gameplay.
+    \item The \term[System]{system} must allow the \term[User]{user} the option to save their score under a username when they are done with the \term[Game track]{track}. The score should be saved locally using that username.
+    \item The \term[System]{system} must allow the \term[User]{user} the option to redo the \term[Game track]{track}.
+    \item The \term[System]{system} must allow the \term[User]{user} the option to go back to the main menu.
+\end{enumerate}
+
+\item The user reads the instructions to playing Rhythm Master.
+\begin{enumerate}[resume*] 
+    \item The \term[System]{system} must provide instructions to the \term[User]{user} on how to play the game.
+    \item The \term[System]{system} must provide a way for the \term[User]{user} to return to the main menu.
+\end{enumerate}
+
+\item The \term[User]{user} opens the pause menu during a \term[Game track]{track}.
+\begin{enumerate}[resume*] 
+    \item The \term[System]{system} must pause the game while the \term[Pause menu]{pause menu} is open.
+    \item The \term[System]{system} must allow the user to select one of the following options: opening the settings menu, going back to main menu, or restarting the \term[Game track]{game track}.
+    \item The \term[System]{system} must allow the user to close the \term[Pause menu]{pause menu} and resume the game.
+\end{enumerate}
+
+\item The \term[User]{user} opens the settings menu.
+\begin{enumerate}[resume*] 
+    \item The \term[System]{system} must allow the \term[User]{user} to change the volume of the \term[Game]{game}.
+    \item The \term[System]{system} must specify the version of the \term[Game]{game}.
+    \item The \term[System]{system} must allow the \term[User]{user} to rebind input.
+    \item The \term[System]{system} must provide a way for the \term[User]{user} to return to the main menu.
+\end{enumerate}
+
+\item The \term[User]{user} opens the leaderboard.
+\begin{enumerate}[resume*] 
+    \item The \term[System]{system} must present the \term[User]{user} with a list of \term[Player]{players} and their respective \term[Score]{scores}.
+    \item The \term[System]{system} must allow the \term[User]{user} to filter the \term[Score]{scores} based on when they were submitted
+    \item The \term[System]{system} must provide a way for the \term[User]{user} to return to the main menu.
+\end{enumerate}
+\end{enumerate}
+
+
+\section{Non-functional Requirements}
+
+\subsection{Look and Feel Requirements}
+\subsubsection{Appearance Requirements}
+\begin{enumerate}[{LF}1.] 
+    \item The \term[User]{user} interface must consists of only essential information relevant to the gameplay.
+\end{enumerate}
+
+\subsubsection{Style Requirements}
+\begin{enumerate}[resume*]  
+    \item The \term[User]{user} must interpret the design to be heavily inspired by \term{Guitar Hero}.
+    \item The background of the \term[Game track]{game track} must not use colours that will distract the \term[User]{user} from the gameplay.
+\end{enumerate}
+
+\subsection{Usability and Humanity Requirements}
+\subsubsection{Ease of Use Requirements}
+\begin{enumerate}[{UH}1.] 
+    \item Default \term[Game]{game} controls must all be reachable at the same time using at most two hands.
+    \item The \term[Game]{game} must only expect \term[User]{user} inputs when they are first displayed on the screen.
+    \item The \term[Game]{game} must be easy for children age $\hyperlink{min_age}{MIN\_AGE}$ to use
+\end{enumerate}
+
+\subsubsection{Personalization and Internationalization Requirements}
+\begin{enumerate}[resume*] 
+    \item The \term[Game]{game} must provide themes for the \term[User]{user} to choose from based on their preferences.
+\end{enumerate}
+
+\subsubsection{Learning Requirements}
+\begin{enumerate}[resume*] 
+    \item \term[User]{Users} should be able to understand game mechanics within $\hyperlink{max_play-through}{MAX\_PLAYTHROUGHS}$ play-throughs.
+    \item \term[User]{Users} should be able to play the game with no prior experience or training.
+    \item The \term[Game]{game} must provide a set of instructions describing the \term[Game]{game's} rules and objectives and controls.
+\end{enumerate}
+
+\subsubsection{Understandability and Politeness Requirements}
+\begin{enumerate}[resume*] 
+    \item The \term[Game]{game} must use common symbols and game terms for buttons and functions.
+\end{enumerate}
+
+\subsubsection{Accessibility Requirements}
+\begin{enumerate}[resume*] 
+    \item The \term[Game]{game} must be playable for \term[User]{users} with colour blindness.
+\end{enumerate}
+
+\subsection{Performance Requirements}
+\subsubsection{Speed and Latency Requirements}
+\begin{enumerate}[{PE}1.] 
+    \item The \term[System]{system} must maintain a minimum of $\hyperlink{fps}{MIN\_FRAMERATE}$ during gameplay.
+    \item The \term[System]{system} must respond to all user inputs within $\hyperlink{max_latency}{MAX\_LATENCY}$ milliseconds.
+    \item The \term[System]{system} must upload \term[Score]{scores} to the leaderboard in less than $\hyperlink{max_upload_time}{MAX\_UPLOAD\_TIME}$ seconds.
+\end{enumerate}
+
+\subsubsection{Safety-Critical Requirements}
+\noindent \emph{N/A}
+
+\subsubsection{Precision or Accuracy Requirements}
+\begin{enumerate}[resume*] 
+    \item The leaderboard must upload \term[Score]{scores} as integer values
+    \item The \term[System]{system} must be able to time \term[User]{user} inputs accurate to the nearest frame, up to a maximum of $\hyperlink{max_latency}{MAX\_LATENCY}$ milliseconds.
+\end{enumerate}
+
+\subsubsection{Reliability and Availability Requirements}
+\noindent \emph{N/A}
+
+\subsubsection{Robustness or Fault-Tolerance Requirements}
+\noindent \emph{N/A}
+
+\subsubsection{Capacity Requirements}
+\begin{enumerate}[resume*] 
+    \item The \term[System]{system} must store $\hyperlink{max_user_score_saves}{MAX\_USER\_SCORE\_SAVES}$ \term[User]{user} \term[Score]{scores} on the leaderboard.
+\end{enumerate}
+
+\subsubsection{Scalability or Extensibility Requirements}
+\begin{enumerate}[resume*] 
+    \item The \term[System]{system} must allow developers to add additional \term[Game track]{game tracks} without changing other components of the game.
+\end{enumerate}
+
+\subsubsection{Longevity Requirements}
+\begin{enumerate}[resume*] 
+    \item The \term[Game]{game} must be functional with existing software and hardware until Spring 2021.
+\end{enumerate}
+
+\subsection{Operational and Environmental Requirements}
+\subsubsection{Expected Physical Environment}
+\begin{enumerate}[resume*] 
+    \item The \term[System]{system} must not require an Internet connection to function correctly.
+\end{enumerate}
+
+\subsection{Requirements for Interfacing with Adjacent Systems}
+\begin{enumerate}[resume*] 
+    \item The \term[System]{system} must not make changes to files outside its main directory.
+\end{enumerate}
+
+\subsubsection{Productization Requirements}
+\begin{enumerate}[resume*]
+	\item The \term[Game]{game} must be distributed as a .EXE file.
+	\item The \term[Game]{game} must be less than $\hyperlink{max_storage}{MAX\_STORAGE}$ gigabytes.
+\end{enumerate}
+
+\subsection{Release Requirements}
+\begin{enumerate}[resume*] 
+    \item The product will have a final release in April 16, 2021.
+\end{enumerate}
+
+\subsection{Maintainability and Support Requirements}
+\subsubsection{Maintenance Requirements}
+\begin{enumerate}[{MA}1.] 
+    \item Source code must be fully documented, via commenting and class diagrams.
+    \item Source code must all adhere to the same standard style.
+\end{enumerate}
+
+\subsubsection{Supportability Requirements}
+\begin{enumerate}[resume*] 
+    \item The \term[Project]{project's} main repository is to be made public, to allow \term[User]{users} to raise issues.
+\end{enumerate}
+
+\subsubsection{Adaptability Requirements}
+\begin{enumerate}[{MS}1.]
+	\item The \term[Game]{game} shall be support by any machine running on Windows 7 or newer, macOS Sierra 10.12 or newer, or Linux Ubuntu 16.04 or newer.
+\end{enumerate}
+
+\subsection{Security Requirements}
+\subsubsection{Access Requirements}
+\begin{enumerate}[{SR}1.]
+	\item The \term[User]{user} must have read-only access to other \term[Score]{high scores} on the leaderboard.
+	\item The \term[User]{user} must have read-only access to their own \term[Score]{scores}.
+\end{enumerate}
+
+\subsubsection{Integrity Requirements}
+\begin{enumerate}[resume*]
+	\item The \term[User]{user} must not be able to modify any previously-submitted \term[Score]{scores}.
+\end{enumerate}
+
+\subsubsection{Privacy Requirements}
+\begin{enumerate}[resume*]
+	\item  The \term[User]{user} must not be able to view any information about other \term[Player]{player's} other than the disclosed names and \term[Score]{scores} on the leaderboard.
+\end{enumerate}
+
+\subsubsection{Audit Requirements}
+\noindent \emph{N/A}
+
+\subsubsection{Immunity Requirements}
+\begin{enumerate}[resume*]
+	\item The \term[System]{system} must not be vulnerable to attacks from intruders.
+\end{enumerate}
+
+\subsection{Cultural and Political Requirements}
+\subsubsection{Cultural Requirements}
+\begin{enumerate}[{CP}1.]
+	\item The \term[System]{system} shall not allow users to input names that are culturally offensive/inappropriate.
+	\item The \term[System]{system} shall not allow users to input names that are in langauges asides from English.
+\end{enumerate}
+
+\subsubsection{Political Requirements}
+\noindent \emph{N/A}
+
+
+\subsection{Legal Requirements}
+\subsubsection{Compliance Requirements}
+\noindent \emph{N/A}
+\subsubsection{Standards Requirements}
+\noindent \emph{N/A}
+
+\subsection{Health and Safety Requirements}
+\noindent \emph{N/A}
+
+\section{Project Issues}
+
+\subsection{Open Issues}
+There are no open issues on \term{Frets on Fire}'s official repository. The last commit was made in 2014.
+
+The version of the game installed with the downloadable installer crashes immediately upon launching. Furthermore, the open-source repository requires an old version of \term{Python}, as well as slight code modifications, to compile.
+
+\subsection{Off-the-Shelf Solutions}
+\term{Frets on Fire} is the only notable open-source \term{Guitar Hero}-type game. \term{Clone Hero} is the best-known and most complete game of this genre on \term{PC}, but its source code is not public. Clone Hero contains many of the advantages \term{Rhythm Master} is intended to have over Frets on Fire, namely improved visuals and ease of installation on modern PCs.
+
+Outside of Frets on Fire, there is not much code specific to this type of game to reference in the creation of Rhythm Master. Most adapted code, should any be used, will originate from Frets on Fire.
+
+\subsection{New Problems}
+Game performance must be a focus of the development team in order to maintain responsive gameplay. It is unknown how complicated replicating \term{Python} code behaviour in \term[C Sharp]{C\#} will be.
+
+\subsection{Tasks}
+\label{subsec:Tasks}
+Tasks are scheduled and delegated as per the project \href{https://gitlab.cas.mcmaster.ca/palanicv/3xa3__l01_gr16_project/-/blob/master/ProjectSchedule/Group16Gantt.pdf}{\color{blue}Gantt Chart}.
+
+\subsection{Migration to the New Product}
+N/A. \term{Rhythm Master} will work independently of \term{Frets on Fire}.
+
+\subsection{Risks}
+There is minimal risk with this type of project, because it is intended to run as a standalone program with little to no interaction with external systems. Risks originating from the program itself include excessive resource usage, unexpected crashes, and poor performance. In order to minimize these risks, the program should be tested on multiple hardware configurations of varying levels of performance.
+
+\subsection{Costs}
+This project will not have any monetary cost, because it will use open-source development software and resources. Time cost is estimated to be approximately $\hyperlink{time_cost}{TIME\_COST}$ hours of development and testing.
+
+\subsection{User Documentation and Training}
+\subsubsection{Documentation}
+Player instructions will be included as an option in the game's main menu. These instructions will highlight the game's control scheme, and the logic behind scoring.
+
+The game's directory will contain a README file, providing installation instructions.
+
+\subsubsection{Training}
+No specific training is necessary to play \term{Rhythm Master}. Controls should be intuitive, and practice should only be needed to improve player skill.
+
+\subsection{Waiting Room}
+Low priority additions, given extra development time, include:
+\begin{enumerate}
+    \item Importing custom-made \term[Game track]{game tracks}, from within the game.
+    \item Display resolution and graphics quality controls.
+\end{enumerate}
+
+\subsection{Ideas for Solutions}
+N/A.
+
+\newpage 
+
+\printbibliography
+
+\newpage
+
+\section{Appendix}
+
+
+\subsection{Symbolic Parameters}
+The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS. Their values are defined in this section for easy maintenance.\\ \\
+$\hypertarget{fps}{MIN\_FRAMERATE}$ = 30 \\
+$\hypertarget{initial_score}{INITIAL\_SCORE}$ = 10\\
+$\hypertarget{max_latency}{MAX\_LATENCY}$ = 33\\
+$\hypertarget{max_play-through}{MAX\_PLAYTHROUGHS}$ = 3\\
+$\hypertarget{max_storage}{MAX\_STORAGE}$ = 2\\
+$\hypertarget{max_upload_time}{MAX\_UPLOAD\_TIME}$ = 2\\
+$\hypertarget{max_user_score_saves}{MAX\_USER\_SCORE\_SAVES}$ = 100\\
+$\hypertarget{min_age}{MIN\_AGE}$ = 10\\
+$\hypertarget{time_cost}{TIME\_COST}$ = 60\\
+
+\end{document}

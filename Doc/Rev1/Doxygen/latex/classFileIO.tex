@@ -1,0 +1,84 @@
+\hypertarget{classFileIO}{}\doxysection{File\+IO Class Reference}
+\label{classFileIO}\index{FileIO@{FileIO}}
+
+
+Inheritance diagram for File\+IO\+:
+% FIG 0
+
+
+Collaboration diagram for File\+IO\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+string\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classFileIO_a0ffb58ceafd9223c0f65a6d7cfa57474}{Read\+File}} (string path\+Name, char separator)
+\begin{DoxyCompactList}\small\item\em Reads and returns the contents of the specified text file, splitting by the specified delimiter. @detail Note maps are specified by a set of individual entries each representing a set of notes to spawn simultaneously. Each entry\textquotesingle{}s notes are separated by a slash (/) and are numbered from 0 to 4 from left to right. Long notes can additionally be identified by a decimal point, with the number after the decimal giving the long note\textquotesingle{}s length. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static List$<$ \mbox{\hyperlink{classLeaderboardEntry}{Leaderboard\+Entry}} $>$ \mbox{\hyperlink{classFileIO_a1a91d47d55d2908e9a60469cccde8cdd}{Get\+Leaderboard\+List}} ()
+\begin{DoxyCompactList}\small\item\em Reads the high scores from storage. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classFileIO_a3f11e63004e47bd77095ebda80b6ba5f}{Add\+Entry\+To\+Leaderboard}} (\mbox{\hyperlink{classLeaderboardEntry}{Leaderboard\+Entry}} entry)
+\begin{DoxyCompactList}\small\item\em Write a new entry to the high score storage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFileIO_a207a016236440fdeb7469e28d83f84a6}\label{classFileIO_a207a016236440fdeb7469e28d83f84a6}} 
+static \mbox{\hyperlink{classFileIO}{File\+IO}} \mbox{\hyperlink{classFileIO_a207a016236440fdeb7469e28d83f84a6}{instance}}
+\begin{DoxyCompactList}\small\item\em The one instance of \mbox{\hyperlink{classFileIO}{File\+IO}} to be referenced globally. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFileIO_a3f11e63004e47bd77095ebda80b6ba5f}\label{classFileIO_a3f11e63004e47bd77095ebda80b6ba5f}} 
+\index{FileIO@{FileIO}!AddEntryToLeaderboard@{AddEntryToLeaderboard}}
+\index{AddEntryToLeaderboard@{AddEntryToLeaderboard}!FileIO@{FileIO}}
+\doxysubsubsection{\texorpdfstring{AddEntryToLeaderboard()}{AddEntryToLeaderboard()}}
+{\footnotesize\ttfamily static void File\+I\+O.\+Add\+Entry\+To\+Leaderboard (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classLeaderboardEntry}{Leaderboard\+Entry}}}]{entry }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Write a new entry to the high score storage. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em The} & entry to be written. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classFileIO_a1a91d47d55d2908e9a60469cccde8cdd}\label{classFileIO_a1a91d47d55d2908e9a60469cccde8cdd}} 
+\index{FileIO@{FileIO}!GetLeaderboardList@{GetLeaderboardList}}
+\index{GetLeaderboardList@{GetLeaderboardList}!FileIO@{FileIO}}
+\doxysubsubsection{\texorpdfstring{GetLeaderboardList()}{GetLeaderboardList()}}
+{\footnotesize\ttfamily static List$<$\mbox{\hyperlink{classLeaderboardEntry}{Leaderboard\+Entry}}$>$ File\+I\+O.\+Get\+Leaderboard\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Reads the high scores from storage. 
+
+\begin{DoxyReturn}{Returns}
+A list of the entries in the high score list. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFileIO_a0ffb58ceafd9223c0f65a6d7cfa57474}\label{classFileIO_a0ffb58ceafd9223c0f65a6d7cfa57474}} 
+\index{FileIO@{FileIO}!ReadFile@{ReadFile}}
+\index{ReadFile@{ReadFile}!FileIO@{FileIO}}
+\doxysubsubsection{\texorpdfstring{ReadFile()}{ReadFile()}}
+{\footnotesize\ttfamily string \mbox{[}$\,$\mbox{]} File\+I\+O.\+Read\+File (\begin{DoxyParamCaption}\item[{string}]{path\+Name,  }\item[{char}]{separator }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Reads and returns the contents of the specified text file, splitting by the specified delimiter. @detail Note maps are specified by a set of individual entries each representing a set of notes to spawn simultaneously. Each entry\textquotesingle{}s notes are separated by a slash (/) and are numbered from 0 to 4 from left to right. Long notes can additionally be identified by a decimal point, with the number after the decimal giving the long note\textquotesingle{}s length. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path\+Name} & The text file\textquotesingle{}s full path, in U\+N\+IX format. \\
+\hline
+{\em separator} & The character to split the file by. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An array of strings containing the file\textquotesingle{}s contents after being split. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/mnt/c/users/david/documents/everything/school/3xa3/3xa3\+\_\+\+\_\+l01\+\_\+gr16\+\_\+project/src/\+Assets/\+Scripts/File\+I\+O.\+cs\end{DoxyCompactItemize}

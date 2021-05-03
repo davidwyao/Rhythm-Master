@@ -1,0 +1,247 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage[titletoc,title]{appendix}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+\title{3XA3 Development Plan\\ Frets on Fire}
+\author{Team \#16, Rhythm Masters
+    \\ Almen Ng, nga18
+    \\ David Yao, yaod9
+    \\ Veerash Palanichamy, palanicv}
+\date{February 5, 2021}
+
+\begin{document}
+\sloppy
+\maketitle
+\newpage
+
+\begin{table}[hp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\midrule
+February 1, 2021    & Almen Ng              & Initial Document\\
+                    &                       & Introduction, Team Meeting Plan\\
+February 2, 2021    & Veerash Palanichamy   & Technology: Programming Language\\
+                    & David Yao             & Communication Plan\\
+February 3, 2021    & Almen Ng              & Team Meeting Plan: Agenda, Meeting Roles\\
+                    & Veerash Palanichamy   & Technology: IDE, Testing\\
+                    & David Yao             & Git Workflow Plan, Technology: Coding Style\\
+February 4, 2021    & Almen Ng              & Member Roles, Proof of Concept Demonstration\\
+                    & Veerash Palanichamy   & Technology: Documentation\\
+                    & David Yao             & Project Schedule\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+\tableofcontents
+
+\newpage
+\listoftables
+
+\newpage
+\section{Introduction}
+This document is the Development Plan for the project \href{https://github.com/skyostil/fretsonfire}{Frets on Fire}.
+
+\section{Team Meeting Plan}
+
+The following is the plan for when, where/frequency, and length of the team meetings:
+\begin{table}[hp]
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\toprule
+\textbf{Where} & \textbf{When} & \textbf{Length}\\
+\midrule
+MS Teams L01 & Every Wednesday at 10:30AM \& 7:30PM & 2 Hours Each Session\\
+Discord & Every Thursday at 9:00PM & 2 Hours\\
+\bottomrule
+\end{tabularx}
+\caption{Team Meeting Plan} \label{tab:teamMeetingPlan}
+\end{table}
+
+\subsection{Rules for Agenda}
+The rules for the agenda for all team meetings are as follows:
+\begin{enumerate}
+    \item An agenda shall be made and finalized before every meeting. The agenda shall have the following information: 
+    \begin{enumerate}
+        \item Topics must be discussed in the form of questions 
+        \item An estimate realistic time must be provided for each topic 
+        \item A specified person must be identified for leading each topic 
+        \item A process for addressing each item must be proposed
+    \end{enumerate}
+    \item There shall only be one chair/facilitator at each meeting
+    \item Meeting minutes will be taken accordingly 
+    \item Any conflicts and/or discussion on previous action items shall be addressed before the beginning of the current agenda
+    \item All members must be present during meetings unless otherwise mentioned
+    \item All meetings must be concluded with written statements on decisions made as well as tasks that must be fulfilled by the next meeting
+    \item All members must work and communicate respectfully to each other during the meetings
+\end{enumerate}
+
+\newpage
+
+\subsection{Meeting Roles}
+The following are the main roles that have been identified for every meeting:
+
+\begin{table}[hbt!]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|}
+        \toprule
+        \textbf{Meeting Role} & \textbf{Name}\\
+        \midrule
+        Chair       & Veerash Palanichamy\\
+        Recorder    & Almen Ng\\
+        Timekeeper  & David Yao\\
+        Participant & Everyone\\
+        \bottomrule
+    \end{tabularx}
+\caption{Meeting Roles} \label{tab:meetingRoles}
+\end{table}
+
+\subsection{Meeting Role Descriptions}
+\subsubsection{Chair}
+\begin{enumerate}
+    \item Leads the meeting in accordance to the agenda 
+    \item Ensures equal speaking opportunities amongst all team members 
+    \item Facilitates respectful discussion
+    \item Facilitates conflict resolution if needed 
+    \item Communicates conclusions and next steps 
+\end{enumerate}
+
+\subsubsection{Recorder}
+\begin{enumerate}
+    \item Records key decisions, conclusions, and action items
+    \item Compiles notes into a standard document
+    \item Distributes notes and conclusions
+\end{enumerate}
+
+\subsubsection{Timekeeper}
+\begin{enumerate}
+    \item Manages time limits set for each item
+\end{enumerate}
+
+\subsubsection{Participant}
+\begin{enumerate}
+    \item Understands the agenda and the purpose of each meeting 
+    \item Contributes to the agenda items 
+    \item Communicates and works respectfully and collaboratively to create a positive, safe atmosphere
+    \item Present ideas concisely while keeping in mind the time constraints
+\end{enumerate}
+
+\section{Communication Plan}
+Aforementioned meetings are to be conducted in voice calls over Discord or Microsoft Teams. Members should be in the appropriate voice channel at the meeting's start time. A Facebook group chat including all three members has been created for any communications outside designated meeting times. All members are expected to check this group chat for updates on a daily basis, or at their earliest convenience.
+
+Urgent issues with project code, planning, or design must be relayed through the Facebook group chat as soon as possible. For more minor problems, creating a Git issue is sufficient. Table \ref{tab:teamContacts} contains contact information for each group member.
+
+\begin{table}[ht]
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\toprule
+\textbf{Name} & \textbf{Discord} & \textbf{MACID}\\
+\midrule
+Almen Ng                & Mumbojumbo    & nga18\\
+Veerash Palanichamy     & Calculess     & palanicv\\
+David Yao               & d i n g u s   & yaod9\\
+\bottomrule
+\end{tabularx}
+\caption{Member Contact Information} \label{tab:teamContacts}
+\end{table}
+
+\section{Member Roles}
+The following are the assignment of main roles of the team:
+
+\begin{table}[hbt!]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|}
+        \toprule
+        \textbf{Name} & \textbf{Role(s)}\\
+        \midrule
+        Almen Ng                    & Scribe\\
+                                    & Documentation Expert\\
+                                    & Developer\\
+                                    & Tester\\
+        Veerash Palanichamy         & Technology Expert\\
+                                    & Git Expert\\
+                                    & Developer\\
+                                    & Tester\\
+        David Yao                   & Team Leader\\
+                                    & LaTeX Expert\\
+                                    & Developer\\
+                                    & Tester\\
+        \bottomrule
+    \end{tabularx}
+\caption{Member Roles} \label{tab:memberRoles}
+\end{table}
+
+\newpage
+
+\section{Git Workflow Plan}
+The central repository is named 3XA3\_L01\_GR16\_Project. This project will follow the feature-branch model. Project features and updates are to be pushed to branches of the main repository, which are to be merged only after proper testing to ascertain proper function. The master branch must always remain functional throughout the duration of the project.\\
+All commits must be labelled in detail in order to facilitate tracking of issue priority, revision history, and progress toward completion of given features. In addition, the team will use milestones to track progress towards weekly deliverable.
+
+\section{Proof of Concept Demonstration Plan}
+\subsection{Potential Risks and Difficulties}
+
+\subsubsection{Scope Size}
+When selecting Frets on Fire, there was uncertainty if it could be implemented by the end of the term as it included a lot of features and songs.
+
+\subsubsection{Implementation}
+The team is planning to use C\# alongside the Unity game engine to develop the project. All members have prior experience with C\#, but not Unity. There will be a learning curve associated with using this game engine to develop the game.
+
+\subsubsection{Testing}
+In terms of testing, a wide variety of types of testing will be used such as exploratory testing and play testing. Testing the game with exploratory testing becomes a complex and lengthy problem due to abundant number of scenarios the user can go through. 
+
+\subsubsection{Library Installation}
+Library installation is not a concern as all the libraries are downloaded alongside Unity.
+
+\subsubsection{Portability}
+Portability is not a major concern because the project is intended to be compiled into an executable file, which should be able to run on macOS and Windows systems. The source code should also be viewable and editable on any IDE supporting C\#. However, Unity does not support forward compatibility, meaning old versions of Unity cannot be used with projects made in a newer version.
+
+\subsection{Plan to Overcome Risks}
+
+\subsubsection{Scope Size}
+The team has minimized the scope of the game to improve on one of the songs in Frets on Fire and implement the main features/settings in it.
+
+\subsubsection{Implementation}
+The team members will install Unity and go through various tutorials prior to starting the implementation of the game to grasp how to use Unity for game development. 
+
+For the Proof of Concept Demonstration, the most fundamental functionality will be demonstrated, given the time constraints. The plan is to demonstrate player input in response to game output displayed on the screen. Animations, music, and further features will be implemented later in the project, as more time becomes available.
+
+\subsubsection{Testing}
+To overcome the risk of not being able to use exploratory testing within the time frame, the team will use other forms of testing, such as unit testing, to ensure that each section/component of the software behaves as intended. Doing this will minimize the number of bugs that will surface during exploratory testing. Once all modules have been tested, exploratory testing can commence with all group members and some colleagues participating.
+
+For the Proof of Concept Demonstration, some unit tests would already have been made to ensure that the demonstration is successful. 
+
+\subsubsection{Library Installation}
+All team members should have collaboratively developed the demonstration which means Unity and the associated libraries should have been installed.
+
+\subsubsection{Portability}
+All programmers will coordinate on the version of Unity that is used to ensure compatibility.
+ 
+\section{Technology}
+\subsection{Programming Language}
+The code will be written using a current stable version of C\#. This code will be used within the Unity game engine. C\# was chosen because of its ease of integration with the Unity game engine. Team members also have some experience with C\#.
+\subsection{IDE}
+The IDE that will be used is Visual Studio Code. This IDE was selected for its ease of use and having an abundant set of extensions that can be used for documentation and static analysis.
+\subsection{Testing}
+Testing will be done with the help of the Unity Test Framework package which provides a standard test framework for Unity applications. Test cases will be written in C\# scripts which will be run by the Unity Test Framework.
+\subsection{Documentation}
+This project will be documented using LaTeX, and will be made available in the project repository on GitLab. The code will be documented using Doxygen. Doxygen will auto-generate a PDF and HTML file with code documentation. Doxygen is simple to use and all the team members have past experience using it.
+
+\subsection{Coding Style}
+Code written should conform to the C\# style laid out by Google, at: \url{https://google.github.io/styleguide/csharp-style.html}. Classes and methods are to be named using $PascalCase$, and variables and parameters are to be named using $camelCase$.
+\newline
+The goal is to maintain readability and ease of maintenance by other group members.
+
+\section{Project Schedule}
+The project schedule is organized as a Gantt chart, which can be viewed here:
+\url{https://gitlab.cas.mcmaster.ca/palanicv/3xa3__l01_gr16_project/-/blob/master/ProjectSchedule/Group16Gantt.pdf}.
+\newline
+The chart highlights deliverable deadlines, work distribution, and individual progress. It is to be updated with group member's progress continuously as the project continues.
+
+\section{Project Review}
+Not yet applicable.
+
+\end{document}
